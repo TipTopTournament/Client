@@ -15,43 +15,57 @@ const FormContainer = styled.div`
   justify-content: center;
 `;
 
+const Title = styled.div`
+margin-left: 150px;
+font-family: Roboto;
+font-style: normal;
+font-weight: normal;
+font-size: 144px;
+line-height: 169px;
+
+color:  #2F80ED;
+`;
+
 const Form = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 60%;
-  height: 375px;
+  width: 1440px;
+  height: 800px;
   font-size: 16px;
   font-weight: 300;
   padding-left: 37px;
   padding-right: 37px;
   border-radius: 5px;
-  background: linear-gradient(rgb(27, 124, 186), rgb(2, 46, 101));
+  background: #F2F2F2;
   transition: opacity 0.5s ease, transform 0.5s ease;
 `;
 
 const InputField = styled.input`
   &::placeholder {
-    color: rgba(255, 255, 255, 1.0);
+    color: #2F80ED;
   }
   height: 35px;
   padding-left: 15px;
-  margin-left: -4px;
+  margin-left: 400px;
+  margin-right: 485px
   border: none;
   border-radius: 20px;
   margin-bottom: 20px;
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
+  background: rgba(255, 255, 255);
+  color: #2F80ED;
 `;
 
 const Label = styled.label`
-  color: white;
+  margin-left: 400px;
+  color: #2F80ED;
   margin-bottom: 10px;
   text-transform: uppercase;
 `;
 
 const ButtonContainer = styled.div`
-  display: flex;
+  margin-left: 400px;
+  color: #2F80ED;
   justify-content: center;
   margin-top: 20px;
 `;
@@ -75,22 +89,22 @@ class Login extends React.Component {
   constructor() {
     super();
     this.state = {
-      name: null,
-      username: null
+      username: null,
+      password: null
     };
   }
   /**
-   * HTTP POST request is sent to the backend.
-   * If the request is successful, a new user is returned to the front-end
+   * HTTP PUT request is sent to the backend.
+   * If the request is successful, a user is returned to the front-end
    * and its token is stored in the localStorage.
    */
   async login() {
     try {
       const requestBody = JSON.stringify({
         username: this.state.username,
-        name: this.state.name
+        password: this.state.password
       });
-      const response = await api.post('/users', requestBody);
+      const response = await api.put('/managers/login', requestBody);
 
       // Get the returned user and update a new object.
       const user = new User(response.data);
@@ -129,7 +143,9 @@ class Login extends React.Component {
     return (
       <BaseContainer>
         <FormContainer>
+
           <Form>
+            <Title>TIPTIPTournament</Title>
             <Label>Username</Label>
             <InputField
               placeholder="Enter here.."
@@ -137,16 +153,16 @@ class Login extends React.Component {
                 this.handleInputChange('username', e.target.value);
               }}
             />
-            <Label>Name</Label>
+            <Label>Password</Label>
             <InputField
               placeholder="Enter here.."
               onChange={e => {
-                this.handleInputChange('name', e.target.value);
+                this.handleInputChange('password', e.target.value);
               }}
             />
             <ButtonContainer>
               <Button
-                disabled={!this.state.username || !this.state.name}
+                disabled={!this.state.username || !this.state.password}
                 width="50%"
                 onClick={() => {
                   this.login();

@@ -4,6 +4,9 @@ import { GameGuard } from "../routeProtectors/GameGuard";
 import GameRouter from "./GameRouter";
 import { LoginGuard } from "../routeProtectors/LoginGuard";
 import Login from "../../login/Login";
+import HomeScreen from "../../homescreen/HomeScreen"
+import Registration from "../../register/Registration";
+import TournamentCode from "../../tournamentCode/TournamentCode";
 
 /**
  * Main router of your application.
@@ -20,6 +23,12 @@ class AppRouter extends React.Component {
       <BrowserRouter>
         <Switch>
           <div>
+              <Route
+                  path="/home"
+                  render={() => (
+                          <HomeScreen/>
+                  )}
+              />
             <Route
               path="/game"
               render={() => (
@@ -28,6 +37,12 @@ class AppRouter extends React.Component {
                 </GameGuard>
               )}
             />
+              <Route
+                  path="/register"
+                  render={() => (
+                          <Registration />
+                  )}
+              />
             <Route
               path="/login"
               exact
@@ -38,6 +53,13 @@ class AppRouter extends React.Component {
               )}
             />
             <Route path="/" exact render={() => <Redirect to={"/game"} />} />
+
+            <Route
+                path="/tournamentsCode/:key" component ={TournamentCode}
+                 render={() => (
+                    <TournamentCode/>
+                 )}
+            />
           </div>
         </Switch>
       </BrowserRouter>

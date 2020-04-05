@@ -21,6 +21,7 @@ const Name = styled.div`
   color: #06c4ff;
 `;
 
+
 const Id = styled.div`
   margin-left: auto;
   margin-right: 10px;

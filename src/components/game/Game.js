@@ -32,14 +32,9 @@ class Game extends React.Component {
     };
   }
 
-  logout() {
-    localStorage.removeItem('token');
-    this.props.history.push('/login');
-  }
-
   async componentDidMount() {
     try {
-      const response = await api.get('/users');
+      const response = await api.get('/participants');
       // delays continuous execution of an async operation for 1 second.
       // This is just a fake async call, so that the spinner can be displayed
       // feel free to remove it :)
@@ -65,8 +60,6 @@ class Game extends React.Component {
   render() {
     return (
       <Container>
-        <h2>Happy Coding! </h2>
-        <p>Get all users from secure end point:</p>
         {!this.state.users ? (
           <Spinner />
         ) : (
