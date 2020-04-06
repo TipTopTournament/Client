@@ -31,6 +31,9 @@ class Game extends React.Component {
       users: null
     };
   }
+  logout() {
+    this.props.history.push('/home')
+  }
 
   async componentDidMount() {
     try {
