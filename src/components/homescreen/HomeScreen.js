@@ -1,10 +1,11 @@
 import styled from "styled-components";
-import {Button} from "../../views/design/Button";
 import React from "react";
 import {withRouter} from "react-router-dom";
 import {ButtonWhite} from "../../views/design/ButtonWhite";
+import Title from "../../views/design/Title";
 
 
+/** These three components are HomeScreen specific not necessary to make View class for it*/
 
 const BaseContainer = styled.div`
   margin-top: 2em;
@@ -32,17 +33,6 @@ const Form = styled.div`
   border-radius: 5px;
   background: #2F80ED;
   transition: opacity 0.5s ease, transform 0.5s ease;
-`;
-
-const Title = styled.div`
-margin-left: 150px;
-font-family: Roboto;
-font-style: normal;
-font-weight: normal;
-font-size: 144px;
-line-height: 169px;
-
-color: #FFFFFF;
 `;
 
 const ButtonContainer = styled.div`
