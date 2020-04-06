@@ -81,18 +81,11 @@ class TournamentCode extends React.Component {
     }
 
     async join() {
-        try {
-            const requestBody = JSON.stringify({
-                code: this.state.code,
 
-            });
             const {key} = this.state.code;
-            const response = await api.get(`/tournaments/${key}`, requestBody);
+            const response = await api.get(`/tournaments/${key}`);
 
             this.props.history.push(`/game`);
-        } catch (error) {
-            alert(`Something went wrong during the login: \n${handleError(error)}`);
-        }
     }
 
     handleInputChange(key, value) {
