@@ -3,12 +3,12 @@ import { BaseContainer } from '../../helpers/layout';
 import { api, handleError } from '../../helpers/api';
 import { withRouter } from 'react-router-dom';
 import { Button } from '../../views/design/Button';
-import Form from "../../views/design/Form";
-import InputField from "../../views/design/InputField";
-import Title from "../../views/design/Title";
-import FormContainer from "../../views/design/FormContainer";
-import Label from "../../views/design/Label";
-import ButtonContainer from "../../views/design/ButtonContainer";
+import {Form} from "../../views/design/Form";
+import {InputField} from "../../views/design/InputField";
+import {Title} from "../../views/design/Title";
+import {FormContainer} from "../../views/design/FormContainer";
+import {Label} from "../../views/design/Label";
+import {ButtonContainer} from "../../views/design/ButtonContainer";
 
 class Registration extends React.Component {
 

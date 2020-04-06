@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const Title = styled.div`
+export const Title = styled.div`
 margin-left: 150px;
 font-family: Roboto;
 font-style: normal;
@@ -10,5 +10,3 @@ line-height: 169px;
 
 color:  #2F80ED;
 `;
-
-export default Title;

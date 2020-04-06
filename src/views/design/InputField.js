@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const InputField = styled.input`
+export const InputField = styled.input`
   &::placeholder {
     color: #2F80ED;
   }
@@ -14,4 +14,3 @@ const InputField = styled.input`
   background: rgba(255, 255, 255);
   color: #2F80ED;
 `;
-export default InputField;

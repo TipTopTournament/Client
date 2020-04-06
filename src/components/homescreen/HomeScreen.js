@@ -2,10 +2,9 @@ import styled from "styled-components";
 import React from "react";
 import {withRouter} from "react-router-dom";
 import {ButtonWhite} from "../../views/design/ButtonWhite";
-import Title from "../../views/design/Title";
 
 
-/** These three components are HomeScreen specific not necessary to make View class for it*/
+/** These four components are HomeScreen specific not necessary to make View class for it*/
 
 const BaseContainer = styled.div`
   margin-top: 2em;
@@ -39,6 +38,17 @@ const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 20px;
+`;
+
+const Title = styled.div`
+margin-left: 150px;
+font-family: Roboto;
+font-style: normal;
+font-weight: normal;
+font-size: 144px;
+line-height: 169px;
+
+color:  #FFFFFF;
 `;
 
 class HomeScreen extends React.Component{

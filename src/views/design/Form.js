@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const Form = styled.div`
+export const Form = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -14,4 +14,3 @@ const Form = styled.div`
   background: #F2F2F2;
   transition: opacity 0.5s ease, transform 0.5s ease;
 `;
-export default Form;

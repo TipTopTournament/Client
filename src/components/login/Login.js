@@ -5,12 +5,12 @@ import { api, handleError } from '../../helpers/api';
 import User from '../shared/models/User';
 import { withRouter } from 'react-router-dom';
 import { Button } from '../../views/design/Button';
-import Form from "../../views/design/Form";
-import InputField from "../../views/design/InputField";
-import Title from "../../views/design/Title";
-import FormContainer from "../../views/design/FormContainer";
-import ButtonContainer from "../../views/design/ButtonContainer";
-import Label from "../../views/design/Label";
+import {Form} from "../../views/design/Form";
+import {InputField} from "../../views/design/InputField";
+import {Title} from "../../views/design/Title";
+import {FormContainer} from "../../views/design/FormContainer";
+import {ButtonContainer} from "../../views/design/ButtonContainer";
+import {Label} from "../../views/design/Label";
 
 class Login extends React.Component {
 
@@ -59,7 +59,6 @@ class Login extends React.Component {
     return (
       <BaseContainer>
         <FormContainer>
-
           <Form>
             <Title>TIPTIPTournament</Title>
             <Label>Username</Label>
