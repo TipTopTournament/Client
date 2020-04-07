@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { BaseContainer } from '../../helpers/layout';
-import { api} from '../../helpers/api';
-import { withRouter } from 'react-router-dom';
-import { Button } from '../../views/design/Button';
+import {BaseContainer} from '../../helpers/layout';
+import {api} from '../../helpers/api';
+import {withRouter} from 'react-router-dom';
+import {Button} from '../../views/design/Button';
 
 const FormContainer = styled.div`
   margin-top: 2em;
@@ -60,6 +60,7 @@ const ButtonContainer = styled.div`
 
 
 class TournamentCode extends React.Component {
+    tmpCode = "";
 
     constructor() {
         super();
@@ -81,6 +82,18 @@ class TournamentCode extends React.Component {
             this.props.history.push(`/game`);
     }
 
+    mask(letter) {
+        if (this.tmpCode.length > 4) {
+            this.tmpCode += letter.toString();
+            this.tmpCode.toString().replace(/^(\d{4})(\d{4}).*/, '$1-$2');
+            this.handleInputChange("code", this.tmpCode);
+        }
+        else
+
+            this.tmpCode += letter.toString();
+    }
+
+
     handleInputChange(key, value) {
 
         this.setState({ [key]: value });
@@ -98,9 +111,9 @@ class TournamentCode extends React.Component {
 
                         <Label>Tournament Code</Label>
                         <InputField
-                            placeholder="Enter here.."
-                            onChange={e => {
-                                this.handleInputChange('code', e.target.value);
+                            placeholder="Enter TournamentCode (e.g. 1234-4567)"
+                            maxlength="9"
+                            onChange={e => {this.mask(e);
                             }}
                         />
                         <ButtonContainer>
@@ -113,6 +126,8 @@ class TournamentCode extends React.Component {
                             >
                                 Join
                             </Button>
+                        </ButtonContainer>
+                        <ButtonContainer>
                             <Button
                                 width="50%"
                                 onClick={() => {
