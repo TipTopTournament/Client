@@ -7,6 +7,7 @@ import Login from "../../login/Login";
 import HomeScreen from "../../homescreen/HomeScreen"
 import Registration from "../../register/Registration";
 import TournamentCode from "../../tournamentCode/TournamentCode";
+import {TournamentCodeGuard} from "../routeProtectors/TournamentCodeGuard";
 
 /**
  * Main router of your application.
@@ -55,9 +56,11 @@ class AppRouter extends React.Component {
             <Route path="/" exact render={() => <Redirect to={"/home"} />} />
 
             <Route
-                path="/tournamentsCode/:key" component ={TournamentCode}
+                path="/tournamentCode"
                  render={() => (
+                   <TournamentCodeGuard>
                     <TournamentCode/>
+                   </TournamentCodeGuard>
                  )}
             />
           </div>

@@ -15,17 +15,6 @@ const FormContainer = styled.div`
   justify-content: center;
 `;
 
-const Title = styled.div`
-margin-left: 150px;
-font-family: Roboto;
-font-style: normal;
-font-weight: normal;
-font-size: 144px;
-line-height: 169px;
-
-color:  #2F80ED;
-`;
-
 const Form = styled.div`
   display: flex;
   flex-direction: column;
@@ -80,6 +69,11 @@ class TournamentCode extends React.Component {
         };
     }
 
+    logout() {
+        localStorage.removeItem('token');
+        this.props.history.push('/home')
+    }
+
     async join() {
 
             const {key} = this.state.code;
@@ -102,7 +96,7 @@ class TournamentCode extends React.Component {
                 <FormContainer>
 
                     <Form>
-                        <Title>TIPTIPTournament</Title>
+
                         <Label>Tournament Code</Label>
                         <InputField
                             placeholder="Enter here.."
@@ -118,7 +112,15 @@ class TournamentCode extends React.Component {
                                     this.join();
                                 }}
                             >
-                                Login
+                                Join
+                            </Button>
+                            <Button
+                                width="50%"
+                                onClick={() => {
+                                    this.logout();
+                                }}
+                            >
+                                Temporary Logout
                             </Button>
                         </ButtonContainer>
                     </Form>
