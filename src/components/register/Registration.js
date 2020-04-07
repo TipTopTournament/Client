@@ -37,6 +37,8 @@ class Registration extends React.Component {
 
             if (this.state.is_manager){
                 await api.post('/managers', requestBody);
+            }else{
+                await api.post('/participants', requestBody);
             }
 
 
