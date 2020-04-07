@@ -18,7 +18,7 @@ class Registration extends React.Component {
             fullName: null,
             username: null,
             password: null,
-
+            is_manager: false
         };
     }
     /**
@@ -33,7 +33,12 @@ class Registration extends React.Component {
                 fullName: this.state.fullName,
                 password: this.state.password,
             });
-            await api.post('/managers', requestBody);
+
+
+            if (this.state.is_manager){
+                await api.post('/managers', requestBody);
+            }
+
 
             // Login successfully worked --> navigate to the route /game in the GameRouter
             this.props.history.push(`/login`);
@@ -46,6 +51,11 @@ class Registration extends React.Component {
         this.setState({ [key]: value });
     }
 
+    handleCheckClick = () => {
+        this.setState({ is_manager: !this.state.is_manager});
+        console.log(this.state.is_manager);
+    }
+
     componentDidMount() {}
 
     render() {
@@ -53,7 +63,7 @@ class Registration extends React.Component {
             <BaseContainer>
                 <FormContainer>
                     <Form>
-                        <Title>TIPTIPTournament</Title>
+                        <Title>TIPTOPTournament</Title>
                         <Label>FullName</Label>
                         <InputField
                             placeholder="Enter here.."
@@ -75,6 +85,15 @@ class Registration extends React.Component {
                                 this.handleInputChange('password', e.target.value);
                             }}
                         />
+                        <Label>
+                            Register as a manager:
+                            <input
+                            name="is_manager"
+                            type="checkbox"
+                            checked={this.state.is_manager}
+                            onChange={this.handleCheckClick}
+                            />
+                        </Label>
                         <ButtonContainer>
                             <Button
                                 disabled={!this.state.username || !this.state.fullName || !this.state.password}
