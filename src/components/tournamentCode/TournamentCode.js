@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { BaseContainer } from '../../helpers/layout';
-import { api, handleError } from '../../helpers/api';
-import User from '../shared/models/User';
+import { api} from '../../helpers/api';
 import { withRouter } from 'react-router-dom';
 import { Button } from '../../views/design/Button';
 
@@ -78,7 +77,7 @@ class TournamentCode extends React.Component {
 
             const {key} = this.state.code;
             const response = await api.get(`/tournaments/${key}`);
-
+            /**TODO TournamentCode response */
             this.props.history.push(`/game`);
     }
 
