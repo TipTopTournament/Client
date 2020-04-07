@@ -13,8 +13,8 @@ const BaseContainer = styled.div`
   align-items: center;
   min-height: 300px;
   justify-content: center;
-  max-width: 1920px;
-  max-height: 1080px;
+  max-width: auto;
+  max-height: auto;
   flex-direction: column;
   color: #2F80ED;
 `;
