@@ -64,7 +64,7 @@ class Registration extends React.Component {
                 <FormContainer>
                     <Form>
                         <Title>TIPTOPTournament</Title>
-                        <Label>FullName</Label>
+                        <Label>Fullname</Label>
                         <InputField
                             placeholder="Enter here.."
                             onChange={e => {
