@@ -1,10 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { BaseContainer } from '../../helpers/layout';
-import { api, handleError } from '../../helpers/api';
-import User from '../shared/models/User';
-import { withRouter } from 'react-router-dom';
-import { Button } from '../../views/design/Button';
+import {BaseContainer} from '../../helpers/layout';
+import {api} from '../../helpers/api';
+import {withRouter} from 'react-router-dom';
+import {Button} from '../../views/design/Button';
 
 const FormContainer = styled.div`
   margin-top: 2em;
@@ -13,17 +12,6 @@ const FormContainer = styled.div`
   align-items: center;
   min-height: 300px;
   justify-content: center;
-`;
-
-const Title = styled.div`
-margin-left: 150px;
-font-family: Roboto;
-font-style: normal;
-font-weight: normal;
-font-size: 144px;
-line-height: 169px;
-
-color:  #2F80ED;
 `;
 
 const Form = styled.div`
@@ -72,6 +60,7 @@ const ButtonContainer = styled.div`
 
 
 class TournamentCode extends React.Component {
+    tmpCode = "";
 
     constructor() {
         super();
@@ -80,13 +69,30 @@ class TournamentCode extends React.Component {
         };
     }
 
+    logout() {
+        localStorage.removeItem('token');
+        this.props.history.push('/home')
+    }
+
     async join() {
 
             const {key} = this.state.code;
             const response = await api.get(`/tournaments/${key}`);
-
+            /**TODO TournamentCode response */
             this.props.history.push(`/game`);
     }
+
+    mask(letter) {
+        if (this.tmpCode.length > 4) {
+            this.tmpCode += letter.toString();
+            this.tmpCode.toString().replace(/^(\d{4})(\d{4}).*/, '$1-$2');
+            this.handleInputChange("code", this.tmpCode);
+        }
+        else
+
+            this.tmpCode += letter.toString();
+    }
+
 
     handleInputChange(key, value) {
 
@@ -102,12 +108,12 @@ class TournamentCode extends React.Component {
                 <FormContainer>
 
                     <Form>
-                        <Title>TIPTIPTournament</Title>
+
                         <Label>Tournament Code</Label>
                         <InputField
-                            placeholder="Enter here.."
-                            onChange={e => {
-                                this.handleInputChange('code', e.target.value);
+                            placeholder="Enter TournamentCode (e.g. 1234-4567)"
+                            maxlength="9"
+                            onChange={e => {this.mask(e);
                             }}
                         />
                         <ButtonContainer>
@@ -118,7 +124,17 @@ class TournamentCode extends React.Component {
                                     this.join();
                                 }}
                             >
-                                Login
+                                Join
+                            </Button>
+                        </ButtonContainer>
+                        <ButtonContainer>
+                            <Button
+                                width="50%"
+                                onClick={() => {
+                                    this.logout();
+                                }}
+                            >
+                                Temporary Logout
                             </Button>
                         </ButtonContainer>
                     </Form>

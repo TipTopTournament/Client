@@ -52,9 +52,6 @@ color:  #FFFFFF;
 `;
 
 class HomeScreen extends React.Component{
-    constructor() {
-        super();
-    }
     async goLogin() {
     this.props.history.push(`/login`)
     }
