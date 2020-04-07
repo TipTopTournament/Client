@@ -60,7 +60,7 @@ const ButtonContainer = styled.div`
 
 
 class TournamentCode extends React.Component {
-    tmpCode = "";
+
 
     constructor() {
         super();
@@ -82,15 +82,14 @@ class TournamentCode extends React.Component {
             this.props.history.push(`/game`);
     }
 
-    mask(letter) {
-        if (this.tmpCode.length > 4) {
-            this.tmpCode += letter.toString();
-            this.tmpCode.toString().replace(/^(\d{4})(\d{4}).*/, '$1-$2');
-            this.handleInputChange("code", this.tmpCode);
-        }
+    mask(e) {
+        let tmpCode = "";
+        tmpCode += e.target.value.toString();
+        if (tmpCode.length > 7) {
+            return tmpCode.replace(/^(\d{4})(\d{4}).*/, '$1-$2');}
         else
+            return tmpCode;
 
-            this.tmpCode += letter.toString();
     }
 
 
@@ -113,7 +112,7 @@ class TournamentCode extends React.Component {
                         <InputField
                             placeholder="Enter TournamentCode (e.g. 1234-4567)"
                             maxlength="9"
-                            onChange={e => {this.mask(e);
+                            onChange={e => {this.handleInputChange('code', this.mask(e));
                             }}
                         />
                         <ButtonContainer>
