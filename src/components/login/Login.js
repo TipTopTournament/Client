@@ -10,6 +10,8 @@ import {Title} from "../../views/design/Title";
 import {FormContainer} from "../../views/design/FormContainer";
 import {ButtonContainer} from "../../views/design/ButtonContainer";
 import {Label} from "../../views/design/Label";
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import 'react-tabs/style/react-tabs.css';
 
 class Login extends React.Component {
 
@@ -25,13 +27,20 @@ class Login extends React.Component {
    * If the request is successful, a user is returned to the front-end
    * and its token is stored in the localStorage.
    */
-  async login() {
+  async login(is_manager) {
+    let response;
     try {
       const requestBody = JSON.stringify({
         username: this.state.username,
         password: this.state.password
       });
-      const response = await api.put('/managers/login', requestBody);
+
+      if (is_manager){
+        response = await api.put('/managers/login', requestBody);
+      }else{
+        response = await api.put('/participants/login', requestBody);
+      }
+
 
       // Get the returned user and update a new object.
       const user = new User(response.data);
@@ -57,34 +66,70 @@ class Login extends React.Component {
   render() {
     return (
       <BaseContainer>
+        <Title>TIPTIPTournament</Title>
         <FormContainer>
           <Form>
-            <Title>TIPTIPTournament</Title>
-            <Label>Username</Label>
-            <InputField
-              placeholder="Enter here.."
-              onChange={e => {
-                this.handleInputChange('username', e.target.value);
-              }}
-            />
-            <Label>Password</Label>
-            <InputField
-              placeholder="Enter here.."
-              onChange={e => {
-                this.handleInputChange('password', e.target.value);
-              }}
-            />
-            <ButtonContainer>
-              <Button
-                disabled={!this.state.username || !this.state.password}
-                width="50%"
-                onClick={() => {
-                  this.login();
-                }}
-              >
-                Login
-              </Button>
-            </ButtonContainer>
+            <div>
+              <Title>TIPTIPTournament</Title>
+              <Tabs>
+                <TabList>
+                  <Tab>Player</Tab>
+                  <Tab>Manager</Tab>
+                </TabList>
+                <TabPanel>
+                  <Label>Username</Label>
+                    <InputField
+                      placeholder="Enter here.."
+                      onChange={e => {
+                        this.handleInputChange('username', e.target.value);
+                      }}
+                    />
+                  <Label>Password</Label>
+                    <InputField
+                      placeholder="Enter here.."
+                      onChange={e => {
+                        this.handleInputChange('password', e.target.value);
+                      }}
+                    />
+                  <ButtonContainer>
+                    <Button
+                      disabled={!this.state.username || !this.state.password}
+                      width="50%"
+                      onClick={() => {
+                        this.login(false);
+                      }}>
+                      Login as a participant
+                    </Button>
+                  </ButtonContainer>
+                </TabPanel>
+                <TabPanel>
+                  <Label>Username</Label>
+                  <InputField
+                      placeholder="Enter here.."
+                      onChange={e => {
+                        this.handleInputChange('username', e.target.value);
+                      }}
+                  />
+                  <Label>Password</Label>
+                  <InputField
+                      placeholder="Enter here.."
+                      onChange={e => {
+                        this.handleInputChange('password', e.target.value);
+                      }}
+                  />
+                  <ButtonContainer>
+                    <Button
+                        disabled={!this.state.username || !this.state.password}
+                        width="50%"
+                        onClick={() => {
+                          this.login(true);
+                        }}>
+                      Login as a manager
+                    </Button>
+                  </ButtonContainer>
+                </TabPanel>
+              </Tabs>
+            </div>
           </Form>
         </FormContainer>
       </BaseContainer>
