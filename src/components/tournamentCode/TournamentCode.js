@@ -65,8 +65,9 @@ class TournamentCode extends React.Component {
     constructor() {
         super();
         this.state = {
-            code: null,
+            code: ''
         };
+        this.handleInputChange = this.handleInputChange.bind(this);
     }
 
     logout() {
@@ -85,11 +86,21 @@ class TournamentCode extends React.Component {
     mask(e) {
         let tmpCode = "";
         tmpCode += e.target.value.toString();
-        if (tmpCode.length > 7) {
-            return tmpCode.replace(/^(\d{4})(\d{4}).*/, '$1-$2');}
-        else
+        if (tmpCode.length < 4) {
             return tmpCode;
-
+        }
+        switch (tmpCode.length) {
+            case 4:
+                return tmpCode.replace(/^(\d{4}).*/, '$1-');
+            case 5:
+                return tmpCode.replace(/^(\d{4})(\d).*/, '$1-$2');
+            case 6:
+                return tmpCode.replace(/^(\d{4})(\d{2}).*/, '$1-$2');
+            case 7:
+                return tmpCode.replace(/^(\d{4})(\d{3}).*/, '$1-$2');
+            case 8:
+                return tmpCode.replace(/^(\d{4})(\d{4}).*/, '$1-$2');
+        }
     }
 
 
@@ -99,7 +110,9 @@ class TournamentCode extends React.Component {
     }
 
 
-    componentDidMount() {}
+    componentDidMount() {
+        this.setState(({code: this.state.code}))
+    }
 
     render() {
         return (
@@ -109,6 +122,7 @@ class TournamentCode extends React.Component {
                     <Form>
 
                         <Label>Tournament Code</Label>
+
                         <InputField
                             placeholder="Enter TournamentCode (e.g. 1234-4567)"
                             maxlength="9"

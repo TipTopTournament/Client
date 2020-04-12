@@ -79,6 +79,7 @@ class Login extends React.Component {
                 <TabPanel>
                   <Label>Username</Label>
                     <InputField
+
                       placeholder="Enter here.."
                       onChange={e => {
                         this.handleInputChange('username', e.target.value);
@@ -86,6 +87,7 @@ class Login extends React.Component {
                     />
                   <Label>Password</Label>
                     <InputField
+                        type ="password"
                       placeholder="Enter here.."
                       onChange={e => {
                         this.handleInputChange('password', e.target.value);
