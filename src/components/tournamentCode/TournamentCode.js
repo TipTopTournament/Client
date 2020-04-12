@@ -65,7 +65,8 @@ class TournamentCode extends React.Component {
     constructor() {
         super();
         this.state = {
-            code: ''
+            displayCode: '',
+            code: '',
         };
         this.handleInputChange = this.handleInputChange.bind(this);
     }
@@ -76,11 +77,16 @@ class TournamentCode extends React.Component {
     }
 
     async join() {
-
+            this.normalizeTourneyCode();
             const {key} = this.state.code;
             const response = await api.get(`/tournaments/${key}`);
             /**TODO TournamentCode response */
             this.props.history.push(`/game`);
+    }
+    normalizeTourneyCode(){
+        this.state.code = this.state.displayCode.replace('-','');
+        console.log('displayCode', this.state.displayCode);
+        console.log('code', this.state.code);
     }
 
     mask(e) {
@@ -100,6 +106,8 @@ class TournamentCode extends React.Component {
                 return tmpCode.replace(/^(\d{4})(\d{3}).*/, '$1-$2');
             case 8:
                 return tmpCode.replace(/^(\d{4})(\d{4}).*/, '$1-$2');
+            case 9:
+                return tmpCode.replace(/^(\d{4})(\d{4}).*/, '$1-$2');
         }
     }
 
@@ -111,27 +119,23 @@ class TournamentCode extends React.Component {
 
 
     componentDidMount() {
-        this.setState(({code: this.state.code}))
     }
 
     render() {
         return (
             <BaseContainer>
                 <FormContainer>
-
                     <Form>
-
                         <Label>Tournament Code</Label>
-
                         <InputField
                             placeholder="Enter TournamentCode (e.g. 1234-4567)"
-                            maxlength="9"
-                            onChange={e => {this.handleInputChange('code', this.mask(e));
-                            }}
+                            maxlength="10"
+                            value = {this.state.displayCode || '' }
+                            onChange={e => {this.handleInputChange('displayCode', this.mask(e));}}
                         />
                         <ButtonContainer>
                             <Button
-                                disabled={!this.state.code}
+                                disabled={!this.state.displayCode}
                                 width="50%"
                                 onClick={() => {
                                     this.join();
