@@ -48,7 +48,7 @@ class Login extends React.Component {
       // Store the token into the local storage.
       localStorage.setItem('token', user.token);
 
-      // Login successfully worked --> navigate to the route /game in the GameRouter
+      // Login successfully worked --> navigate to the route /tournamentCode in the TournamentRouter
       this.props.history.push(`/tournamentCode`);
     } catch (error) {
       alert(`Something went wrong during the login: \n${handleError(error)}`);

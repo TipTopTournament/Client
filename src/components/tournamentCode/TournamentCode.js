@@ -81,7 +81,7 @@ class TournamentCode extends React.Component {
             const {key} = this.state.code;
             const response = await api.get(`/tournaments/${key}`);
             /**TODO TournamentCode response */
-            this.props.history.push(`/game`);
+            this.props.history.push(`/tournaments/`);
     }
     normalizeTourneyCode(){
         this.state.code = this.state.displayCode.replace('-','');
