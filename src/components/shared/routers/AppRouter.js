@@ -11,6 +11,7 @@ import {TournamentCodeGuard} from "../routeProtectors/TournamentCodeGuard";
 import Tournament from "../../tournament/Tournament";
 import LeaderBoard from "../../leaderboard/LeaderBoard";
 import Bracket from "../../bracket/Bracket";
+import PlayerProfile from "../../playerProfile/PlayerProfile";
 
 /**
  * Main router of your application.
@@ -27,12 +28,12 @@ class AppRouter extends React.Component {
       <BrowserRouter>
         <Switch>
           <div>
-              <Route
-                  path="/home"
-                  render={() => (
-                          <HomeScreen/>
-                  )}
-              />
+            <Route
+              path="/home"
+              render={() => (
+                <HomeScreen/>
+              )}
+            />
             <Route
               path="/tournament"
               render={() => (
@@ -41,12 +42,12 @@ class AppRouter extends React.Component {
                 </TournamentGuard>
               )}
             />
-              <Route
-                  path="/register"
-                  render={() => (
-                          <Registration />
-                  )}
-              />
+            <Route
+              path="/register"
+              render={() => (
+                <Registration />
+              )}
+            />
             <Route
               path="/login"
               exact
@@ -59,33 +60,39 @@ class AppRouter extends React.Component {
             <Route path="/" exact render={() => <Redirect to={"/home"} />} />
 
             <Route
-                path="/tournamentCode"
-                 render={() => (
-                   <TournamentCodeGuard>
-                    <TournamentCode/>
-                   </TournamentCodeGuard>
-                 )}
+              path="/tournamentCode"
+              render={() => (
+                <TournamentCodeGuard>
+                  <TournamentCode/>
+                </TournamentCodeGuard>
+              )}
             />
-              <Route
-                  path="/tournaments/:tournamentCode"
-                  render={() => (
-                      <TournamentGuard>
-                          <Tournament/>
-                      </TournamentGuard>
-                  )}
-              />
-              <Route
-                  path="/leaderBoard"
-                  render={() => (
-                      <LeaderBoard/>
-                  )}
-              />
-              <Route
-                  path="/bracket"
-                  render={() => (
-                      <Bracket/>
-                  )}
-              />
+            <Route
+              path="/tournaments/:tournamentCode"
+              render={() => (
+                <TournamentGuard>
+                  <Tournament/>
+                </TournamentGuard>
+              )}
+            />
+            <Route
+              path="/leaderBoard"
+              render={() => (
+                <LeaderBoard/>
+              )}
+            />
+            <Route
+              path="/bracket"
+              render={() => (
+                <Bracket/>
+              )}
+            />
+            <Route
+              path="/participants"
+              render={() => (
+                  <PlayerProfile/>
+              )}
+            />
           </div>
         </Switch>
       </BrowserRouter>

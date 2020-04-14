@@ -10,6 +10,13 @@ class PlayerProfile extends React.Component {
         };
     }
 
+    render(){
+        return (
+            <h1>hello mens</h1>
+        )
+
+    }
+
 
 }
 export default withRouter(PlayerProfile);
