@@ -42,7 +42,7 @@ class Registration extends React.Component {
             }
 
 
-            // Login successfully worked --> navigate to the route /game in the GameRouter
+            // Register successfully worked --> navigate to the route /login in the TournamentRouter
             this.props.history.push(`/login`);
         } catch (error) {
             alert(`Something went wrong during the login: \n${handleError(error)}`);
@@ -82,6 +82,7 @@ class Registration extends React.Component {
                         />
                         <Label>Password</Label>
                         <InputField
+                            type = "password"
                             placeholder="Enter here.."
                             onChange={e => {
                                 this.handleInputChange('password', e.target.value);

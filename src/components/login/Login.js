@@ -48,7 +48,7 @@ class Login extends React.Component {
       // Store the token into the local storage.
       localStorage.setItem('token', user.token);
 
-      // Login successfully worked --> navigate to the route /game in the GameRouter
+      // Login successfully worked --> navigate to the route /tournamentCode in the TournamentRouter
       this.props.history.push(`/tournamentCode`);
     } catch (error) {
       alert(`Something went wrong during the login: \n${handleError(error)}`);
@@ -79,6 +79,7 @@ class Login extends React.Component {
                 <TabPanel>
                   <Label>Username</Label>
                     <InputField
+
                       placeholder="Enter here.."
                       onChange={e => {
                         this.handleInputChange('username', e.target.value);
@@ -86,6 +87,7 @@ class Login extends React.Component {
                     />
                   <Label>Password</Label>
                     <InputField
+                        type ="password"
                       placeholder="Enter here.."
                       onChange={e => {
                         this.handleInputChange('password', e.target.value);

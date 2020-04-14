@@ -60,13 +60,15 @@ const ButtonContainer = styled.div`
 
 
 class TournamentCode extends React.Component {
-    tmpCode = "";
+
 
     constructor() {
         super();
         this.state = {
-            code: null,
+            displayCode: '',
+            code: '',
         };
+        this.handleInputChange = this.handleInputChange.bind(this);
     }
 
     profiles(){
@@ -79,22 +81,38 @@ class TournamentCode extends React.Component {
     }
 
     async join() {
-
+            this.normalizeTourneyCode();
             const {key} = this.state.code;
             const response = await api.get(`/tournaments/${key}`);
             /**TODO TournamentCode response */
-            this.props.history.push(`/game`);
+            this.props.history.push(`/tournaments/`);
+    }
+    normalizeTourneyCode(){
+        this.state.code = this.state.displayCode.replace('-','');
+        console.log('displayCode', this.state.displayCode);
+        console.log('code', this.state.code);
     }
 
-    mask(letter) {
-        if (this.tmpCode.length > 4) {
-            this.tmpCode += letter.toString();
-            this.tmpCode.toString().replace(/^(\d{4})(\d{4}).*/, '$1-$2');
-            this.handleInputChange("code", this.tmpCode);
+    mask(e) {
+        let tmpCode = "";
+        tmpCode += e.target.value.toString();
+        if (tmpCode.length < 4) {
+            return tmpCode;
         }
-        else
-
-            this.tmpCode += letter.toString();
+        switch (tmpCode.length) {
+            case 4:
+                return tmpCode.replace(/^(\d{4}).*/, '$1-');
+            case 5:
+                return tmpCode.replace(/^(\d{4})(\d).*/, '$1-$2');
+            case 6:
+                return tmpCode.replace(/^(\d{4})(\d{2}).*/, '$1-$2');
+            case 7:
+                return tmpCode.replace(/^(\d{4})(\d{3}).*/, '$1-$2');
+            case 8:
+                return tmpCode.replace(/^(\d{4})(\d{4}).*/, '$1-$2');
+            case 9:
+                return tmpCode.replace(/^(\d{4})(\d{4}).*/, '$1-$2');
+        }
     }
 
 
@@ -104,25 +122,24 @@ class TournamentCode extends React.Component {
     }
 
 
-    componentDidMount() {}
+    componentDidMount() {
+    }
 
     render() {
         return (
             <BaseContainer>
                 <FormContainer>
-
                     <Form>
-
                         <Label>Tournament Code</Label>
                         <InputField
                             placeholder="Enter TournamentCode (e.g. 1234-4567)"
-                            maxlength="9"
-                            onChange={e => {this.mask(e);
-                            }}
+                            maxlength="10"
+                            value = {this.state.displayCode || '' }
+                            onChange={e => {this.handleInputChange('displayCode', this.mask(e));}}
                         />
                         <ButtonContainer>
                             <Button
-                                disabled={!this.state.code}
+                                disabled={!this.state.displayCode}
                                 width="50%"
                                 onClick={() => {
                                     this.join();
