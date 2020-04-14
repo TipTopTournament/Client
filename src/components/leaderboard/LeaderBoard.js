@@ -35,6 +35,7 @@ class LeaderBoard extends React.Component {
         };
     }
 
+
     async componentDidMount() {
         try {
             const response = await api.get('/participants');
