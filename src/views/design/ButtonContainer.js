@@ -5,4 +5,5 @@ export const ButtonContainer = styled.div`
   color: #2F80ED;
   justify-content: center;
   margin-top: 20px;
+
 `;

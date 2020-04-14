@@ -5,6 +5,7 @@ export const Button = styled.button`
     transform: translateY(-2px);
   }
   padding: 6px;
+  margin: 10px;
   font-weight: 700;
   text-transform: uppercase;
   font-size: 13px;
@@ -18,4 +19,6 @@ export const Button = styled.button`
   opacity: ${props => (props.disabled ? 0.4 : 1)};
   background: rgb(16, 89, 255);
   transition: all 0.3s ease;
+  display: block
+  justifyContent: 'space-between'
 `;

@@ -9,6 +9,8 @@ import Registration from "../../register/Registration";
 import TournamentCode from "../../tournamentCode/TournamentCode";
 import {TournamentCodeGuard} from "../routeProtectors/TournamentCodeGuard";
 import Tournament from "../../tournament/Tournament";
+import LeaderBoard from "../../leaderboard/LeaderBoard";
+import Bracket from "../../bracket/Bracket";
 
 /**
  * Main router of your application.
@@ -70,6 +72,18 @@ class AppRouter extends React.Component {
                       <TournamentGuard>
                           <Tournament/>
                       </TournamentGuard>
+                  )}
+              />
+              <Route
+                  path="/leaderBoard"
+                  render={() => (
+                      <LeaderBoard/>
+                  )}
+              />
+              <Route
+                  path="/bracket"
+                  render={() => (
+                      <Bracket/>
                   )}
               />
           </div>

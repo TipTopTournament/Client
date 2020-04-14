@@ -7,14 +7,30 @@ import { Spinner } from '../../views/design/Spinner';
 import { Button } from '../../views/design/Button';
 import { withRouter } from 'react-router-dom';
 
+
 const Container = styled(BaseContainer)`
   color: white;
   text-align: center;
 `;
 
-const Users = styled.ul`
+const PlayerList = styled.ul`
+  margin-right: 1000px;
+  margin-bottom: 50px;
   list-style: none;
   padding-left: 0;
+  border: 1px solid;
+`;
+const Bracket = styled.ul`
+  margin-left: 400px
+  margin-bottom: 50px;
+  padding-left: 0;
+  border: 1px solid;
+`;
+const Leaderboard = styled.ul`
+  margin-left: 400px;
+  margin-bottom: 50px;
+  padding-left: 0;
+  border: 1px solid;
 `;
 
 const PlayerContainer = styled.li`
@@ -31,8 +47,9 @@ class Tournament extends React.Component {
       users: null
     };
   }
-  back() {
-    this.props.history.push(`/tournamentCode`);
+
+  handleClick(id){
+    this.props.history.push(`/${id}`);
   }
 
   async componentDidMount() {
@@ -63,7 +80,7 @@ class Tournament extends React.Component {
           <Spinner />
         ) : (
           <div>
-            <Users>
+            <PlayerList>
               {this.state.users.map(user => {
                 return (
                   <PlayerContainer key={user.participantID}>
@@ -71,15 +88,21 @@ class Tournament extends React.Component {
                   </PlayerContainer>
                 );
               })}
-            </Users>
-            <Button
-              width="100%"
-              onClick={() => {
-                this.back();
-              }}
-            >
-              Leave tournament
-            </Button>
+              <Button
+                  width="100%"
+                  onClick={() => {
+                    this.props.history.goBack();
+                  }}
+              >
+                Leave tournament
+              </Button>
+            </PlayerList>
+            <Leaderboard onClick={()=> this.handleClick('leaderBoard')}>
+              DATA LEADERBOARD
+            </Leaderboard>
+            <Bracket onClick={()=> this.handleClick('bracket')}>
+              DATA BRACKET
+            </Bracket>
           </div>
         )}
       </Container>
