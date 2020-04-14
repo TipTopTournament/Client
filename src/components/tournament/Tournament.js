@@ -20,7 +20,7 @@ const Users = styled.ul`
 const PlayerContainer = styled.li`
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: left;
   justify-content: center;
 `;
 
@@ -31,19 +31,14 @@ class Tournament extends React.Component {
       users: null
     };
   }
-  logout() {
-    localStorage.removeItem('token');
-    this.props.history.push('/home')
+  back() {
+    this.props.history.push(`/tournamentCode`);
   }
 
   async componentDidMount() {
     try {
       const response = await api.get('/participants');
-      // delays continuous execution of an async operation for 1 second.
-      // This is just a fake async call, so that the spinner can be displayed
-      // feel free to remove it :)
-      await new Promise(resolve => setTimeout(resolve, 1000));
-
+      console.log("response", response.data);
       // Get the returned users and update the state.
       this.setState({ users: response.data });
 
@@ -71,7 +66,7 @@ class Tournament extends React.Component {
             <Users>
               {this.state.users.map(user => {
                 return (
-                  <PlayerContainer key={user.id}>
+                  <PlayerContainer key={user.participantID}>
                     <Player user={user} />
                   </PlayerContainer>
                 );
@@ -80,10 +75,10 @@ class Tournament extends React.Component {
             <Button
               width="100%"
               onClick={() => {
-                this.logout();
+                this.back();
               }}
             >
-              Logout
+              Leave tournament
             </Button>
           </div>
         )}

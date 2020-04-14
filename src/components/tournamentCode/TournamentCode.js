@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import {BaseContainer} from '../../helpers/layout';
-import {api} from '../../helpers/api';
 import {withRouter} from 'react-router-dom';
 import {Button} from '../../views/design/Button';
 

@@ -3,10 +3,11 @@
  */
 class User {
   constructor(data = {}) {
-    this.id = null;
+    this.participantID = null;
     this.name = null;
     this.username = null;
     this.token = null;
+    this.licenseNumber = null;
     this.status = null;
     Object.assign(this, data);
   }
