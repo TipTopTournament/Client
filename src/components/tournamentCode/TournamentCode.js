@@ -69,6 +69,10 @@ class TournamentCode extends React.Component {
         };
     }
 
+    profiles(){
+        this.props.history.push('/participants')
+    }
+
     logout() {
         localStorage.removeItem('token');
         this.props.history.push('/home')
@@ -135,6 +139,16 @@ class TournamentCode extends React.Component {
                                 }}
                             >
                                 Temporary Logout
+                            </Button>
+                        </ButtonContainer>
+                        <ButtonContainer>
+                            <Button
+                                width="50%"
+                                onClick={() => {
+                                    this.profiles();
+                                }}
+                            >
+                                Profiles
                             </Button>
                         </ButtonContainer>
                     </Form>
