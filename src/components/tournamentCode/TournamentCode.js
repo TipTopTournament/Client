@@ -81,16 +81,10 @@ class TournamentCode extends React.Component {
     }
 
     async join() {
-            this.normalizeTourneyCode();
             const {key} = this.state.code;
             const response = await api.get(`/tournaments/${key}`);
             /**TODO TournamentCode response */
             this.props.history.push(`/tournaments/`);
-    }
-    normalizeTourneyCode(){
-        this.state.code = this.state.displayCode.replace('-','');
-        console.log('displayCode', this.state.displayCode);
-        console.log('code', this.state.code);
     }
 
     mask(e) {
@@ -112,13 +106,17 @@ class TournamentCode extends React.Component {
                 return tmpCode.replace(/^(\d{4})(\d{4}).*/, '$1-$2');
             case 9:
                 return tmpCode.replace(/^(\d{4})(\d{4}).*/, '$1-$2');
+            default:
+                alert("The tournament code might only be 8 digits!");
+                return tmpCode.replace(/^(\d{4})(\d{4}).*/, '$1-$2');
         }
     }
 
 
     handleInputChange(key, value) {
-
         this.setState({ [key]: value });
+        // Also sets the original code with dash
+        this.setState( {code: value.replace('-','')})
     }
 
 
