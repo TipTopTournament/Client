@@ -80,11 +80,8 @@ class TournamentCode extends React.Component {
         this.props.history.push('/home')
     }
 
-    async join() {
-            const {key} = this.state.code;
-            const response = await api.get(`/tournaments/${key}`);
-            /**TODO TournamentCode response */
-            this.props.history.push(`/tournaments/`);
+    join() {
+            this.props.history.push(`/tournaments/${this.state.code}`);
     }
 
     mask(e) {
