@@ -13,7 +13,6 @@ const Container = styled(BaseContainer)`
 `;
 
 const PlayerList = styled.ul`
-  margin-right: 1000px;
   margin-bottom: 50px;
   list-style: none;
   padding-left: 0;
@@ -23,7 +22,7 @@ const PlayerList = styled.ul`
 const PlayerContainer = styled.li`
   display: flex;
   flex-direction: column;
-  align-items: left;
+  align-items: center;
   justify-content: center;
 `;
 
@@ -72,15 +71,15 @@ class LeaderBoard extends React.Component {
                                     </PlayerContainer>
                                 );
                             })}
-                            <Button
-                                width="100%"
-                                onClick={() => {
-                                    this.props.history.goBack();
-                                }}
-                            >
-                                Back
-                            </Button>
                         </PlayerList>
+                        <Button
+                            width="100%"
+                            onClick={() => {
+                                this.props.history.goBack();
+                            }}
+                        >
+                            Back to Tournament Overview
+                        </Button>
                     </div>
                 )}
             </Container>

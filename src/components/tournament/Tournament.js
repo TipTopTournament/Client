@@ -6,7 +6,6 @@ import Player from '../../views/Player';
 import { Spinner } from '../../views/design/Spinner';
 import { withRouter } from 'react-router-dom';
 
-
 const Container = styled(BaseContainer)`
   color: white;
   text-align: center;
@@ -35,7 +34,7 @@ const Leaderboard = styled.ul`
 const PlayerContainer = styled.li`
   display: flex;
   flex-direction: column;
-  align-items: left;
+  align-items: center;
   justify-content: center;
 `;
 const ButtonPlayerList = styled.button`
@@ -107,6 +106,7 @@ class Tournament extends React.Component {
         ) : (
           <div>
             <PlayerList>
+              <h3>Playerlist</h3>
               {this.state.users.map(user => {
                 return (
                   <PlayerContainer key={user.participantID}>
@@ -123,7 +123,8 @@ class Tournament extends React.Component {
                 Leave tournament
               </ButtonPlayerList>
             </PlayerList>
-            <Leaderboard onClick={()=> this.handleClick('leaderBoard')}>
+              <Leaderboard onClick={()=> this.handleClick('leaderBoard')}>
+              <h3>Leaderboard</h3>
               {this.state.users.map(user => {
                 return (
                     <PlayerContainer key={user.participantID}>
@@ -133,7 +134,14 @@ class Tournament extends React.Component {
               })}
             </Leaderboard>
             <Bracket onClick={()=> this.handleClick('bracket')}>
-              DATA BRACKET
+              <h3>Bracket</h3>
+              {this.state.users.map(user => {
+                return (
+                    <PlayerContainer key={user.participantID}>
+                      <Player user={user} />
+                    </PlayerContainer>
+                );
+              })}
             </Bracket>
           </div>
         )}
