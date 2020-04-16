@@ -4,7 +4,6 @@ import { BaseContainer } from '../../helpers/layout';
 import { api, handleError } from '../../helpers/api';
 import Player from '../../views/Player';
 import { Spinner } from '../../views/design/Spinner';
-import { Button } from '../../views/design/Button';
 import { withRouter } from 'react-router-dom';
 
 
@@ -39,17 +38,44 @@ const PlayerContainer = styled.li`
   align-items: left;
   justify-content: center;
 `;
+const ButtonPlayerList = styled.button`
+  &:hover {
+    transform: translateY(-2px);
+  }
+  padding: 6px;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 13px;
+  text-align: center;
+  color: rgba(255, 255, 255, 1);
+  width: ${props => props.width || null};
+  height: 35px;
+  border: none;
+  border-radius: 20px;
+  cursor: ${props => (props.disabled ? "default" : "pointer")};
+  opacity: ${props => (props.disabled ? 0.4 : 1)};
+  background: rgb(16, 89, 255);
+  transition: all 0.3s ease;
+  display: block
+  justifyContent: 'space-between'
+`;
 
 class Tournament extends React.Component {
   constructor() {
     super();
     this.state = {
-      users: null
+      users: null,
+      games: null,
+      leaderBoardUsers: null,
     };
   }
 
   handleClick(id){
-    this.props.history.push(`/${id}`);
+    const {tournamentCode} = this.props.match.params;
+    console.log('props', this.props);
+    console.log('params', this.props.match.params);
+    console.log('tournamentCode', {tournamentCode});
+    this.props.history.push(`/${id}/${tournamentCode}`);
   }
 
   async componentDidMount() {
@@ -88,17 +114,23 @@ class Tournament extends React.Component {
                   </PlayerContainer>
                 );
               })}
-              <Button
+              <ButtonPlayerList
                   width="100%"
                   onClick={() => {
                     this.props.history.goBack();
                   }}
               >
                 Leave tournament
-              </Button>
+              </ButtonPlayerList>
             </PlayerList>
             <Leaderboard onClick={()=> this.handleClick('leaderBoard')}>
-              DATA LEADERBOARD
+              {this.state.users.map(user => {
+                return (
+                    <PlayerContainer key={user.participantID}>
+                      <Player user={user} />
+                    </PlayerContainer>
+                );
+              })}
             </Leaderboard>
             <Bracket onClick={()=> this.handleClick('bracket')}>
               DATA BRACKET
