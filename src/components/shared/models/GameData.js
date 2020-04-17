@@ -1,7 +1,7 @@
 /**
  * Game model
  */
-class User {
+class GameData {
     constructor(data = {}) {
         this.participant1 = null;
         this.participant2 = null;
@@ -13,4 +13,4 @@ class User {
         Object.assign(this, data);
     }
 }
-export default User;
+export default GameData;

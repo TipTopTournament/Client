@@ -76,13 +76,13 @@ class AppRouter extends React.Component {
               )}
             />
             <Route
-              path="/leaderBoard"
+              path="/:tournamentCode/leaderBoard"
               render={() => (
                 <LeaderBoard/>
               )}
             />
             <Route
-              path="/bracket"
+              path="/:tournamentCode/bracket"
               render={() => (
                 <Bracket/>
               )}

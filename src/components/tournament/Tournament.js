@@ -71,10 +71,7 @@ class Tournament extends React.Component {
 
   handleClick(id){
     const {tournamentCode} = this.props.match.params;
-    console.log('props', this.props);
-    console.log('params', this.props.match.params);
-    console.log('tournamentCode', {tournamentCode});
-    this.props.history.push(`/${id}/${tournamentCode}`);
+    this.props.history.push(`/${tournamentCode}/${id}`);
   }
 
   async componentDidMount() {
@@ -84,14 +81,6 @@ class Tournament extends React.Component {
       // Get the returned users and update the state.
       this.setState({ users: response.data });
 
-      // This is just some data for you to see what is available.
-      // Feel free to remove it.
-      console.log('request to:', response.request.responseURL);
-      console.log('status code:', response.status);
-      console.log('status text:', response.statusText);
-      console.log('requested data:', response.data);
-
-      // See here to get more data.
       console.log(response);
     } catch (error) {
       alert(`Something went wrong while fetching the users: \n${handleError(error)}`);
