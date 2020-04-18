@@ -12,6 +12,7 @@ import Tournament from "../../tournament/Tournament";
 import LeaderBoard from "../../leaderboard/LeaderBoard";
 import Bracket from "../../bracket/Bracket";
 import PlayerProfile from "../../playerProfile/PlayerProfile";
+import TournamentCreation from "../../tournament/Tournament";
 
 /**
  * Main router of your application.
