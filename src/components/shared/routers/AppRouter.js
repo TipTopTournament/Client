@@ -48,6 +48,12 @@ class AppRouter extends React.Component {
                 <Registration />
               )}
             />
+             <Route
+              path="/tournamentCreation"
+              render={() => (
+                <TournamentCreation />
+              )}
+            />
             <Route
               path="/login"
               exact
