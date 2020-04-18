@@ -94,14 +94,6 @@ class Login extends React.Component {
                       }}
                     />
                   <ButtonContainer>
-                  <Button
-                      disabled={!this.state.username || !this.state.password}
-                      width="50%"
-                      onClick={() => {
-                        this.props.history.push(`/tournamentCreation`);
-                      }}>
-                     gototourcreation
-                    </Button>
                     <Button
                       disabled={!this.state.username || !this.state.password}
                       width="50%"
