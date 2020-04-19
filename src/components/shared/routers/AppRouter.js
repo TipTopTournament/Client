@@ -12,6 +12,7 @@ import Tournament from "../../tournament/Tournament";
 import LeaderBoard from "../../leaderboard/LeaderBoard";
 import Bracket from "../../bracket/Bracket";
 import PlayerProfile from "../../playerProfile/PlayerProfile";
+import CreateTournament from "../../tournament/CreateTournament";
 
 /**
  * Main router of your application.
@@ -32,6 +33,12 @@ class AppRouter extends React.Component {
               path="/home"
               render={() => (
                 <HomeScreen/>
+              )}
+            />
+            <Route
+              path="/createTournament"
+              render={() => (
+                <CreateTournament/>
               )}
             />
             <Route
