@@ -8,6 +8,7 @@ class LeaderBoardUser {
         this.status = null;
         this.stats = null;
         this.elo = null;
+        this.ParticipantId = null;
         Object.assign(this, data);
     }
 }

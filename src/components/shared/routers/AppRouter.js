@@ -13,6 +13,11 @@ import LeaderBoard from "../../leaderboard/LeaderBoard";
 import Bracket from "../../bracket/Bracket";
 import PlayerProfile from "../../playerProfile/PlayerProfile";
 import CreateTournament from "../../tournament/CreateTournament";
+import {BracketGuard} from "../routeProtectors/BracketGuard";
+import {LeaderBoardGuard} from "../routeProtectors/LeaderBoardGuard";
+import {CreateTournamentGuard} from "../routeProtectors/CreateTournamentGuard";
+import {RegistrationGuard} from "../routeProtectors/RegistrationGuard";
+import {PlayerProfileGuard} from "../routeProtectors/PlayerProfileGuard";
 
 /**
  * Main router of your application.
@@ -38,7 +43,9 @@ class AppRouter extends React.Component {
             <Route
               path="/createTournament"
               render={() => (
-                <CreateTournament/>
+                  <CreateTournamentGuard>
+                    <CreateTournament/>
+                  </CreateTournamentGuard>
               )}
             />
             <Route
@@ -52,7 +59,9 @@ class AppRouter extends React.Component {
             <Route
               path="/register"
               render={() => (
-                <Registration />
+                  <RegistrationGuard>
+                    <Registration />
+                  </RegistrationGuard>
               )}
             />
             <Route
@@ -85,19 +94,25 @@ class AppRouter extends React.Component {
             <Route
               path="/:tournamentCode/leaderBoard"
               render={() => (
-                <LeaderBoard/>
+                  <LeaderBoardGuard>
+                    <LeaderBoard/>
+                  </LeaderBoardGuard>
               )}
             />
             <Route
               path="/:tournamentCode/bracket"
               render={() => (
-                <Bracket/>
+                  <BracketGuard>
+                    <Bracket/>
+                  </BracketGuard>
               )}
             />
             <Route
               path="/participants"
               render={() => (
-                  <PlayerProfile/>
+                  <PlayerProfileGuard>
+                    <PlayerProfile/>
+                  </PlayerProfileGuard>
               )}
             />
           </div>
