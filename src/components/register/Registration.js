@@ -107,6 +107,12 @@ class Registration extends React.Component {
                             >
                                 Register
                             </Button>
+                            <Button width="50%"
+                                    onClick={() => {
+                                        this.props.history.goBack();
+                                    }}>
+                                Back
+                            </Button>
                         </ButtonContainer>
                     </Form>
                 </FormContainer>

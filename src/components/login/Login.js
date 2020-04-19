@@ -102,6 +102,12 @@ class Login extends React.Component {
                       }}>
                       Login as a participant
                     </Button>
+                    <Button   width="50%"
+                            onClick={() => {
+                              this.props.history.goBack();
+                            }}>
+                        Back
+                    </Button>
                   </ButtonContainer>
                 </TabPanel>
                 <TabPanel>
@@ -127,6 +133,12 @@ class Login extends React.Component {
                           this.login(true);
                         }}>
                       Login as a manager
+                    </Button>
+                    <Button width="50%"
+                            onClick={() => {
+                              this.props.history.goBack();
+                            }}>
+                      Back
                     </Button>
                   </ButtonContainer>
                 </TabPanel>

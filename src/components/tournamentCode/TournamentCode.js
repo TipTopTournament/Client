@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import {BaseContainer} from '../../helpers/layout';
-import {api} from '../../helpers/api';
 import {withRouter} from 'react-router-dom';
 import {Button} from '../../views/design/Button';
 
@@ -71,50 +70,71 @@ class TournamentCode extends React.Component {
         this.handleInputChange = this.handleInputChange.bind(this);
     }
 
+    profiles(){
+        this.props.history.push('/participants')
+    }
+
     logout() {
         localStorage.removeItem('token');
         this.props.history.push('/home')
     }
 
-    async join() {
-            this.normalizeTourneyCode();
-            const {key} = this.state.code;
-            const response = await api.get(`/tournaments/${key}`);
-            /**TODO TournamentCode response */
-            this.props.history.push(`/tournaments/`);
-    }
-    normalizeTourneyCode(){
-        this.state.code = this.state.displayCode.replace('-','');
-        console.log('displayCode', this.state.displayCode);
-        console.log('code', this.state.code);
+    join() {
+            this.props.history.push(`/tournaments/${this.state.code}`);
     }
 
     mask(e) {
+
         let tmpCode = "";
         tmpCode += e.target.value.toString();
-        if (tmpCode.length < 4) {
-            return tmpCode;
+
+        if (this.checkInputOnlyDigits(tmpCode)){
+
+            if (tmpCode.length < 4) {
+                return tmpCode;
+            }
+
+            switch (tmpCode.length) {
+                case 4:
+                    return tmpCode.replace(/^(\d{4}).*/, '$1-');
+                case 5:
+                    return tmpCode.replace(/^(\d{4})(\d).*/, '$1-$2');
+                case 6:
+                    return tmpCode.replace(/^(\d{4})(\d{2}).*/, '$1-$2');
+                case 7:
+                    return tmpCode.replace(/^(\d{4})(\d{3}).*/, '$1-$2');
+                case 8:
+                    return tmpCode.replace(/^(\d{4})(\d{4}).*/, '$1-$2');
+                case 9:
+                    return tmpCode.replace(/^(\d{4})(\d{4}).*/, '$1-$2');
+                default:
+                    alert("The tournament code must be 8 digits!");
+                    return tmpCode.substring(0, tmpCode.length - 1);
+            }
         }
-        switch (tmpCode.length) {
-            case 4:
-                return tmpCode.replace(/^(\d{4}).*/, '$1-');
-            case 5:
-                return tmpCode.replace(/^(\d{4})(\d).*/, '$1-$2');
-            case 6:
-                return tmpCode.replace(/^(\d{4})(\d{2}).*/, '$1-$2');
-            case 7:
-                return tmpCode.replace(/^(\d{4})(\d{3}).*/, '$1-$2');
-            case 8:
-                return tmpCode.replace(/^(\d{4})(\d{4}).*/, '$1-$2');
-            case 9:
-                return tmpCode.replace(/^(\d{4})(\d{4}).*/, '$1-$2');
+        else {
+        return tmpCode = '';
         }
     }
 
+    checkInputOnlyDigits(input){
+        let digits = new RegExp('^[0-9]+$');
+        if (digits.test(input) || input.includes("-")) {
+            return true;
+        }
+        else {
+            alert("The tournament code can only contain digits");
+            return false;
+        }
+    }
 
     handleInputChange(key, value) {
-
         this.setState({ [key]: value });
+        // Also sets the original code with dash
+        if (value !== ""){
+            this.setState( {code: value.replace('-','') || ''})
+        }
+
     }
 
 
@@ -152,6 +172,16 @@ class TournamentCode extends React.Component {
                                 }}
                             >
                                 Temporary Logout
+                            </Button>
+                        </ButtonContainer>
+                        <ButtonContainer>
+                            <Button
+                                width="50%"
+                                onClick={() => {
+                                    this.profiles();
+                                }}
+                            >
+                                Profiles
                             </Button>
                         </ButtonContainer>
                     </Form>

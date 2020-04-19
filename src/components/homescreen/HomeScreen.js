@@ -41,13 +41,13 @@ const ButtonContainer = styled.div`
 `;
 
 const Title = styled.div`
-margin-left: 150px;
 font-family: Roboto;
 font-style: normal;
 font-weight: normal;
 font-size: 144px;
 line-height: 169px;
-
+margin-left: auto;
+margin-right: auto;
 color:  #FFFFFF;
 `;
 
