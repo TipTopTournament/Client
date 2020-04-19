@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import { BaseContainer } from '../../helpers/layout';
 import { api, handleError } from '../../helpers/api';
 import User from '../shared/models/User';
@@ -12,9 +12,15 @@ import {ButtonContainer} from "../../views/design/ButtonContainer";
 import {Label} from "../../views/design/Label";
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
+import Select from 'react-select';
+import makeAnimated from 'react-select/animated';
 
 
-
+const optionsorte= [
+    {value: 'bern', label:'Bern'},
+    {value: 'basel', label:'Basel'},
+    {value: 'aarau', label:'Aarau'},
+];
 
 class CreateTournament extends React.Component {
 
@@ -34,30 +40,7 @@ class CreateTournament extends React.Component {
     return ( 
        
                       
-                        
-                        <BaseContainer>
-                        <Form>
-                            <Title>TIPTOPTournament</Title>
-                            <ButtonContainer>
-                                <Button
-                                    width="50%"
-                                    onClick={() => {
-                                        
-                                    }}
-                                >
-                                    Login
-                                </Button>
-                            <Button
-                                width="50%"
-                                onClick={() => {
-                                   
-                                }}
-                            >
-                               Registration
-                            </Button>
-                        </ButtonContainer>
-                        </Form>
-                    </BaseContainer>
+                      <Select/>
     );
         }
    
