@@ -1,20 +1,23 @@
-import React from 'react';
-import { BaseContainer } from '../../helpers/layout';
-import { api, handleError } from '../../helpers/api';
-import User from '../shared/models/User';
-import { withRouter } from 'react-router-dom';
-import { Button } from '../../views/design/Button';
-import {Form} from "../../views/design/Form";
-import {InputField} from "../../views/design/InputField";
-import {Title} from "../../views/design/Title";
-import {FormContainer} from "../../views/design/FormContainer";
-import {ButtonContainer} from "../../views/design/ButtonContainer";
-import {Label} from "../../views/design/Label";
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import 'react-tabs/style/react-tabs.css';
+import React from "react";
+import { BaseContainer } from "../../helpers/layout";
+import { api, handleError } from "../../helpers/api";
+import User from "../shared/models/User";
+import { withRouter } from "react-router-dom";
+import { Button } from "../../views/design/Button";
+import { Form } from "../../views/design/Form";
+import { InputField } from "../../views/design/InputField";
+import { Title } from "../../views/design/Title";
+import { FormContainer } from "../../views/design/FormContainer";
+import { ButtonContainer } from "../../views/design/ButtonContainer";
+import { Label } from "../../views/design/Label";
+import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
+import "react-tabs/style/react-tabs.css";
+
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 class Login extends React.Component {
-
   constructor() {
     super();
     this.state = {
@@ -35,18 +38,17 @@ class Login extends React.Component {
         password: this.state.password
       });
 
-      if (is_manager){
-        response = await api.put('/managers/login', requestBody);
-      }else{
-        response = await api.put('/participants/login', requestBody);
+      if (is_manager) {
+        response = await api.put("/managers/login", requestBody);
+      } else {
+        response = await api.put("/participants/login", requestBody);
       }
-
 
       // Get the returned user and update a new object.
       const user = new User(response.data);
 
       // Store the token into the local storage.
-      localStorage.setItem('token', user.token);
+      localStorage.setItem("token", user.token);
 
       // Login successfully worked --> navigate to the route /tournamentCode in the TournamentRouter
       this.props.history.push(`/tournamentCode`);
@@ -65,88 +67,95 @@ class Login extends React.Component {
 
   render() {
     return (
-      <BaseContainer>
-        <Title>TIPTIPTournament</Title>
-        <FormContainer>
-          <Form>
-            <div>
-              <Title>TIPTIPTournament</Title>
-              <Tabs>
-                <TabList>
-                  <Tab>Player</Tab>
-                  <Tab>Manager</Tab>
-                </TabList>
-                <TabPanel>
-                  <Label>Username</Label>
+      <Container>
+        <BaseContainer>
+          <Title>TIPTIPTournament</Title>
+          <FormContainer>
+            <Form>
+              <div>
+                <Title>TIPTIPTournament</Title>
+                <Tabs>
+                  <TabList>
+                    <Tab>Player</Tab>
+                    <Tab>Manager</Tab>
+                  </TabList>
+                  <TabPanel>
+                    <Label>Username</Label>
                     <InputField
-
                       placeholder="Enter here.."
                       onChange={e => {
-                        this.handleInputChange('username', e.target.value);
+                        this.handleInputChange("username", e.target.value);
                       }}
                     />
-                  <Label>Password</Label>
+                    <Label>Password</Label>
                     <InputField
-                        type ="password"
+                      type="password"
                       placeholder="Enter here.."
                       onChange={e => {
-                        this.handleInputChange('password', e.target.value);
+                        this.handleInputChange("password", e.target.value);
                       }}
                     />
-                  <ButtonContainer>
-                    <Button
-                      disabled={!this.state.username || !this.state.password}
-                      width="50%"
-                      onClick={() => {
-                        this.login(false);
-                      }}>
-                      Login as a participant
-                    </Button>
-                    <Button   width="50%"
-                            onClick={() => {
-                              this.props.history.goBack();
-                            }}>
+                    <ButtonContainer>
+                      <Button
+                        disabled={!this.state.username || !this.state.password}
+                        width="50%"
+                        onClick={() => {
+                          this.login(false);
+                        }}
+                      >
+                        Login as a participant
+                      </Button>
+                      <Button
+                        width="50%"
+                        onClick={() => {
+                          this.props.history.goBack();
+                        }}
+                      >
                         Back
-                    </Button>
-                  </ButtonContainer>
-                </TabPanel>
-                <TabPanel>
-                  <Label>Username</Label>
-                  <InputField
+                      </Button>
+                    </ButtonContainer>
+                  </TabPanel>
+                  <TabPanel>
+                    <Label>Username</Label>
+                    <InputField
                       placeholder="Enter here.."
                       onChange={e => {
-                        this.handleInputChange('username', e.target.value);
+                        this.handleInputChange("username", e.target.value);
                       }}
-                  />
-                  <Label>Password</Label>
-                  <InputField
+                    />
+                    <Label>Password</Label>
+                    <InputField
                       placeholder="Enter here.."
                       onChange={e => {
-                        this.handleInputChange('password', e.target.value);
+                        this.handleInputChange("password", e.target.value);
                       }}
-                  />
-                  <ButtonContainer>
-                    <Button
+                    />
+                    <ButtonContainer>
+                      <Button
                         disabled={!this.state.username || !this.state.password}
                         width="50%"
                         onClick={() => {
                           this.login(true);
-                        }}>
-                      Login as a manager
-                    </Button>
-                    <Button width="50%"
-                            onClick={() => {
-                              this.props.history.goBack();
-                            }}>
-                      Back
-                    </Button>
-                  </ButtonContainer>
-                </TabPanel>
-              </Tabs>
-            </div>
-          </Form>
-        </FormContainer>
-      </BaseContainer>
+                        }}
+                      >
+                        Login as a manager
+                      </Button>
+                      <Button
+                        width="50%"
+                        onClick={() => {
+                          this.props.history.goBack();
+                        }}
+                      >
+                        Back
+                      </Button>
+                    </ButtonContainer>
+                  </TabPanel>
+                </Tabs>
+              </div>
+            </Form>
+          </FormContainer>
+        </BaseContainer>
+      </Container>
     );
   }
 }

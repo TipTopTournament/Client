@@ -1,5 +1,4 @@
-
-import withRouter from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import React from "react";
 
 class PlayerProfile extends React.Component {
