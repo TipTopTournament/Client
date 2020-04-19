@@ -1,28 +1,24 @@
 import React from "react";
-import { BaseContainer } from "../../helpers/layout";
 import { api, handleError } from "../../helpers/api";
 import User from "../shared/models/User";
 import { withRouter } from "react-router-dom";
 import { Button } from "../../views/design/Button";
-import { Form } from "../../views/design/Form";
-import { InputField } from "../../views/design/InputField";
-import { Title } from "../../views/design/Title";
-import { FormContainer } from "../../views/design/FormContainer";
-import { ButtonContainer } from "../../views/design/ButtonContainer";
-import { Label } from "../../views/design/Label";
-import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
-import "react-tabs/style/react-tabs.css";
 
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Tabs from "react-bootstrap/Tabs";
+import Tab from "react-bootstrap/Tab";
+
+import Form from "react-bootstrap/Form";
 
 class Login extends React.Component {
   constructor() {
     super();
     this.state = {
       username: null,
-      password: null
+      password: null,
+      token: null
     };
   }
   /**
@@ -68,93 +64,164 @@ class Login extends React.Component {
   render() {
     return (
       <Container>
-        <BaseContainer>
-          <Title>TIPTIPTournament</Title>
-          <FormContainer>
-            <Form>
-              <div>
-                <Title>TIPTIPTournament</Title>
-                <Tabs>
-                  <TabList>
-                    <Tab>Player</Tab>
-                    <Tab>Manager</Tab>
-                  </TabList>
-                  <TabPanel>
-                    <Label>Username</Label>
-                    <InputField
-                      placeholder="Enter here.."
+        <Row>
+          <Col>
+            <h1 style={{ textAlign: "center" }}>TipTopTournament</h1>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <Tabs defaultActiveKey="Player" style={{ margin: "0 auto" }}>
+              <Tab eventKey="Player" title="Player">
+                <Form>
+                  <Form.Group>
+                    <Form.Label>Lizenznummer</Form.Label>
+                    <Form.Control
+                      type="username"
+                      placeholder="z.B.: 908147"
                       onChange={e => {
                         this.handleInputChange("username", e.target.value);
                       }}
                     />
-                    <Label>Password</Label>
-                    <InputField
+                  </Form.Group>
+
+                  <Form.Group controlId="formBasicPassword">
+                    <Form.Label>Password</Form.Label>
+                    <Form.Control
                       type="password"
-                      placeholder="Enter here.."
+                      placeholder="Password"
                       onChange={e => {
                         this.handleInputChange("password", e.target.value);
                       }}
                     />
-                    <ButtonContainer>
-                      <Button
-                        disabled={!this.state.username || !this.state.password}
-                        width="50%"
-                        onClick={() => {
-                          this.login(false);
-                        }}
-                      >
-                        Login as a participant
-                      </Button>
-                      <Button
-                        width="50%"
-                        onClick={() => {
-                          this.props.history.goBack();
-                        }}
-                      >
-                        Back
-                      </Button>
-                    </ButtonContainer>
-                  </TabPanel>
-                  <TabPanel>
-                    <Label>Username</Label>
-                    <InputField
-                      placeholder="Enter here.."
+                  </Form.Group>
+                  <Button
+                    disabled={!this.state.username || !this.state.password}
+                    width="auto"
+                    onClick={() => {
+                      this.login(false);
+                    }}
+                  >
+                    Als Spieler einloggen
+                  </Button>
+                </Form>
+              </Tab>
+              {/*
+
+              <Label>Username</Label>
+              <InputField
+                placeholder="Enter here.."
+                onChange={e => {
+                  this.handleInputChange("username", e.target.value);
+                }}
+              />
+              <Label>Password</Label>
+              <InputField
+                type="password"
+                placeholder="Enter here.."
+                onChange={e => {
+                  this.handleInputChange("password", e.target.value);
+                }}
+              />
+              <ButtonContainer>
+                <Button
+                  disabled={!this.state.username || !this.state.password}
+                  width="50%"
+                  onClick={() => {
+                    this.login(false);
+                  }}
+                >
+                  Login as a participant
+                </Button>
+                <Button
+                  width="50%"
+                  onClick={() => {
+                    this.props.history.goBack();
+                  }}
+                >
+                  Back
+                </Button>
+              </ButtonContainer>
+            </Tab>
+            <Tab eventKey="Manager" title="Manager">
+              <Label>Username</Label>
+              <InputField
+                placeholder="Enter here.."
+                onChange={e => {
+                  this.handleInputChange("username", e.target.value);
+                }}
+              />
+              <Label>Password</Label>
+              <InputField
+                placeholder="Enter here.."
+                onChange={e => {
+                  this.handleInputChange("password", e.target.value);
+                }}
+              />
+              <ButtonContainer>
+                <Button
+                  disabled={!this.state.username || !this.state.password}
+                  width="50%"
+                  onClick={() => {
+                    this.login(true);
+                  }}
+                >
+                  Login as a manager
+                </Button>
+                <Button
+                  width="50%"
+                  onClick={() => {
+                    this.props.history.goBack();
+                  }}
+                >
+                  Back
+                </Button>
+              </ButtonContainer>
+
+
+                */}
+
+              <Tab eventKey="Manager" title="Manager">
+                <Form>
+                  <Form.Group controlId="formBasicEmail">
+                    <Form.Label>Turnier Manager Token</Form.Label>
+                    <Form.Control
+                      type="token"
+                      placeholder="z.B.: stefano noob"
                       onChange={e => {
-                        this.handleInputChange("username", e.target.value);
+                        this.handleInputChange("token", e.target.value);
                       }}
                     />
-                    <Label>Password</Label>
-                    <InputField
-                      placeholder="Enter here.."
+                  </Form.Group>
+
+                  <Form.Group controlId="formBasicPassword">
+                    <Form.Label>Password</Form.Label>
+                    <Form.Control
+                      type="password"
+                      placeholder="Password"
                       onChange={e => {
                         this.handleInputChange("password", e.target.value);
                       }}
                     />
-                    <ButtonContainer>
-                      <Button
-                        disabled={!this.state.username || !this.state.password}
-                        width="50%"
-                        onClick={() => {
-                          this.login(true);
-                        }}
-                      >
-                        Login as a manager
-                      </Button>
-                      <Button
-                        width="50%"
-                        onClick={() => {
-                          this.props.history.goBack();
-                        }}
-                      >
-                        Back
-                      </Button>
-                    </ButtonContainer>
-                  </TabPanel>
-                </Tabs>
-              </div>
-            </Form>
-          </FormContainer>
-        </BaseContainer>
+                  </Form.Group>
+                  <Form.Group controlId="formBasicCheckbox">
+                    <Form.Check type="checkbox" label="eingeloggt bleiben" />
+                    {/*TODO: eingeloggt bleiben feature*/}
+                  </Form.Group>
+                  <Button
+                    disabled={!this.state.username || !this.state.password}
+                    width="auto"
+                    onClick={() => {
+                      this.login(true);
+                    }}
+                  >
+                    Als Manager einloggen
+                  </Button>
+                </Form>
+              </Tab>
+            </Tabs>
+          </Col>
+        </Row>
       </Container>
     );
   }
