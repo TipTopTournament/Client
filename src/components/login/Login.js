@@ -27,6 +27,7 @@ class Login extends React.Component {
    * and its token is stored in the localStorage.
    */
   async login(is_manager) {
+
     let response;
     try {
       const requestBody = JSON.stringify({
@@ -42,10 +43,8 @@ class Login extends React.Component {
 
       // Get the returned user and update a new object.
       const user = new User(response.data);
-
       // Store the token into the local storage.
       localStorage.setItem("token", user.token);
-
       // Login successfully worked --> navigate to the route /tournamentCode in the TournamentRouter
       this.props.history.push(`/tournamentCode`);
     } catch (error) {
@@ -81,7 +80,7 @@ class Login extends React.Component {
                       type="username"
                       placeholder="z.B.: 908147"
                       onChange={e => {
-                        this.handleInputChange("username", e.target.value);
+                        this.handleInputChange("token", e.target.value);
                       }}
                     />
                   </Form.Group>
@@ -96,8 +95,8 @@ class Login extends React.Component {
                       }}
                     />
                   </Form.Group>
-                  <Button
-                    disabled={!this.state.username || !this.state.password}
+                  <Button type="button"
+                    disabled={!this.state.token || !this.state.password}
                     width="auto"
                     onClick={() => {
                       this.login(false);
@@ -190,7 +189,7 @@ class Login extends React.Component {
                       type="token"
                       placeholder="z.B.: stefano noob"
                       onChange={e => {
-                        this.handleInputChange("token", e.target.value);
+                        this.handleInputChange("username", e.target.value);
                       }}
                     />
                   </Form.Group>
@@ -209,7 +208,7 @@ class Login extends React.Component {
                     <Form.Check type="checkbox" label="eingeloggt bleiben" />
                     {/*TODO: eingeloggt bleiben feature*/}
                   </Form.Group>
-                  <Button
+                  <Button type="button"
                     disabled={!this.state.username || !this.state.password}
                     width="auto"
                     onClick={() => {
