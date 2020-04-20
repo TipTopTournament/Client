@@ -69,8 +69,9 @@ class Login extends React.Component {
             <h1 style={{ textAlign: "center" }}>TipTopTournament</h1>
           </Col>
         </Row>
-        <Row>
-          <Col>
+        <Row className="justify-content-md-center">
+          <Col md="auto" />
+          <Col xs={12} sm={12} md={8}>
             <Tabs defaultActiveKey="Player" style={{ margin: "0 auto" }}>
               <Tab eventKey="Player" title="Player">
                 <Form>
@@ -221,6 +222,7 @@ class Login extends React.Component {
               </Tab>
             </Tabs>
           </Col>
+          <Col md="auto" />
         </Row>
       </Container>
     );
