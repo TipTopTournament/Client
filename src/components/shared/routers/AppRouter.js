@@ -31,7 +31,15 @@ import TournamentInfo from "../../tournament/TournamentInfo";
  * Documentation about routing in React: https://reacttraining.com/react-router/web/guides/quick-start
  */
 class AppRouter extends React.Component {
+
+  activeTournamentCode = null;
+
+  callTournamentCodeBack =  (tournamentCode) => {
+    this.activeTournamentCode = tournamentCode;
+  }
+
   render() {
+    console.log('The active tournament code is: ',this.activeTournamentCode);
     return (
       <BrowserRouter>
         <Switch>
@@ -75,9 +83,7 @@ class AppRouter extends React.Component {
             <Route
               path="/tournamentCode"
               render={() => (
-                <TournamentCodeGuard>
-                  <TournamentCode />
-                </TournamentCodeGuard>
+                  <TournamentCode tournamentCode={this.callTournamentCodeBack()} />
               )}
             />
             <Route
@@ -104,10 +110,26 @@ class AppRouter extends React.Component {
                 </BracketGuard>
               )}
             />
-            <Route path="/participants/:playerID" render={() => <PlayerProfile/>} />
+            <Route 
+              path="/participants/:playerID" 
+              render={() => 
+                <PlayerProfile/>
+              } 
+            />
 
-            <Route path="/playerlists" render={() => <PlayerList />} />
-            <Route path="/:tournamentCode/tournamentInfo" render={() => <TournamentInfo />} />
+            <Route 
+              path="/playerlists" 
+              render={() => 
+                <PlayerList tournamentCode={'hello'} />
+              }
+            />
+            
+            <Route 
+              path="/:tournamentCode/tournamentInfo" 
+              render={() => 
+                <TournamentInfo />
+              } 
+            />
           </div>
         </Switch>
       </BrowserRouter>

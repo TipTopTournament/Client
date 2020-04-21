@@ -80,7 +80,8 @@ class TournamentCode extends React.Component {
     }
 
     join() {
-            this.props.history.push(`/tournaments/${this.state.code}`);
+        this.props.history.push(`/tournaments/${this.state.code}`);    
+        this.props.tournamentCode(this.state.code);
     }
 
     mask(e) {
@@ -136,6 +137,7 @@ class TournamentCode extends React.Component {
         }
 
     }
+
 
 
     componentDidMount() {

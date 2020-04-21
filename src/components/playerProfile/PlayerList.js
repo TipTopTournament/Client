@@ -6,6 +6,7 @@ import Col from "react-bootstrap/Col";
 
 import Table from "react-bootstrap/Table";
 import { withRouter } from "react-router-dom";
+import { api } from "../../helpers/api";
 
 class PlayerList extends React.Component {
   constructor() {
@@ -15,7 +16,7 @@ class PlayerList extends React.Component {
     };
   }
 
-  
+
 
   handleClickOnPlayer = (playerId) => {
     this.props.history.push(`/participants/${playerId}`);
@@ -37,10 +38,12 @@ class PlayerList extends React.Component {
       { name: "test", vorname: "mens", lizenznummer: "xD", id: 1 },
       { name: "testiiii", vorname: "womens", lizenznummer: "hehexD", id: 2 }
     ]; //somthing like get.api(tournaments/participantslist) to get all participants in a tournament
+    //const players = await api.get(`/tournaments/${tournamentCode}/leaderboard`);
     this.setState({ playerList: participants }); //response.data.results blablabla
   }
 
   render() {
+    console.log('the props of this is :',this.props);
     return (
       <Container>
         <Row>
