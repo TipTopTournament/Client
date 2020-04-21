@@ -11,6 +11,7 @@ import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
 
 import Form from "react-bootstrap/Form";
+import Manager from "../shared/models/Manager";
 
 class Login extends React.Component {
   constructor() {
@@ -37,16 +38,22 @@ class Login extends React.Component {
 
       if (is_manager) {
         response = await api.put("/managers/login", requestBody);
+        // Get the returned manager and update a new object.
+        const manager = new Manager(response.data) ;
+        // Store the token into the local storage.
+        localStorage.setItem("token", manager.token);
+        // Login successfully worked --> navigate to the route /managerMenu in the TournamentRouter
+        //this.props.history.push(`/managerMenu/${managerId}`);
       } else {
         response = await api.put("/participants/login", requestBody);
+        // Get the returned user and update a new object.
+        const user = new User(response.data);
+        // Store the token into the local storage.
+        localStorage.setItem("token", user.token);
+        // Login successfully worked --> navigate to the route /tournamentCode in the TournamentRouter
+        this.props.history.push(`/tournamentCode`);
       }
 
-      // Get the returned user and update a new object.
-      const user = new User(response.data);
-      // Store the token into the local storage.
-      localStorage.setItem("token", user.token);
-      // Login successfully worked --> navigate to the route /tournamentCode in the TournamentRouter
-      this.props.history.push(`/tournamentCode`);
     } catch (error) {
       alert(`Something went wrong during the login: \n${handleError(error)}`);
     }
@@ -184,7 +191,7 @@ class Login extends React.Component {
               <Tab eventKey="Manager" title="Manager">
                 <Form>
                   <Form.Group controlId="formBasicEmail">
-                    <Form.Label>Turnier Manager Token</Form.Label>
+                    <Form.Label>Username</Form.Label>
                     <Form.Control
                       type="token"
                       placeholder="z.B.: stefano noob"
