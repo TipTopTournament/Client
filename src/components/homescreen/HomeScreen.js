@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import React from "react";
 import {withRouter} from "react-router-dom";
 import {Button} from "../../views/design/Button";

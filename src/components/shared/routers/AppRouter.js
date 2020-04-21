@@ -20,6 +20,7 @@ import { RegistrationGuard } from "../routeProtectors/RegistrationGuard";
 import { PlayerProfileGuard } from "../routeProtectors/PlayerProfileGuard";
 import PlayerList from "../../playerProfile/PlayerList";
 import TournamentInfo from "../../tournament/TournamentInfo";
+import ManagerMenu from "../../managerMenu/ManagerMenu";
 
 /**
  * Main router of your application.
@@ -78,8 +79,15 @@ class AppRouter extends React.Component {
                 </LoginGuard>
               )}
             />
-            <Route path="/" exact render={() => <Redirect to={"/home"} />} />
+              <Route
+                  path="/managerMenu/:managerId"
+                  render={() => (
 
+                      <ManagerMenu />
+
+                  )}
+              />
+            <Route path="/" exact render={() => <Redirect to={"/home"} />} />
             <Route
               path="/tournamentCode"
               render={() => (
