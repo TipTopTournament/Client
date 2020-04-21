@@ -40,7 +40,7 @@ class PlayerList extends React.Component {
         <Row>
           <Col />
           <Col xs={12} sm={12} md={8}>
-            <div className="table-wrapper-scroll-y my-custom-scrollbar">
+            <div>
               <Table stripped bordered hover size="sm">
                 <thead>
                   <tr>
