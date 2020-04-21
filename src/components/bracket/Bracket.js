@@ -2,25 +2,26 @@ import React from 'react';
 import styled from 'styled-components';
 import { BaseContainer } from '../../helpers/layout';
 import { api, handleError } from '../../helpers/api';
-import Player from '../../views/Player';
-import { Spinner } from '../../views/design/Spinner';
+import { NoData } from '../../views/design/NoData';
 import { Button } from '../../views/design/Button';
 import { withRouter } from 'react-router-dom';
+import Game from "../../views/Game";
 
 const Container = styled(BaseContainer)`
   color: white;
   text-align: center;
 `;
 
-const PlayerList = styled.ul`
+const TournamentBracket = styled.ul`
   margin-bottom: 50px;
   list-style: none;
   padding-left: 0;
   border: 1px solid;
 `;
 
-const PlayerContainer = styled.li`
+const BracketContainer = styled.li`
   display: flex;
+  margin: 10 px;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -30,10 +31,15 @@ class Bracket extends React.Component {
     constructor() {
         super();
         this.state = {
-            users: null
+            users: null,
+            games: null
         };
     }
 
+    inspectGame(game){
+        const {tournamentCode} = this.props.match.params;
+        this.props.history.push(`/tournaments/${tournamentCode}/bracket/${game}`)
+    }
     
     async componentDidMount() {
         try {
@@ -41,7 +47,7 @@ class Bracket extends React.Component {
             const response = await api.get(`/tournaments/${tournamentCode}/bracket`);
             console.log("response", response.data);
 
-            this.setState({ users: response.data });
+            this.setState({ games: response.data });
 
         } catch (error) {
             alert(`Something went wrong while fetching the users: \n${handleError(error)}`);
@@ -51,19 +57,19 @@ class Bracket extends React.Component {
     render() {
         return (
             <Container>
-                {!this.state.users ? (
-                    <Spinner />
+                {!this.state.games ? (
+                    <NoData />
                 ) : (
                     <div>
-                        <PlayerList>
-                            {this.state.users.map(user => {
+                        <TournamentBracket>
+                            {this.state.games.map(game => {
                                 return (
-                                    <PlayerContainer key={user.participantID}>
-                                        <Player user={user} />
-                                    </PlayerContainer>
+                                    <BracketContainer key={game.gameId} onClick={()=> this.inspectGame(game.gameId)}>
+                                        <Game game={game} />
+                                    </BracketContainer>
                                 );
                             })}
-                        </PlayerList>
+                        </TournamentBracket>
                         <Button
                             width="100%"
                             onClick={() => {

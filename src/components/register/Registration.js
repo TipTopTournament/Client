@@ -1,15 +1,15 @@
 import React from 'react';
-import { BaseContainer } from '../../helpers/layout';
 import { api, handleError } from '../../helpers/api';
 import { withRouter } from 'react-router-dom';
 import { Button } from '../../views/design/Button';
-import {Form} from "../../views/design/Form";
 import {InputField} from "../../views/design/InputField";
 import {Title} from "../../views/design/Title";
-import {FormContainer} from "../../views/design/FormContainer";
 import {Label} from "../../views/design/Label";
 import {ButtonContainer} from "../../views/design/ButtonContainer";
-
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Form from "react-bootstrap/Form";
 class Registration extends React.Component {
 
     constructor() {
@@ -62,17 +62,28 @@ class Registration extends React.Component {
 
     render() {
         return (
-            <BaseContainer>
-                <FormContainer>
-                    <Form>
-                        <Title>TIPTOPTournament</Title>
-                        <Label>Fullname</Label>
-                        <InputField
-                            placeholder="Enter here.."
-                            onChange={e => {
-                                this.handleInputChange('fullName', e.target.value);
-                            }}
-                        />
+            <Container>
+                <p className="text-center">
+                    <Row>
+                        <Col>
+                            <Title>TIPTOPTournament</Title>
+                        </Col>
+                    </Row>
+                </p>
+                <Row className="justify-content-sm-center">
+                    <Col md="auto" />
+                    <Col xs={12} sm={12}>
+                        <Form  style={{ align:"center"}}>
+                            <Form.Group>
+                                <Label>Fullname</Label>
+                                    <InputField
+                                        placeholder="Enter here.."
+                                        onChange={e => {
+                                            this.handleInputChange('fullName', e.target.value);
+                                        }}
+                                    />
+                        </Form.Group>
+                        <Form.Group>
                         <Label>Username</Label>
                         <InputField
                             placeholder="Enter here.."
@@ -80,6 +91,8 @@ class Registration extends React.Component {
                                 this.handleInputChange('username', e.target.value);
                             }}
                         />
+                        </Form.Group>
+                        <Form.Group>
                         <Label>Password</Label>
                         <InputField
                             type = "password"
@@ -88,6 +101,7 @@ class Registration extends React.Component {
                                 this.handleInputChange('password', e.target.value);
                             }}
                         />
+                        </Form.Group>
                         <Label>
                             Register as a manager:
                             <input
@@ -114,9 +128,11 @@ class Registration extends React.Component {
                                 Back
                             </Button>
                         </ButtonContainer>
-                    </Form>
-                </FormContainer>
-            </BaseContainer>
+                        </Form>
+                    </Col>
+                    <Col md="auto" />
+                </Row>
+            </Container>
         );
     }
 }
