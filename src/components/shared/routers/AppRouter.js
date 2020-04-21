@@ -19,6 +19,7 @@ import { CreateTournamentGuard } from "../routeProtectors/CreateTournamentGuard"
 import { RegistrationGuard } from "../routeProtectors/RegistrationGuard";
 import { PlayerProfileGuard } from "../routeProtectors/PlayerProfileGuard";
 import PlayerList from "../../playerProfile/PlayerList";
+import TournamentInfo from "../../tournament/TournamentInfo";
 
 /**
  * Main router of your application.
@@ -103,9 +104,10 @@ class AppRouter extends React.Component {
                 </BracketGuard>
               )}
             />
-            <Route path="/participants" render={() => <PlayerProfile />} />
+            <Route path="/participants/:playerID" render={() => <PlayerProfile/>} />
 
             <Route path="/playerlists" render={() => <PlayerList />} />
+            <Route path="/:tournamentCode/tournamentInfo" render={() => <TournamentInfo />} />
           </div>
         </Switch>
       </BrowserRouter>
