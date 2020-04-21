@@ -4,12 +4,8 @@ export const Button = styled.button`
   &:hover {
     transform: translateY(-2px);
   }
-  padding: 6px;
-  margin: 10px;
   font-weight: 700;
-  text-transform: uppercase;
-  font-size: 13px;
-  text-align: center;
+  font-size: 14px;
   color: rgba(255, 255, 255, 1);
   width: ${props => props.width || null};
   height: 35px;
@@ -19,6 +15,4 @@ export const Button = styled.button`
   opacity: ${props => (props.disabled ? 0.4 : 1)};
   background: rgb(16, 89, 255);
   transition: all 0.3s ease;
-  display: block
-  justifyContent: 'space-between'
 `;
