@@ -15,23 +15,29 @@ class PlayerList extends React.Component {
     };
   }
 
-  async componentDidMount() {
-    const participants = [
-      { name: "test", vorname: "mens", lizenznummer: "xD", id: 1 },
-      { name: "testiiii", vorname: "womens", lizenznummer: "hehexD", id: 2 }
-    ]; //somthing like get.api(tournaments/participantslist) to get all participants in a tournament
-    this.setState({ playerList: participants }); //response.data.results blablabla
+  
+
+  handleClickOnPlayer = (playerId) => {
+    this.props.history.push(`/participants/${playerId}`);
   }
 
   renderPlayerList(player) {
     return (
-      <tr>
+      <tr key={player.id} onClick={() => this.handleClickOnPlayer(player.id)}>
         <td>{player.id}</td>
         <td>{player.name}</td>
         <td>{player.vorname}</td>
         <td>{player.lizenznummer}</td>
       </tr>
     );
+  }
+
+  async componentDidMount() {
+    const participants = [
+      { name: "test", vorname: "mens", lizenznummer: "xD", id: 1 },
+      { name: "testiiii", vorname: "womens", lizenznummer: "hehexD", id: 2 }
+    ]; //somthing like get.api(tournaments/participantslist) to get all participants in a tournament
+    this.setState({ playerList: participants }); //response.data.results blablabla
   }
 
   render() {
@@ -41,7 +47,7 @@ class PlayerList extends React.Component {
           <Col />
           <Col xs={12} sm={12} md={8}>
             <div>
-              <Table stripped bordered hover size="sm">
+              <Table bordered hover size="sm">
                 <thead>
                   <tr>
                     <th>ID</th>
