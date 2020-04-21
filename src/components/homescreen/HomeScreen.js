@@ -6,20 +6,12 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
+import {Title} from "../../views/design/Title";
 /** These four components are HomeScreen specific not necessary to make View class for it*/
-
-const Title = styled.div`
-font-family: Roboto;
-font-style: normal;
-font-weight: normal;
-font-size: 72px;
-line-height: 169px;
-color:  #2F80ED;
-`;
 
 
 class HomeScreen extends React.Component{
-    async goLogin() {
+    goLogin() {
     this.props.history.push(`/login`)
     }
     goRegister() {

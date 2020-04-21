@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { BaseContainer } from '../../helpers/layout';
 import { api, handleError } from '../../helpers/api';
 import Player from '../../views/Player';
-import { Spinner } from '../../views/design/Spinner';
+import { NoData } from '../../views/design/NoData';
 import { Button } from '../../views/design/Button';
 import { withRouter } from 'react-router-dom';
 
@@ -52,7 +52,7 @@ class LeaderBoard extends React.Component {
         return (
             <Container>
                 {!this.state.users ? (
-                    <Spinner />
+                    <NoData />
                 ) : (
                     <div>
                         <PlayerList>

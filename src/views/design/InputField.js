@@ -6,11 +6,11 @@ export const InputField = styled.input`
   }
   height: 35px;
   padding-left: 15px;
-  margin-left: 400px;
-  margin-right: 485px
+  margin: 15px;
   border: none;
   border-radius: 20px;
   margin-bottom: 20px;
-  background: rgba(255, 255, 255);
+  background: #F2F2F2;
   color: #2F80ED;
+  width: 50%
 `;
