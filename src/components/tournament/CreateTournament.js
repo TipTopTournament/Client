@@ -12,8 +12,10 @@ import {ButtonContainer} from "../../views/design/ButtonContainer";
 import {Label} from "../../views/design/Label";
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
-import Select from 'react-select';
+//import Select from 'react-select';
+import {default as Select} from 'react-select'
 import makeAnimated from 'react-select/animated';
+import { colors } from 'react-select/src/theme';
 
 
 const optionsorte= [
@@ -21,6 +23,16 @@ const optionsorte= [
     {value: 'basel', label:'Basel'},
     {value: 'aarau', label:'Aarau'},
 ];
+/*function customTheme(theme){
+    return{
+        ...theme,
+        colors:{
+            ...theme.colors,
+            primary25: 'red',
+            primary: 'blue,'
+        }
+    }
+}*/
 
 class CreateTournament extends React.Component {
 
@@ -40,7 +52,7 @@ class CreateTournament extends React.Component {
     return ( 
        
                       
-                      <Select/>
+                      <Select options={optionsorte} /*theme={customTheme}*/ className= 'mb-3' placeholder='select Destination' isSearchable/>
     );
         }
    
