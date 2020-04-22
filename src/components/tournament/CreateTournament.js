@@ -3,6 +3,23 @@ import { withRouter } from "react-router-dom";
 import "react-tabs/style/react-tabs.css";
 import Select from "react-select";
 
+
+const optionsorte = [
+  { value: "bern", label: "Bern" },
+  { value: "basel", label: "Basel" },
+  { value: "aarau", label: "Aarau" }
+];
+/*function customTheme(theme){
+    return{
+        ...theme,
+        colors:{
+            ...theme.colors,
+            primary25: 'red',
+            primary: 'blue,'
+        }
+    }
+}*/
+
 class CreateTournament extends React.Component {
   constructor() {
     super();
@@ -14,8 +31,16 @@ class CreateTournament extends React.Component {
    */
 
   render() {
-    return <Select />;
-  }
+
+    return ( 
+       
+                      
+                      <Select options={optionsorte} /*theme={customTheme}*/ className= 'mb-3' placeholder='select Destination' isSearchable/>
+    );
+        }
+   
+  
+
 }
 
 export default withRouter(CreateTournament);
