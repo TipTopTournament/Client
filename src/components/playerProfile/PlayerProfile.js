@@ -6,26 +6,30 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 import Table from 'react-bootstrap/Table'
+import { api } from "../../helpers/api";
 
 class PlayerProfile extends React.Component {
   constructor() {
     super();
     this.state = {
-      wins: 0,
-      loses: 0,
-      matches: 0
+      stats:null
     };
   }
 
-  renderPlayerStats(player){
+  renderPlayerStats(){
     return(
       <tr>
-        <td>{player.wins}</td>
-        <td>{player.loses}</td>
-        <td>{player.matches}</td>
+        <td>{this.state.stats.wins}</td>
+        <td>{this.state.stats.loses}</td>
+        <td>{this.state.stats.matches}</td>
       </tr>
-
     )
+  }
+
+  async componentDidMount(){
+    const playerID = this.props.match.params.playerID;
+    const stats = await api.get(`/participants/${playerID}/statistics`)
+    this.setState({stats: stats});
   }
 
   render() {
@@ -52,7 +56,7 @@ class PlayerProfile extends React.Component {
         <Col/>
       </Row>
     </Container>
-  )
+  );
   }
 }
 

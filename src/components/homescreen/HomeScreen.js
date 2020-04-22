@@ -20,13 +20,13 @@ class HomeScreen extends React.Component{
     render(){
         return (
                 <Container>
-                    <p className="text-center">
                         <Row>
+                            <Col />
                             <Col>
                                 <Title>TIPTOPTournament</Title>
                             </Col>
+                            <Col />
                         </Row>
-                    </p>
                         <Row className="align-self-center">
                              <Col xs={12} sm={12}>
                                 <Form>

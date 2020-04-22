@@ -4,12 +4,20 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { withRouter } from 'react-router-dom';
+import Button from 'react-bootstrap/Button';
 
 
 class TournamentInfo extends React.Component {
     constructor() {
         super();
         this.state = {};
+    }
+
+
+    participants() {
+        const tournamentCode = this.props.match.params.tournamentsCode;
+        console.log(tournamentCode);
+        this.props.history.push(`/${tournamentCode}/playerlists`);
     }
 
 
@@ -27,6 +35,7 @@ class TournamentInfo extends React.Component {
                     <Col/>
                     <Col>
                         <p>Here comes some information about the Tournament</p>
+                        <Button type="button" onClick={() => this.participants()}>Participants</Button>
                     </Col>
                     <Col />
                 </Row>

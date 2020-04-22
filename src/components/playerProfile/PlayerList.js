@@ -19,7 +19,7 @@ class PlayerList extends React.Component {
 
 
   handleClickOnPlayer = (playerId) => {
-    this.props.history.push(`/participants/${playerId}`);
+    this.props.history.push(`/${this.props.match.params.tournamentsCode}/participants/${playerId}`);
   }
 
   renderPlayerList(player) {
