@@ -4,20 +4,23 @@ import { TournamentGuard } from "../routeProtectors/TournamentGuard";
 import TournamentRouter from "./TournamentRouter";
 import { LoginGuard } from "../routeProtectors/LoginGuard";
 import Login from "../../login/Login";
-import HomeScreen from "../../homescreen/HomeScreen"
+import HomeScreen from "../../homescreen/HomeScreen";
 import Registration from "../../register/Registration";
 import TournamentCode from "../../tournamentCode/TournamentCode";
-import {TournamentCodeGuard} from "../routeProtectors/TournamentCodeGuard";
+import { TournamentCodeGuard } from "../routeProtectors/TournamentCodeGuard";
 import Tournament from "../../tournament/Tournament";
 import LeaderBoard from "../../leaderboard/LeaderBoard";
 import Bracket from "../../bracket/Bracket";
 import PlayerProfile from "../../playerProfile/PlayerProfile";
 import CreateTournament from "../../tournament/CreateTournament";
-import {BracketGuard} from "../routeProtectors/BracketGuard";
-import {LeaderBoardGuard} from "../routeProtectors/LeaderBoardGuard";
-import {CreateTournamentGuard} from "../routeProtectors/CreateTournamentGuard";
-import {RegistrationGuard} from "../routeProtectors/RegistrationGuard";
-import {PlayerProfileGuard} from "../routeProtectors/PlayerProfileGuard";
+import { BracketGuard } from "../routeProtectors/BracketGuard";
+import { LeaderBoardGuard } from "../routeProtectors/LeaderBoardGuard";
+import { CreateTournamentGuard } from "../routeProtectors/CreateTournamentGuard";
+import { RegistrationGuard } from "../routeProtectors/RegistrationGuard";
+import { PlayerProfileGuard } from "../routeProtectors/PlayerProfileGuard";
+import PlayerList from "../../playerProfile/PlayerList";
+import TournamentInfo from "../../tournament/TournamentInfo";
+import ManagerMenu from "../../managerMenu/ManagerMenu";
 
 /**
  * Main router of your application.
@@ -29,23 +32,26 @@ import {PlayerProfileGuard} from "../routeProtectors/PlayerProfileGuard";
  * Documentation about routing in React: https://reacttraining.com/react-router/web/guides/quick-start
  */
 class AppRouter extends React.Component {
+
+  activeTournamentCode = null;
+
+  callTournamentCodeBack =  (tournamentCode) => {
+    this.activeTournamentCode = tournamentCode;
+  }
+
   render() {
+    console.log('The active tournament code is: ',this.activeTournamentCode);
     return (
       <BrowserRouter>
         <Switch>
           <div>
-            <Route
-              path="/home"
-              render={() => (
-                <HomeScreen/>
-              )}
-            />
+            <Route path="/home" render={() => <HomeScreen />} />
             <Route
               path="/createTournament"
               render={() => (
-                  <CreateTournamentGuard>
-                    <CreateTournament/>
-                  </CreateTournamentGuard>
+                <CreateTournamentGuard>
+                  <CreateTournament />
+                </CreateTournamentGuard>
               )}
             />
             <Route
@@ -59,9 +65,9 @@ class AppRouter extends React.Component {
             <Route
               path="/register"
               render={() => (
-                  <RegistrationGuard>
-                    <Registration />
-                  </RegistrationGuard>
+                <RegistrationGuard>
+                  <Registration />
+                </RegistrationGuard>
               )}
             />
             <Route
@@ -73,47 +79,64 @@ class AppRouter extends React.Component {
                 </LoginGuard>
               )}
             />
-            <Route path="/" exact render={() => <Redirect to={"/home"} />} />
+              <Route
+                  path="/managerMenu/:managerId"
+                  render={() => (
 
+                      <ManagerMenu />
+
+                  )}
+              />
+            <Route path="/" exact render={() => <Redirect to={"/home"} />} />
             <Route
               path="/tournamentCode"
               render={() => (
-                <TournamentCodeGuard>
-                  <TournamentCode/>
-                </TournamentCodeGuard>
+                  <TournamentCode tournamentCode={this.callTournamentCodeBack()} />
               )}
             />
             <Route
               path="/tournaments/:tournamentCode"
               render={() => (
                 <TournamentGuard>
-                  <Tournament/>
+                  <Tournament />
                 </TournamentGuard>
               )}
             />
             <Route
               path="/:tournamentCode/leaderBoard"
               render={() => (
-                  <LeaderBoardGuard>
-                    <LeaderBoard/>
-                  </LeaderBoardGuard>
+                <LeaderBoardGuard>
+                  <LeaderBoard />
+                </LeaderBoardGuard>
               )}
             />
             <Route
               path="/:tournamentCode/bracket"
               render={() => (
-                  <BracketGuard>
-                    <Bracket/>
-                  </BracketGuard>
+                <BracketGuard>
+                  <Bracket />
+                </BracketGuard>
               )}
             />
-            <Route
-              path="/participants"
-              render={() => (
-                  <PlayerProfileGuard>
-                    <PlayerProfile/>
-                  </PlayerProfileGuard>
-              )}
+            <Route 
+              path="/participants/:playerID" 
+              render={() => 
+                <PlayerProfile/>
+              } 
+            />
+
+            <Route 
+              path="/playerlists" 
+              render={() => 
+                <PlayerList tournamentCode={'hello'} />
+              }
+            />
+            
+            <Route 
+              path="/:tournamentCode/tournamentInfo" 
+              render={() => 
+                <TournamentInfo />
+              } 
             />
           </div>
         </Switch>
@@ -122,6 +145,6 @@ class AppRouter extends React.Component {
   }
 }
 /*
-* Don't forget to export your component!
+ * Don't forget to export your component!
  */
 export default AppRouter;

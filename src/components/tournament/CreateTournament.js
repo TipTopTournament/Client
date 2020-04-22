@@ -1,3 +1,4 @@
+
 import React,{useState} from 'react';
 import { BaseContainer } from '../../helpers/layout';
 import { api, handleError } from '../../helpers/api';
@@ -12,16 +13,16 @@ import {ButtonContainer} from "../../views/design/ButtonContainer";
 import {Label} from "../../views/design/Label";
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
-//import Select from 'react-select';
+import Select from 'react-select';
 import {default as Select} from 'react-select'
 import makeAnimated from 'react-select/animated';
 import { colors } from 'react-select/src/theme';
 
 
-const optionsorte= [
-    {value: 'bern', label:'Bern'},
-    {value: 'basel', label:'Basel'},
-    {value: 'aarau', label:'Aarau'},
+const optionsorte = [
+  { value: "bern", label: "Bern" },
+  { value: "basel", label: "Basel" },
+  { value: "aarau", label: "Aarau" }
 ];
 /*function customTheme(theme){
     return{
@@ -35,20 +36,17 @@ const optionsorte= [
 }*/
 
 class CreateTournament extends React.Component {
-
   constructor() {
     super();
-   
   }
   /**
    * HTTP PUT request is sent to the backend.
    * If the request is successful, a user is returned to the front-end
    * and its token is stored in the localStorage.
    */
-  
-
 
   render() {
+
     return ( 
        
                       
@@ -57,6 +55,7 @@ class CreateTournament extends React.Component {
         }
    
   
+
 }
 
 export default withRouter(CreateTournament);

@@ -3,11 +3,11 @@ import styled from 'styled-components';
 import { BaseContainer } from '../../helpers/layout';
 import { api, handleError } from '../../helpers/api';
 import Player from '../../views/Player';
-import { Spinner } from '../../views/design/Spinner';
 import { withRouter } from 'react-router-dom';
+import { NoData } from "../../views/design/NoData";
 
 const Container = styled(BaseContainer)`
-  color: white;
+  color: blue;
   text-align: center;
 `;
 
@@ -91,7 +91,7 @@ class Tournament extends React.Component {
     return (
       <Container>
         {!this.state.users ? (
-          <Spinner />
+          <NoData />
         ) : (
           <div>
             <PlayerList>
