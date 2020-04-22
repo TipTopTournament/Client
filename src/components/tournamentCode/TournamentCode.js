@@ -65,23 +65,22 @@ class TournamentCode extends React.Component {
         super();
         this.state = {
             displayCode: '',
-            code: '',
+            code: ''
         };
         this.handleInputChange = this.handleInputChange.bind(this);
     }
 
-    profiles(){
-        this.props.history.push('/participants')
+    participants(){
+        this.props.history.push(`${this.state.code}/playerlists`);
     }
 
     logout() {
         localStorage.removeItem('token');
-        this.props.history.push('/home')
+        this.props.history.push('/home');
     }
 
     join() {
-        this.props.history.push(`/tournaments/${this.state.code}`);    
-        this.props.tournamentCode(this.state.code);
+        this.props.history.push(`/tournaments/${this.state.code}`);
     }
 
     mask(e) {

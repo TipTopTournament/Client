@@ -9,7 +9,7 @@ import { withRouter } from 'react-router-dom';
 class TournamentInfo extends React.Component {
     constructor() {
         super();
-        this.state ={};
+        this.state = {};
     }
 
 

@@ -32,15 +32,7 @@ import ManagerMenu from "../../managerMenu/ManagerMenu";
  * Documentation about routing in React: https://reacttraining.com/react-router/web/guides/quick-start
  */
 class AppRouter extends React.Component {
-
-  activeTournamentCode = null;
-
-  callTournamentCodeBack =  (tournamentCode) => {
-    this.activeTournamentCode = tournamentCode;
-  }
-
   render() {
-    console.log('The active tournament code is: ',this.activeTournamentCode);
     return (
       <BrowserRouter>
         <Switch>
@@ -91,7 +83,7 @@ class AppRouter extends React.Component {
             <Route
               path="/tournamentCode"
               render={() => (
-                  <TournamentCode tournamentCode={this.callTournamentCodeBack()} />
+                  <TournamentCode/>
               )}
             />
             <Route
@@ -119,21 +111,21 @@ class AppRouter extends React.Component {
               )}
             />
             <Route 
-              path="/participants/:playerID" 
+              path="/:tournamentsCode/participants/:playerID" 
               render={() => 
                 <PlayerProfile/>
               } 
             />
 
             <Route 
-              path="/playerlists" 
+              path="/:tournamentsCode/playerlists"
               render={() => 
-                <PlayerList tournamentCode={'hello'} />
+                <PlayerList/>
               }
             />
             
             <Route 
-              path="/:tournamentCode/tournamentInfo" 
+              path="/:tournamentsCode/tournamentInfo" 
               render={() => 
                 <TournamentInfo />
               } 

@@ -38,12 +38,13 @@ class PlayerList extends React.Component {
       { name: "test", vorname: "mens", lizenznummer: "xD", id: 1 },
       { name: "testiiii", vorname: "womens", lizenznummer: "hehexD", id: 2 }
     ]; //somthing like get.api(tournaments/participantslist) to get all participants in a tournament
-    //const players = await api.get(`/tournaments/${tournamentCode}/leaderboard`);
+    //const players = await api.get(`/tournaments/${tournamentsCode}/leaderboard`);
     this.setState({ playerList: participants }); //response.data.results blablabla
+    const tournamentsCode = this.props.match.params.tournamentsCode;
+    console.log('the tournamentcode is :', tournamentsCode);
   }
 
   render() {
-    console.log('the props of this is :',this.props);
     return (
       <Container>
         <Row>
