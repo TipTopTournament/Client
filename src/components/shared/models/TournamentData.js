@@ -4,6 +4,7 @@
 class TournamentData {
     constructor(data = {}) {
         this.tournamentId = null;
+        this.tournamentName = null;
         this.tournamentState = null;
         this.startTime = null;
         this.gameDuration = null;

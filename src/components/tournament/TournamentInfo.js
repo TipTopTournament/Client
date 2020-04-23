@@ -5,36 +5,83 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { withRouter } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
-
+import { api } from '../../helpers/api';
+import TournamentData from '../shared/models/TournamentData';
+import Table from 'react-bootstrap/Table';
 
 class TournamentInfo extends React.Component {
     constructor() {
         super();
-        this.state = {};
+        this.state = {
+            tournament: null
+        };
     }
 
 
     participants() {
+        console.log(this.state.tournament.tournamentCode);
+        this.props.history.push(`/ ${this.state.tournament.tournamentCode}/playerlists`);
+    }
+
+    async componentDidMount() {
         const tournamentCode = this.props.match.params.tournamentsCode;
-        console.log(tournamentCode);
-        this.props.history.push(`/${tournamentCode}/playerlists`);
+        try{
+            const requestTournament = await api.get(`/tournaments/${tournamentCode}`);
+            console.log('the tournament data is :', requestTournament);
+            const tournament = new TournamentData(requestTournament);
+            this.setState({tournament: tournament});
+        }catch(error){
+            const testTournament = {
+                tournamentId : 'testID',
+                tournamentName : 'TestName',
+                tournamentState : 'READY',
+                location : 'testlocation',
+                startTime : 8,
+                gameDuration : 30,
+                breakDuration : 10,
+                tournamentCode : this.props.match.params.tournamentsCode,
+                amountOfPlayer : 50,
+                numberOfTables : 10,
+                bracket : 'bracketdata',
+                leaderboard : 'leaderboard',
+                activePlayers : 'playerwhoareactive'
+            }
+            this.setState({tournament: testTournament});
+            console.log(this.state.tournament.tournamentCode);
+            console.log('there is something wrong with getting the tournament data', error);
+        }
     }
 
 
     render() {
+        if (!this.state.tournament){
+            return <div>Loading...</div>
+        }
         return(
             <Container>
                 <Row>
                     <Col/>
                     <Col>
-                        <h1>This is the picture</h1>
+                        <h2>{this.state.tournament.tournamentName}</h2>
                     </Col>
                     <Col />
                 </Row>
                 <Row>
                     <Col/>
                     <Col>
-                        <p>Here comes some information about the Tournament</p>
+                        <h2>Informationen</h2>
+                        <Table>
+                            <tbody>
+                                <tr>
+                                    <td>Ort</td>
+                                    <td>{this.state.tournament.location}</td>
+                                </tr>
+                                <tr>
+                                    <td>Beginn</td>
+                                    <td>{this.state.tournament.startTime} Uhr</td>
+                                </tr>
+                            </tbody>
+                        </Table>
                         <Button type="button" onClick={() => this.participants()}>Participants</Button>
                     </Col>
                     <Col />
