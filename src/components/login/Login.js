@@ -193,7 +193,7 @@ class Login extends React.Component {
                   <Form.Group controlId="formBasicEmail">
                     <Form.Label>Username</Form.Label>
                     <Form.Control
-                      type="token"
+                      type="username"
                       placeholder="z.B.: stefano noob"
                       onChange={e => {
                         this.handleInputChange("username", e.target.value);
