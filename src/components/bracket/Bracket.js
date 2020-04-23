@@ -6,6 +6,7 @@ import { NoData } from '../../views/design/NoData';
 import { Button } from '../../views/design/Button';
 import { withRouter } from 'react-router-dom';
 import Game from "../../views/Game";
+import Tree from "react-tree-graph";
 
 const Container = styled(BaseContainer)`
   color: white;
@@ -26,6 +27,7 @@ const BracketContainer = styled.li`
   align-items: center;
   justify-content: center;
 `;
+const data = {name: 'Finale', children: [{name: 'Halbfinale'}, {name: 'Halbfinale'}]};
 
 class Bracket extends React.Component {
     constructor() {
@@ -61,6 +63,10 @@ class Bracket extends React.Component {
                     <NoData />
                 ) : (
                     <div>
+                        <Tree
+                            data={data}
+                            height={200}
+                            width={400}/>
                         <TournamentBracket>
                             {this.state.games.map(game => {
                                 return (
