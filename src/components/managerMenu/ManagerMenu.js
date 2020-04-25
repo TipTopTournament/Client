@@ -5,21 +5,14 @@ import { api, handleError } from '../../helpers/api';
 import Player from '../../views/Player';
 import { withRouter } from 'react-router-dom';
 import { NoData } from "../../views/design/NoData";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Form from "react-bootstrap/Form";
+import SingleTournament from "../../views/SingleTournament";
+import {Button} from "../../views/design/Button";
 
-const Container = styled(BaseContainer)`
-  color: blue;
-  text-align: center;
-`;
-
-const PlayerList = styled.ul`
-  margin-right: 1000px;
-  margin-bottom: 50px;
-  list-style: none;
-  padding-left: 0;
-  border: 1px solid;
-`;
-
-const PlayerContainer = styled.li`
+const TournamentContainer = styled.li`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -62,10 +55,12 @@ class ManagerMenu extends React.Component {
     async componentDidMount() {
         try {
             const {managerID} = this.props.match.params;
-            const response = await api.get(`/managers/${managerID}/tournaments`);
+            const response = await api.get("/tournaments/9xU1GIV3"); //TODO Temporary request until this one is provided by backend`/managers/${managerID}/tournaments`
+            // ARRAY LIST IS NECESSARY SO IT CAN BE MAPPED
+
             console.log("response", response.data);
             // Get the returned users and update the state.
-            this.setState({ users: response.data });
+            this.setState({ tournaments: response.data });
 
             console.log(response);
         } catch (error) {
@@ -76,31 +71,46 @@ class ManagerMenu extends React.Component {
     render() {
         return (
             <Container>
+                <Row>
+                    <Col>
+                        <h1 style={{ textAlign: "center" }}>TipTopTournament</h1>
+                    </Col>
+                </Row>
+                <Row className="justify-content-md-center">
+                    <Col md="auto" />
+                    <Col xs={12} sm={12} md={8}>
                 {!this.state.tournaments ? (
                     <NoData />
 
                 ) : (
-                    <div>
-                        <PlayerList>
-                            <h3>Tournamentlist</h3>
-                            {this.state.tournaments.map(tournament => {
-                                return (
-                                    <PlayerContainer key={tournament.tournamentId}>
-                                        <Player tournament={tournament} />
-                                    </PlayerContainer>
-                                );
-                            })}
-                            <ButtonPlayerList
-                                width="100%"
-                                onClick={() => {
-                                    this.props.history.goBack();  localStorage.removeItem('token');
-                                }}
-                            >
-                                Leave tournament
-                            </ButtonPlayerList>
-                        </PlayerList>
-                    </div>
+
+                        <Form>
+                            <Form.Group>
+                                <h3>Tournamentlist</h3>
+
+                                {this.state.tournaments.map(tournament => {
+                                    return (
+                                        <TournamentContainer key={tournament.tournamentId}
+                                                             // onClick={() => this.handleClick()}
+                                        >
+                                            <SingleTournament tournament={tournament} />
+                                        </TournamentContainer>
+                                    );
+                                })}
+                                <Button
+                                    width="100%"
+                                    onClick={() => {
+                                        this.props.history.goBack();  localStorage.removeItem('token');
+                                    }}
+                                >
+                                    Leave tournament
+                                </Button>
+                            </Form.Group>
+                            </Form>
                 )}
+                    </Col>
+                    <Col md="auto" />
+                </Row>
             </Container>
         );
     }
