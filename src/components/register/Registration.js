@@ -59,7 +59,9 @@ class Registration extends React.Component {
                 });
                 //Request to /participants to create a new player
                 await api.post('/participants', requestBody);
-
+                if(id === "PlayerNoLicense") {
+                    alert()
+                }
                 // Register successfully worked --> navigate to the route /login in the TournamentRouter
                 this.props.history.push(`/login`);
             } catch (error) {
@@ -188,7 +190,7 @@ class Registration extends React.Component {
                                         disabled={!this.state.vorname || !this.state.nachname || !this.state.password}
                                         width="50%"
                                         onClick={() => {
-                                            this.register("Player");
+                                            this.register("PlayerNoLicense");
                                         }}
                                     >
                                         Register

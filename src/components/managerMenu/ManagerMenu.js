@@ -78,6 +78,7 @@ class ManagerMenu extends React.Component {
             <Container>
                 {!this.state.tournaments ? (
                     <NoData />
+
                 ) : (
                     <div>
                         <PlayerList>

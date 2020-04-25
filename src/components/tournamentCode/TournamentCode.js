@@ -1,61 +1,15 @@
 import React from 'react';
-import styled from 'styled-components';
-import {BaseContainer} from '../../helpers/layout';
 import {withRouter} from 'react-router-dom';
 import {Button} from '../../views/design/Button';
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Form from "react-bootstrap/Form";
+import {Label} from "../../views/design/Label";
+import {InputField} from "../../views/design/InputField";
+import {ButtonContainer} from "../../views/design/ButtonContainer";
+import Navbar from "react-bootstrap/Navbar";
 
-const FormContainer = styled.div`
-  margin-top: 2em;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: 300px;
-  justify-content: center;
-`;
-
-const Form = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 1440px;
-  height: 800px;
-  font-size: 16px;
-  font-weight: 300;
-  padding-left: 37px;
-  padding-right: 37px;
-  border-radius: 5px;
-  background: #F2F2F2;
-  transition: opacity 0.5s ease, transform 0.5s ease;
-`;
-
-const InputField = styled.input`
-  &::placeholder {
-    color: #2F80ED;
-  }
-  height: 35px;
-  padding-left: 15px;
-  margin-left: 400px;
-  margin-right: 485px
-  border: none;
-  border-radius: 20px;
-  margin-bottom: 20px;
-  background: rgba(255, 255, 255);
-  color: #2F80ED;
-`;
-
-const Label = styled.label`
-  margin-left: 400px;
-  color: #2F80ED;
-  margin-bottom: 10px;
-  text-transform: uppercase;
-`;
-
-const ButtonContainer = styled.div`
-  margin-left: 400px;
-  color: #2F80ED;
-  justify-content: center;
-  margin-top: 20px;
-`;
 
 
 class TournamentCode extends React.Component {
@@ -140,50 +94,66 @@ class TournamentCode extends React.Component {
 
     render() {
         return (
-            <BaseContainer>
-                <FormContainer>
-                    <Form>
-                        <Label>Tournament Code</Label>
-                        <InputField
-                            placeholder="Enter TournamentCode (e.g. 1234-4567)"
-                            maxlength="10"
-                            value = {this.state.displayCode || '' }
-                            onChange={e => {this.handleInputChange('displayCode', this.mask(e));}}
-                        />
-                        <ButtonContainer>
-                            <Button
-                                disabled={!this.state.displayCode}
-                                width="50%"
-                                onClick={() => {
-                                    this.join();
-                                }}
-                            >
-                                Join
-                            </Button>
-                        </ButtonContainer>
-                        <ButtonContainer>
-                            <Button
-                                width="50%"
-                                onClick={() => {
-                                    this.logout();
-                                }}
-                            >
-                                Temporary Logout
-                            </Button>
-                        </ButtonContainer>
-                        <ButtonContainer>
-                            <Button
-                                width="50%"
-                                onClick={() => {
-                                    this.profiles();
-                                }}
-                            >
-                                Profiles
-                            </Button>
-                        </ButtonContainer>
-                    </Form>
-                </FormContainer>
-            </BaseContainer>
+            <Container>
+                <Navbar>
+                    <Navbar.Brand>TIPTOPTournament</Navbar.Brand>
+                    <Navbar.Toggle />
+                    <Navbar.Collapse className="justify-content-end">
+                        <Navbar.Text>
+                            Signed in as: <a>Tonygayy</a>
+                        </Navbar.Text>
+                    </Navbar.Collapse>
+                </Navbar>
+                <Row className="justify-content-md-center">
+                    <Col md="auto" />
+                    <Col xs={12} sm={12} md={8}>
+                        <Form style={{ align:"center"}}>
+                            <Form.Group>
+                                <Label>TournamentCode: </Label>
+                                <InputField
+                                    placeholder="(e.g. 1234-4567)"
+                                    maxlength="10"
+                                    value = {this.state.displayCode || '' }
+                                    onChange={e => {this.handleInputChange('displayCode', this.mask(e));}}
+                                />
+                            </Form.Group>
+
+                                <ButtonContainer>
+                                    <Button
+                                        disabled={!this.state.displayCode}
+                                        width="70%"
+                                        onClick={() => {
+                                            this.join();
+                                        }}
+                                    >
+                                        Join
+                                    </Button>
+                                </ButtonContainer>
+                                <ButtonContainer>
+                                    <Button
+                                        width="70%"
+                                        onClick={() => {
+                                            this.logout();
+                                        }}
+                                    >
+                                        Temporary Logout
+                                    </Button>
+                                </ButtonContainer>
+                                <ButtonContainer>
+                                    <Button
+                                        width="70%"
+                                        onClick={() => {
+                                            this.profiles();
+                                        }}
+                                    >
+                                        Profiles
+                                    </Button>
+                                </ButtonContainer>
+                        </Form>
+                    </Col>
+                    <Col md="auto" />
+                </Row>
+            </Container>
         );
     }
 }
