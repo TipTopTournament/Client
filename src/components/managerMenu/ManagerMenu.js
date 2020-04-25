@@ -61,7 +61,8 @@ class ManagerMenu extends React.Component {
 
     async componentDidMount() {
         try {
-            const response = await api.get('/participants');
+            const {managerID} = this.props.match.params;
+            const response = await api.get(`/managers/${managerID}/tournaments`);
             console.log("response", response.data);
             // Get the returned users and update the state.
             this.setState({ users: response.data });
