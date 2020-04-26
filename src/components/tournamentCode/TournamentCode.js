@@ -9,13 +9,15 @@ import { Label } from "../../views/design/Label";
 import { InputField } from "../../views/design/InputField";
 import { ButtonContainer } from "../../views/design/ButtonContainer";
 import Navbar from "react-bootstrap/Navbar";
+import {api, handleError} from "../../helpers/api";
 
 class TournamentCode extends React.Component {
   constructor() {
     super();
     this.state = {
       displayCode: "",
-      code: ""
+      tournamentCode: "",
+      participantID: null,
     };
     this.handleInputChange = this.handleInputChange.bind(this);
   }
@@ -25,8 +27,19 @@ class TournamentCode extends React.Component {
     this.props.history.push("/home");
   }
 
-  join() {
-    this.props.history.push(`/${this.state.code}/tournamentInfo`);
+  async join() {
+    try {
+    const requestBody = JSON.stringify({
+      tournamentCode: this.state.tournamentCode,
+      participantID: this.state.participantID
+    });
+    const {participantID} = this.props.match.params;
+    console.log("tournamentCode", this.state.tournamentCode);
+    await api.put(`/tournaments/${this.state.tournamentCode}/${participantID}`, requestBody);
+    this.props.history.push(`/${this.state.tournamentCode}/tournamentInfo`);
+    } catch (error) {
+      alert(`Something went wrong during the check-in with your tournamentCode: \n${handleError(error)}`);
+    }
   }
 
   mask(e) {
@@ -74,7 +87,7 @@ class TournamentCode extends React.Component {
     this.setState({ [key]: value });
     // Also sets the original code with dash
     if (value !== "") {
-      this.setState({ code: value.replace("-", "") || "" });
+      this.setState({ tournamentCode: value.replace("-", "") || "" });
     }
   }
 
@@ -110,6 +123,7 @@ class TournamentCode extends React.Component {
 
               <ButtonContainer>
                 <Button
+                  type="button"
                   disabled={!this.state.displayCode}
                   width="70%"
                   onClick={() => {
@@ -121,6 +135,7 @@ class TournamentCode extends React.Component {
               </ButtonContainer>
               <ButtonContainer>
                 <Button
+                  type="button"
                   width="70%"
                   onClick={() => {
                     this.logout();
@@ -131,6 +146,7 @@ class TournamentCode extends React.Component {
               </ButtonContainer>
               <ButtonContainer>
                 <Button
+                  type="button"
                   width="70%"
                   onClick={() => {
                     this.profiles();
