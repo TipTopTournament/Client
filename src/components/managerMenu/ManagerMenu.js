@@ -73,7 +73,7 @@ class ManagerMenu extends React.Component {
 
                         <Form>
                             <Form.Group>
-                                <h3>Tournamentlist</h3>
+                                <h3>My Tournaments:</h3>
                                 <Tournaments>
                                 {this.state.tournaments.map(tournamentData => {
                                     return (

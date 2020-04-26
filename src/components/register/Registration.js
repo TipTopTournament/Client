@@ -23,7 +23,8 @@ class Registration extends React.Component {
       username: null,
       password: null,
       licenseNumber: null,
-      is_manager: false
+      is_manager: false,
+      user : null,
     };
   }
   /**
@@ -56,10 +57,11 @@ class Registration extends React.Component {
           licenseNumber: this.state.licenseNumber
         });
         //Request to /participants to create a new player
-        await api.post("/participants", requestBody);
-        if (id === "PlayerNoLicense") {
-          alert();
-        }
+        const response = await api.post("/participants", requestBody);
+        this.setState({ user: response.data });
+        // if (id === "PlayerNoLicense") {
+        //   alert("Your new licenseNumber: " + user.licenseNumber); //TODO EDGE CASE WHERE PARTICIPANT DOESNT KNOW LICENSENUMBER WAITING ON BACKEND FOR DATA
+        // }
         // Register successfully worked --> navigate to the route /login in the TournamentRouter
         this.props.history.push(`/login`);
       } catch (error) {
