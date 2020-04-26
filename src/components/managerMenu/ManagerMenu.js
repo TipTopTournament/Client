@@ -44,7 +44,7 @@ class ManagerMenu extends React.Component {
 
             const managerID = this.props.match.params.managerID;
             const response = await api.get(`/managers/${managerID}/tournaments`);
-
+            console.log("response_raw", response);
             console.log("response", response.data);
             // Get the returned users and update the state.
             this.setState({ tournaments: response.data });
@@ -75,12 +75,11 @@ class ManagerMenu extends React.Component {
                             <Form.Group>
                                 <h3>Tournamentlist</h3>
                                 <Tournaments>
-                                {this.state.tournaments.map(tournament => {
+                                {this.state.tournaments.map(tournamentData => {
                                     return (
-                                        <TournamentContainer key={tournament.tournamentId}
-                                                             // onClick={() => this.handleClick()}
-                                        >
-                                            <SingleTournament tournament={tournament} />
+                                        <TournamentContainer key={tournamentData.tournamentId}
+                                                             onClick={() => this.handleClick(tournamentData.tournamentCode)}>
+                                        <SingleTournament tournamentData={tournamentData} />
                                         </TournamentContainer>
                                     );
                                 })}

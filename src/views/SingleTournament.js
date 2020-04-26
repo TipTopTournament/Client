@@ -2,13 +2,11 @@ import React from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
-  margin: 6px 0;
-  width: 280px;
   padding: 10px;
   border-radius: 6px;
   display: flex;
   align-items: center;
-  border: 1px solid #ffffff26;
+  border: 2px solid #ffffff26;
 `;
 
 const Name = styled.div`
@@ -17,16 +15,15 @@ const Name = styled.div`
 `;
 
 
-const Id = styled.div`
-  margin-left: auto;
-  margin-right: 10px;
+const TournamentCode = styled.div`
+  margin-left: 10px;
   font-weight: bold;
 `;
 
 const SingleTournament = ({ tournamentData }) => {
     return (
         <Container>
-            <Name>{tournamentData.tournamentName}</Name><Id>Id: {tournamentData.tournamentId}</Id>
+            <Name>{tournamentData.tournamentName}</Name><TournamentCode>Code: {tournamentData.tournamentCode}</TournamentCode>
         </Container>
     );
 };
