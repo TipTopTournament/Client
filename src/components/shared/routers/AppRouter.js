@@ -73,7 +73,7 @@ class AppRouter extends React.Component {
               )}
             />
             <Route
-              path="/managerMenu" //TODO: Temporary without ID since Backend not ready /:managerId
+              path="/managerMenu/:managerId"
               render={() => <ManagerMenu />}
             />
             <Route path="/" exact render={() => <Redirect to={"/home"} />} />

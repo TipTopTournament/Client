@@ -20,6 +20,7 @@ class Login extends React.Component {
       username: null,
       password: null,
       licenseNumber: null,
+      managerID:null,
     };
   }
   /**
@@ -41,9 +42,8 @@ class Login extends React.Component {
         const manager = new Manager(response.data) ;
         // Store the token into the local storage.
         localStorage.setItem("token", manager.token);
-        // Login successfully worked --> navigate to the route /managerMenu in the TournamentRouter
-        //const {managerID} = response.data.ManagerID; // TODO: Holding onto ID until Backend is ready/${managerId}
-        this.props.history.push(`/managerMenu`); // /${managerID}
+        const {managerID} = manager.managerID;
+        this.props.history.push(`/managerMenu/${managerID}`);
       } else {
         const requestBody1 = JSON.stringify({
           licenseNumber: this.state.licenseNumber,
