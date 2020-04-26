@@ -59,8 +59,7 @@ class Login extends React.Component {
         // store the generated ID in the local storage.
         localStorage.setItem("ParticipantID", user.participantID);
         // Login successfully worked --> navigate to the route /tournamentCode in the TournamentRouter
-        const {participantID} = user;
-        this.props.history.push(`/tournamentCode/${participantID}`);
+        this.props.history.push(`/tournamentCode`);
       }
 
     } catch (error) {

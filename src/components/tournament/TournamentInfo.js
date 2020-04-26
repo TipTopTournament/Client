@@ -29,7 +29,7 @@ class TournamentInfo extends React.Component {
     try {
       const requestTournament = await api.get(`/tournaments/${tournamentCode}`);
       console.log("the tournament data is :", requestTournament);
-      // here we can also store the tournament in localStorage to acces it globally.
+      // here we can also store the tournament in localStorage to access it globally.
       // For example signed up players in playerList don't have to load from server again
       const tournament = new TournamentData(requestTournament);
       this.setState({ tournament: tournament });

@@ -33,9 +33,8 @@ class TournamentCode extends React.Component {
       tournamentCode: this.state.tournamentCode,
       participantID: this.state.participantID
     });
-    const {participantID} = this.props.match.params;
     console.log("tournamentCode", this.state.tournamentCode);
-    await api.put(`/tournaments/${this.state.tournamentCode}/${participantID}`, requestBody);
+    await api.put(`/tournaments/${this.state.tournamentCode}/${localStorage.getItem("ParticipantID")}`, requestBody);
     this.props.history.push(`/${this.state.tournamentCode}/tournamentInfo`);
     } catch (error) {
       alert(`Something went wrong during the check-in with your tournamentCode: \n${handleError(error)}`);

@@ -77,7 +77,7 @@ class AppRouter extends React.Component {
               render={() => <ManagerMenu />}
             />
             <Route path="/" exact render={() => <Redirect to={"/home"} />} />
-            <Route path="/tournamentCode/:participantID" render={() => <TournamentCode />} />
+            <Route path="/tournamentCode" render={() => <TournamentCode />} />
             <Route
               path="/tournaments/:tournamentCode"
               render={() => <Tournament />}
