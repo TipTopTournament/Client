@@ -73,7 +73,7 @@ class AppRouter extends React.Component {
               )}
             />
             <Route
-              path="/managerMenu/:managerId"
+              path="/managerMenu/:managerID"
               render={() => <ManagerMenu />}
             />
             <Route path="/" exact render={() => <Redirect to={"/home"} />} />

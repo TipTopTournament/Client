@@ -124,13 +124,6 @@ class Tournament extends React.Component {
             </Leaderboard>
             <Bracket onClick={()=> this.handleClick('bracket')}>
               <h3>Bracket</h3>
-              {this.state.users.map(user => {
-                return (
-                    <PlayerContainer key={user.participantID}>
-                      <Player user={user} />
-                    </PlayerContainer>
-                );
-              })}
             </Bracket>
           </div>
         )}

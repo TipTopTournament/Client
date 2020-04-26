@@ -1,8 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { BaseContainer } from '../../helpers/layout';
 import { api, handleError } from '../../helpers/api';
-import Player from '../../views/Player';
 import { withRouter } from 'react-router-dom';
 import { NoData } from "../../views/design/NoData";
 import Container from "react-bootstrap/Container";
@@ -18,28 +16,12 @@ const TournamentContainer = styled.li`
   align-items: center;
   justify-content: center;
 `;
-const ButtonPlayerList = styled.button`
-  &:hover {
-    transform: translateY(-2px);
-  }
-  padding: 6px;
-  font-weight: 700;
-  text-transform: uppercase;
-  font-size: 13px;
-  text-align: center;
-  color: rgba(255, 255, 255, 1);
-  width: ${props => props.width || null};
-  height: 35px;
-  border: none;
-  border-radius: 20px;
-  cursor: ${props => (props.disabled ? "default" : "pointer")};
-  opacity: ${props => (props.disabled ? 0.4 : 1)};
-  background: rgb(16, 89, 255);
-  transition: all 0.3s ease;
-  display: block
-  justifyContent: 'space-between'
-`;
 
+const Tournaments = styled.ul`
+  list-style: none;
+  padding-left: 0;
+
+`;
 class ManagerMenu extends React.Component {
     constructor() {
         super();
@@ -48,15 +30,20 @@ class ManagerMenu extends React.Component {
         };
     }
 
+    logout(){
+        localStorage.removeItem('token');
+        this.props.history.push("/login");
+    }
+
     handleClick(tournamentCode){
         this.props.history.push(`/tournaments/${tournamentCode}/`);
     }
 
     async componentDidMount() {
         try {
-            const {managerID} = this.props.match.params;
-            const response = await api.get("/tournaments/9xU1GIV3"); //TODO Temporary request until this one is provided by backend`/managers/${managerID}/tournaments`
-            // ARRAY LIST IS NECESSARY SO IT CAN BE MAPPED
+
+            const managerID = this.props.match.params.managerID;
+            const response = await api.get(`/managers/${managerID}/tournaments`);
 
             console.log("response", response.data);
             // Get the returned users and update the state.
@@ -87,7 +74,7 @@ class ManagerMenu extends React.Component {
                         <Form>
                             <Form.Group>
                                 <h3>Tournamentlist</h3>
-
+                                <Tournaments>
                                 {this.state.tournaments.map(tournament => {
                                     return (
                                         <TournamentContainer key={tournament.tournamentId}
@@ -97,13 +84,14 @@ class ManagerMenu extends React.Component {
                                         </TournamentContainer>
                                     );
                                 })}
+                                </Tournaments>
                                 <Button
                                     width="100%"
                                     onClick={() => {
-                                        this.props.history.goBack();  localStorage.removeItem('token');
+                                        this.logout();
                                     }}
                                 >
-                                    Leave tournament
+                                    Logout
                                 </Button>
                             </Form.Group>
                             </Form>
