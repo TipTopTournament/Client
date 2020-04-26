@@ -21,6 +21,7 @@ import { PlayerProfileGuard } from "../routeProtectors/PlayerProfileGuard";
 import PlayerList from "../../playerProfile/PlayerList";
 import TournamentInfo from "../../tournament/TournamentInfo";
 import ManagerMenu from "../../managerMenu/ManagerMenu";
+import ParticipantMenu from "../../participantMenu/ParticipantMenu";
 
 /**
  * Main router of your application.
@@ -71,26 +72,15 @@ class AppRouter extends React.Component {
                 </LoginGuard>
               )}
             />
-              <Route
-                  path="/managerMenu" //TODO: Temporary without ID since Backend not ready /:managerId
-                  render={() => (
-
-                      <ManagerMenu />
-
-                  )}
-              />
-            <Route path="/" exact render={() => <Redirect to={"/home"} />} />
             <Route
-              path="/tournamentCode"
-              render={() => (
-                  <TournamentCode/>
-              )}
+              path="/managerMenu" //TODO: Temporary without ID since Backend not ready /:managerId
+              render={() => <ManagerMenu />}
             />
+            <Route path="/" exact render={() => <Redirect to={"/home"} />} />
+            <Route path="/tournamentCode" render={() => <TournamentCode />} />
             <Route
               path="/tournaments/:tournamentCode"
-              render={() => (
-                  <Tournament />
-              )}
+              render={() => <Tournament />}
             />
             <Route
               path="/:tournamentCode/leaderBoard"
@@ -108,25 +98,23 @@ class AppRouter extends React.Component {
                 </BracketGuard>
               )}
             />
-            <Route 
-              path="/:tournamentsCode/participants/:playerID" 
-              render={() => 
-                <PlayerProfile/>
-              } 
+            <Route
+              path="/:tournamentsCode/participants/:playerID"
+              render={() => <PlayerProfile />}
             />
 
-            <Route 
+            <Route
               path="/:tournamentsCode/playerlists"
-              render={() => 
-                <PlayerList/>
-              }
+              render={() => <PlayerList />}
             />
-            
-            <Route 
-              path="/:tournamentsCode/tournamentInfo" 
-              render={() => 
-                <TournamentInfo />
-              } 
+
+            <Route
+              path="/:tournamentsCode/tournamentInfo"
+              render={() => <TournamentInfo />}
+            />
+            <Route
+              path="/:tournamentsCode/participantMenu"
+              render={() => <ParticipantMenu />}
             />
           </div>
         </Switch>

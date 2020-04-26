@@ -1,161 +1,151 @@
-import React from 'react';
-import {withRouter} from 'react-router-dom';
-import {Button} from '../../views/design/Button';
+import React from "react";
+import { withRouter } from "react-router-dom";
+import { Button } from "../../views/design/Button";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
-import {Label} from "../../views/design/Label";
-import {InputField} from "../../views/design/InputField";
-import {ButtonContainer} from "../../views/design/ButtonContainer";
+import { Label } from "../../views/design/Label";
+import { InputField } from "../../views/design/InputField";
+import { ButtonContainer } from "../../views/design/ButtonContainer";
 import Navbar from "react-bootstrap/Navbar";
 
-
-
 class TournamentCode extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      displayCode: "",
+      code: ""
+    };
+    this.handleInputChange = this.handleInputChange.bind(this);
+  }
 
+  logout() {
+    localStorage.removeItem("token"); // also remove user too but this is a thing with low prio
+    this.props.history.push("/home");
+  }
 
-    constructor() {
-        super();
-        this.state = {
-            displayCode: '',
-            code: ''
-        };
-        this.handleInputChange = this.handleInputChange.bind(this);
+  join() {
+    this.props.history.push(`/${this.state.code}/tournamentInfo`);
+  }
+
+  mask(e) {
+    let tmpCode = "";
+    tmpCode += e.target.value.toString();
+
+    if (this.checkInputOnlyDigits(tmpCode)) {
+      if (tmpCode.length < 4) {
+        return tmpCode;
+      }
+
+      switch (tmpCode.length) {
+        case 4:
+          return tmpCode.replace(/^(\d{4}).*/, "$1-");
+        case 5:
+          return tmpCode.replace(/^(\d{4})(\d).*/, "$1-$2");
+        case 6:
+          return tmpCode.replace(/^(\d{4})(\d{2}).*/, "$1-$2");
+        case 7:
+          return tmpCode.replace(/^(\d{4})(\d{3}).*/, "$1-$2");
+        case 8:
+          return tmpCode.replace(/^(\d{4})(\d{4}).*/, "$1-$2");
+        case 9:
+          return tmpCode.replace(/^(\d{4})(\d{4}).*/, "$1-$2");
+        default:
+          alert("The tournament code must be 8 digits!");
+          return tmpCode.substring(0, tmpCode.length - 1);
+      }
+    } else {
+      return (tmpCode = "");
     }
+  }
 
-    logout() {
-        localStorage.removeItem('token');
-        this.props.history.push('/home');
+  checkInputOnlyDigits(input) {
+    let digits = new RegExp("^[0-9]+$");
+    if (digits.test(input) || input.includes("-")) {
+      return true;
+    } else {
+      alert("The tournament code can only contain digits");
+      return false;
     }
+  }
 
-    join() {
-        this.props.history.push(`/${this.state.code}/tournamentInfo`);
+  handleInputChange(key, value) {
+    this.setState({ [key]: value });
+    // Also sets the original code with dash
+    if (value !== "") {
+      this.setState({ code: value.replace("-", "") || "" });
     }
+  }
 
-    mask(e) {
+  componentDidMount() {}
 
-        let tmpCode = "";
-        tmpCode += e.target.value.toString();
+  render() {
+    return (
+      <Container>
+        <Navbar>
+          <Navbar.Brand>TIPTOPTournament</Navbar.Brand>
+          <Navbar.Toggle />
+          <Navbar.Collapse className="justify-content-end">
+            <Navbar.Text>
+              Signed in as: <a>Tonygayy</a>
+            </Navbar.Text>
+          </Navbar.Collapse>
+        </Navbar>
+        <Row className="justify-content-md-center">
+          <Col md="auto" />
+          <Col xs={12} sm={12} md={8}>
+            <Form style={{ align: "center" }}>
+              <Form.Group>
+                <Label>TournamentCode: </Label>
+                <InputField
+                  placeholder="(e.g. 1234-4567)"
+                  maxlength="10"
+                  value={this.state.displayCode || ""}
+                  onChange={e => {
+                    this.handleInputChange("displayCode", this.mask(e));
+                  }}
+                />
+              </Form.Group>
 
-        if (this.checkInputOnlyDigits(tmpCode)){
-
-            if (tmpCode.length < 4) {
-                return tmpCode;
-            }
-
-            switch (tmpCode.length) {
-                case 4:
-                    return tmpCode.replace(/^(\d{4}).*/, '$1-');
-                case 5:
-                    return tmpCode.replace(/^(\d{4})(\d).*/, '$1-$2');
-                case 6:
-                    return tmpCode.replace(/^(\d{4})(\d{2}).*/, '$1-$2');
-                case 7:
-                    return tmpCode.replace(/^(\d{4})(\d{3}).*/, '$1-$2');
-                case 8:
-                    return tmpCode.replace(/^(\d{4})(\d{4}).*/, '$1-$2');
-                case 9:
-                    return tmpCode.replace(/^(\d{4})(\d{4}).*/, '$1-$2');
-                default:
-                    alert("The tournament code must be 8 digits!");
-                    return tmpCode.substring(0, tmpCode.length - 1);
-            }
-        }
-        else {
-        return tmpCode = '';
-        }
-    }
-
-    checkInputOnlyDigits(input){
-        let digits = new RegExp('^[0-9]+$');
-        if (digits.test(input) || input.includes("-")) {
-            return true;
-        }
-        else {
-            alert("The tournament code can only contain digits");
-            return false;
-        }
-    }
-
-    handleInputChange(key, value) {
-        this.setState({ [key]: value });
-        // Also sets the original code with dash
-        if (value !== ""){
-            this.setState( {code: value.replace('-','') || ''})
-        }
-
-    }
-
-
-
-    componentDidMount() {
-    }
-
-    render() {
-        return (
-            <Container>
-                <Navbar>
-                    <Navbar.Brand>TIPTOPTournament</Navbar.Brand>
-                    <Navbar.Toggle />
-                    <Navbar.Collapse className="justify-content-end">
-                        <Navbar.Text>
-                            Signed in as: <a>Tonygayy</a>
-                        </Navbar.Text>
-                    </Navbar.Collapse>
-                </Navbar>
-                <Row className="justify-content-md-center">
-                    <Col md="auto" />
-                    <Col xs={12} sm={12} md={8}>
-                        <Form style={{ align:"center"}}>
-                            <Form.Group>
-                                <Label>TournamentCode: </Label>
-                                <InputField
-                                    placeholder="(e.g. 1234-4567)"
-                                    maxlength="10"
-                                    value = {this.state.displayCode || '' }
-                                    onChange={e => {this.handleInputChange('displayCode', this.mask(e));}}
-                                />
-                            </Form.Group>
-
-                                <ButtonContainer>
-                                    <Button
-                                        disabled={!this.state.displayCode}
-                                        width="70%"
-                                        onClick={() => {
-                                            this.join();
-                                        }}
-                                    >
-                                        Join
-                                    </Button>
-                                </ButtonContainer>
-                                <ButtonContainer>
-                                    <Button
-                                        width="70%"
-                                        onClick={() => {
-                                            this.logout();
-                                        }}
-                                    >
-                                        Temporary Logout
-                                    </Button>
-                                </ButtonContainer>
-                                <ButtonContainer>
-                                    <Button
-                                        width="70%"
-                                        onClick={() => {
-                                            this.profiles();
-                                        }}
-                                    >
-                                        Profiles
-                                    </Button>
-                                </ButtonContainer>
-                        </Form>
-                    </Col>
-                    <Col md="auto" />
-                </Row>
-            </Container>
-        );
-    }
+              <ButtonContainer>
+                <Button
+                  disabled={!this.state.displayCode}
+                  width="70%"
+                  onClick={() => {
+                    this.join();
+                  }}
+                >
+                  Join
+                </Button>
+              </ButtonContainer>
+              <ButtonContainer>
+                <Button
+                  width="70%"
+                  onClick={() => {
+                    this.logout();
+                  }}
+                >
+                  Temporary Logout
+                </Button>
+              </ButtonContainer>
+              <ButtonContainer>
+                <Button
+                  width="70%"
+                  onClick={() => {
+                    this.profiles();
+                  }}
+                >
+                  Profiles
+                </Button>
+              </ButtonContainer>
+            </Form>
+          </Col>
+          <Col md="auto" />
+        </Row>
+      </Container>
+    );
+  }
 }
 
 /**

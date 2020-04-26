@@ -5,6 +5,7 @@ class User {
   constructor(data = {}) {
     this.participantID = null;
     this.name = null;
+    this.vorname = null;
     this.username = null;
     this.token = null;
     this.licenseNumber = null;

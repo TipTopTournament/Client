@@ -55,6 +55,8 @@ class Login extends React.Component {
         const user = new User(response.data);
         // Store the token into the local storage.
         localStorage.setItem("token", user.token);
+        // store the generated ID in the local storage.
+        localStorage.setItem("ParticipantID", user.participantID);
         // Login successfully worked --> navigate to the route /tournamentCode in the TournamentRouter
         this.props.history.push(`/tournamentCode`);
       }
