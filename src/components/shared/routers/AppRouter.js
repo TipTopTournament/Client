@@ -22,6 +22,7 @@ import PlayerList from "../../playerProfile/PlayerList";
 import TournamentInfo from "../../tournament/TournamentInfo";
 import ManagerMenu from "../../managerMenu/ManagerMenu";
 import ParticipantMenu from "../../participantMenu/ParticipantMenu";
+import ScoreReport from "../../bracket/ScoreReport"
 
 /**
  * Main router of your application.
@@ -115,6 +116,10 @@ class AppRouter extends React.Component {
             <Route
               path="/:tournamentCode/participantMenu"
               render={() => <ParticipantMenu />}
+            />
+            <Route 
+              path="/:tournamentCode/:matchID"
+              render={() => <ScoreReport />}
             />
           </div>
         </Switch>
