@@ -9,6 +9,7 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import LeaderBoardPlayer from "../../views/LeaderBoardPlayer";
 
 
 const PlayerContainer = styled.li`
@@ -36,23 +37,27 @@ class Tournament extends React.Component {
   async componentDidMount() {
     try {
       const {tournamentCode} = this.props.match.params;
-      console.log("params", this.props.match.params);
-      console.log("tournamentCode", {tournamentCode});
       const response = await api.get(`/tournaments/${tournamentCode}/leaderboard`);
       console.log("response", response.data);
-      // Get the returned users and update the state.
-      this.setState({ users: response.data });
-      console.log(response);
+      //response returns participants, with their wins e.g. {{participantObj1, wins1}, {participantObj2, wins2}}
+      this.setState({ leaderBoardUsers: response.data});
+      //I split it for the playerList since wins not relevant there
+      const onlyParticipantArray = response.data.map(function (responseArray) {
+        return responseArray["participant"];
+      });
+      this.setState({ users: onlyParticipantArray});
+
 
     } catch (error) {
       alert(`Something went wrong while fetching the users: \n${handleError(error)}`);
     }
   }
 
+
   render() {
     return (
       <Container>
-        {!this.state.users ? (
+        {!this.state.users ||! this.state.leaderBoardUsers ? (
             <NoData/>
         ):(
         <Row>
@@ -83,10 +88,10 @@ class Tournament extends React.Component {
           <Col>
             <Form onClick={()=> this.handleClick('leaderBoard')}>
               <Form.Label> Leaderboard </Form.Label>
-              {this.state.users.map(user => {
+              {this.state.leaderBoardUsers.map(leaderBoardUser => {
                 return (
-                    <PlayerContainer key={user.participantID}>
-                      <Player user={user} />
+                    <PlayerContainer key={leaderBoardUser["participant"].participantID}>
+                      <LeaderBoardPlayer leaderBoardUser={leaderBoardUser} />
                     </PlayerContainer>
                 );
               })}
