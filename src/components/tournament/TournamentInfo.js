@@ -21,6 +21,12 @@ class TournamentInfo extends React.Component {
   participants() {
     this.props.history.push(`/${this.state.tournamentCode}/playerList`);
   }
+  goToBracket(){
+    this.props.history.push(`/${this.state.tournamentCode}/bracket`);
+  }
+  goToLeaderBoard(){
+    this.props.history.push(`/${this.state.tournamentCode}/leaderBoard`);
+  }
 
   async componentDidMount() {
     const tournamentCode = this.props.match.params.tournamentCode;
@@ -88,6 +94,12 @@ class TournamentInfo extends React.Component {
             </Table>
             <Button type="button" onClick={() => this.participants()}>
               Participants
+            </Button>
+            <Button type="button" onClick={() => this.goToBracket()}>
+              Bracket
+            </Button>
+            <Button type="button" onClick={() => this.goToLeaderBoard()}>
+              Leaderboard
             </Button>
           </Col>
           <Col />
