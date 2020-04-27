@@ -30,7 +30,7 @@ class Tournament extends React.Component {
   }
 
   handleClick(id){
-    const {tournamentCode} = this.props.match.params.tournamentCode;
+    const tournamentCode = this.props.match.params.tournamentCode;
     this.props.history.push(`/${tournamentCode}/${id}`);
   }
 
@@ -38,9 +38,8 @@ class Tournament extends React.Component {
     try {
       const {tournamentCode} = this.props.match.params;
       const response = await api.get(`/tournaments/${tournamentCode}/leaderboard`);
-      console.log("response", response.data);
       //response returns participants, with their wins e.g. {{participantObj1, wins1}, {participantObj2, wins2}}
-      this.setState({ leaderBoardUsers: response.data});
+      this.setState({ leaderBoardUsers : response.data });
       //I split it for the playerList since wins not relevant there
       const onlyParticipantArray = response.data.map(function (responseArray) {
         return responseArray["participant"];
