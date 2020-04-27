@@ -29,13 +29,16 @@ class Tournament extends React.Component {
   }
 
   handleClick(id){
-    const {tournamentCode} = this.props.match.params;
+    const {tournamentCode} = this.props.match.params.tournamentCode;
     this.props.history.push(`/${tournamentCode}/${id}`);
   }
 
   async componentDidMount() {
     try {
-      const response = await api.get('/participants');
+      const {tournamentCode} = this.props.match.params;
+      console.log("params", this.props.match.params);
+      console.log("tournamentCode", {tournamentCode});
+      const response = await api.get(`/tournaments/${tournamentCode}/leaderboard`);
       console.log("response", response.data);
       // Get the returned users and update the state.
       this.setState({ users: response.data });
