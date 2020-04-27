@@ -13,19 +13,18 @@ class TournamentInfo extends React.Component {
   constructor() {
     super();
     this.state = {
-      tournament: null
+      tournament: null,
+      tournamentCode: null
     };
   }
 
   participants() {
-    console.log(this.state.tournament.tournamentCode);
-    this.props.history.push(
-      `/${this.state.tournament.tournamentCode}/playerlists`
-    );
+    this.props.history.push(`/${this.state.tournamentCode}/playerList`);
   }
 
   async componentDidMount() {
-    const tournamentCode = this.props.match.params.tournamentsCode;
+    const tournamentCode = this.props.match.params.tournamentCode;
+    this.setState({ tournamentCode: tournamentCode });
     try {
       const requestTournament = await api.get(`/tournaments/${tournamentCode}`);
       console.log("the tournament data is :", requestTournament);
@@ -42,7 +41,7 @@ class TournamentInfo extends React.Component {
         startTime: 8,
         gameDuration: 30,
         breakDuration: 10,
-        tournamentCode: this.props.match.params.tournamentsCode,
+        tournamentCode: this.state.tournamentCode,
         amountOfPlayer: 50,
         numberOfTables: 10,
         bracket: "bracketdata",

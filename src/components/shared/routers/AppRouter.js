@@ -99,21 +99,21 @@ class AppRouter extends React.Component {
               )}
             />
             <Route
-              path="/:tournamentsCode/participants/:playerID"
+              path="/:tournamentCode/participants/:playerID"
               render={() => <PlayerProfile />}
             />
 
             <Route
-              path="/:tournamentsCode/playerlists"
+              path="/:tournamentCode/playerList"
               render={() => <PlayerList />}
             />
 
             <Route
-              path="/:tournamentsCode/tournamentInfo"
+              path="/:tournamentCode/tournamentInfo"
               render={() => <TournamentInfo />}
             />
             <Route
-              path="/:tournamentsCode/participantMenu"
+              path="/:tournamentCode/participantMenu"
               render={() => <ParticipantMenu />}
             />
           </div>
