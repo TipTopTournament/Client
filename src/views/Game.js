@@ -11,11 +11,14 @@ const Container = styled.div`
   border: 1px solid #ffffff26;
 `;
 
-const Name = styled.div`
+const GameState = styled.div`
   font-weight: bold;
   color: #06c4ff;
 `;
-
+const Name = styled.div`
+  font-weight: lighter;
+  margin-left: 5px;
+`;
 
 const Score = styled.div`
   margin-left: auto;
@@ -23,11 +26,13 @@ const Score = styled.div`
   font-weight: light;
 `;
 
-const Game = ({ GameData }) => {
+const Game = ({ gameData }) => {
     return (
         <Container>
-            <Name>{GameData.participant1}</Name> <h6> vs </h6> <Name>{GameData.participant2}</Name>
-            <Score>{GameData.score1} </Score><h6> : </h6> <Score>{GameData.score2} </Score>
+           <Name>{gameData["participant1"]["vorname"]}</Name>
+            <Name>{gameData["participant2"]["vorname"]}</Name>
+            <Score>{gameData["score1"]} </Score> <Score>{gameData["score2"]} </Score>
+            <GameState>{gameData.gameState}</GameState>
         </Container>
     );
 };
