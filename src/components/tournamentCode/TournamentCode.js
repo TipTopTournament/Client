@@ -1,191 +1,166 @@
-import React from 'react';
-import styled from 'styled-components';
-import {BaseContainer} from '../../helpers/layout';
-import {withRouter} from 'react-router-dom';
-import {Button} from '../../views/design/Button';
-
-const FormContainer = styled.div`
-  margin-top: 2em;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: 300px;
-  justify-content: center;
-`;
-
-const Form = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 1440px;
-  height: 800px;
-  font-size: 16px;
-  font-weight: 300;
-  padding-left: 37px;
-  padding-right: 37px;
-  border-radius: 5px;
-  background: #F2F2F2;
-  transition: opacity 0.5s ease, transform 0.5s ease;
-`;
-
-const InputField = styled.input`
-  &::placeholder {
-    color: #2F80ED;
-  }
-  height: 35px;
-  padding-left: 15px;
-  margin-left: 400px;
-  margin-right: 485px
-  border: none;
-  border-radius: 20px;
-  margin-bottom: 20px;
-  background: rgba(255, 255, 255);
-  color: #2F80ED;
-`;
-
-const Label = styled.label`
-  margin-left: 400px;
-  color: #2F80ED;
-  margin-bottom: 10px;
-  text-transform: uppercase;
-`;
-
-const ButtonContainer = styled.div`
-  margin-left: 400px;
-  color: #2F80ED;
-  justify-content: center;
-  margin-top: 20px;
-`;
-
+import React from "react";
+import { withRouter } from "react-router-dom";
+import { Button } from "../../views/design/Button";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Form from "react-bootstrap/Form";
+import { Label } from "../../views/design/Label";
+import { InputField } from "../../views/design/InputField";
+import { ButtonContainer } from "../../views/design/ButtonContainer";
+import Navbar from "react-bootstrap/Navbar";
+import {api, handleError} from "../../helpers/api";
 
 class TournamentCode extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      displayCode: "",
+      tournamentCode: "",
+      participantID: null,
+    };
+    this.handleInputChange = this.handleInputChange.bind(this);
+  }
 
+  logout() {
+    localStorage.removeItem("token"); // also remove user too but this is a thing with low prio
+    this.props.history.push("/home");
+  }
 
-    constructor() {
-        super();
-        this.state = {
-            displayCode: '',
-            code: ''
-        };
-        this.handleInputChange = this.handleInputChange.bind(this);
+  async join() {
+    try {
+    const requestBody = JSON.stringify({
+      tournamentCode: this.state.tournamentCode,
+      participantID: this.state.participantID
+    });
+    console.log("tournamentCode", this.state.tournamentCode);
+    await api.put(`/tournaments/${this.state.tournamentCode}/${localStorage.getItem("ParticipantID")}`, requestBody);
+    this.props.history.push(`/${this.state.tournamentCode}/tournamentInfo`);
+    } catch (error) {
+      alert(`Something went wrong during the check-in with your tournamentCode: \n${handleError(error)}`);
     }
+  }
 
-    logout() {
-        localStorage.removeItem('token');
-        this.props.history.push('/home');
+  mask(e) {
+    let tmpCode = "";
+    tmpCode += e.target.value.toString();
+
+    if (this.checkInputOnlyDigits(tmpCode)) {
+      if (tmpCode.length < 4) {
+        return tmpCode;
+      }
+
+      switch (tmpCode.length) {
+        case 4:
+          return tmpCode.replace(/^(\d{4}).*/, "$1-");
+        case 5:
+          return tmpCode.replace(/^(\d{4})(\d).*/, "$1-$2");
+        case 6:
+          return tmpCode.replace(/^(\d{4})(\d{2}).*/, "$1-$2");
+        case 7:
+          return tmpCode.replace(/^(\d{4})(\d{3}).*/, "$1-$2");
+        case 8:
+          return tmpCode.replace(/^(\d{4})(\d{4}).*/, "$1-$2");
+        case 9:
+          return tmpCode.replace(/^(\d{4})(\d{4}).*/, "$1-$2");
+        default:
+          alert("The tournament code must be 8 digits!");
+          return tmpCode.substring(0, tmpCode.length - 1);
+      }
+    } else {
+      return (tmpCode = "");
     }
+  }
 
-    join() {
-        this.props.history.push(`/${this.state.code}/tournamentInfo`);
+  checkInputOnlyDigits(input) {
+    let digits = new RegExp("^[0-9]+$");
+    if (digits.test(input) || input.includes("-")) {
+      return true;
+    } else {
+      alert("The tournament code can only contain digits");
+      return false;
     }
+  }
 
-    mask(e) {
-
-        let tmpCode = "";
-        tmpCode += e.target.value.toString();
-
-        if (this.checkInputOnlyDigits(tmpCode)){
-
-            if (tmpCode.length < 4) {
-                return tmpCode;
-            }
-
-            switch (tmpCode.length) {
-                case 4:
-                    return tmpCode.replace(/^(\d{4}).*/, '$1-');
-                case 5:
-                    return tmpCode.replace(/^(\d{4})(\d).*/, '$1-$2');
-                case 6:
-                    return tmpCode.replace(/^(\d{4})(\d{2}).*/, '$1-$2');
-                case 7:
-                    return tmpCode.replace(/^(\d{4})(\d{3}).*/, '$1-$2');
-                case 8:
-                    return tmpCode.replace(/^(\d{4})(\d{4}).*/, '$1-$2');
-                case 9:
-                    return tmpCode.replace(/^(\d{4})(\d{4}).*/, '$1-$2');
-                default:
-                    alert("The tournament code must be 8 digits!");
-                    return tmpCode.substring(0, tmpCode.length - 1);
-            }
-        }
-        else {
-        return tmpCode = '';
-        }
+  handleInputChange(key, value) {
+    this.setState({ [key]: value });
+    // Also sets the original code with dash
+    if (value !== "") {
+      this.setState({ tournamentCode: value.replace("-", "") || "" });
     }
+  }
 
-    checkInputOnlyDigits(input){
-        let digits = new RegExp('^[0-9]+$');
-        if (digits.test(input) || input.includes("-")) {
-            return true;
-        }
-        else {
-            alert("The tournament code can only contain digits");
-            return false;
-        }
-    }
+  componentDidMount() {}
 
-    handleInputChange(key, value) {
-        this.setState({ [key]: value });
-        // Also sets the original code with dash
-        if (value !== ""){
-            this.setState( {code: value.replace('-','') || ''})
-        }
+  render() {
+    return (
+      <Container>
+        <Navbar>
+          <Navbar.Brand>TIPTOPTournament</Navbar.Brand>
+          <Navbar.Toggle />
+          <Navbar.Collapse className="justify-content-end">
+            <Navbar.Text>
+              Signed in as: <a>Tonygayy</a>
+            </Navbar.Text>
+          </Navbar.Collapse>
+        </Navbar>
+        <Row className="justify-content-md-center">
+          <Col md="auto" />
+          <Col xs={12} sm={12} md={8}>
+            <Form style={{ align: "center" }}>
+              <Form.Group>
+                <Label>TournamentCode: </Label>
+                <InputField
+                  placeholder="(e.g. 1234-4567)"
+                  maxlength="10"
+                  value={this.state.displayCode || ""}
+                  onChange={e => {
+                    this.handleInputChange("displayCode", this.mask(e));
+                  }}
+                />
+              </Form.Group>
 
-    }
-
-
-
-    componentDidMount() {
-    }
-
-    render() {
-        return (
-            <BaseContainer>
-                <FormContainer>
-                    <Form>
-                        <Label>Tournament Code</Label>
-                        <InputField
-                            placeholder="Enter TournamentCode (e.g. 1234-4567)"
-                            maxlength="10"
-                            value = {this.state.displayCode || '' }
-                            onChange={e => {this.handleInputChange('displayCode', this.mask(e));}}
-                        />
-                        <ButtonContainer>
-                            <Button
-                                disabled={!this.state.displayCode}
-                                width="50%"
-                                onClick={() => {
-                                    this.join();
-                                }}
-                            >
-                                Join
-                            </Button>
-                        </ButtonContainer>
-                        <ButtonContainer>
-                            <Button
-                                width="50%"
-                                onClick={() => {
-                                    this.logout();
-                                }}
-                            >
-                                Temporary Logout
-                            </Button>
-                        </ButtonContainer>
-                        <ButtonContainer>
-                            <Button
-                                width="50%"
-                                onClick={() => {
-                                    this.profiles();
-                                }}
-                            >
-                                Profiles
-                            </Button>
-                        </ButtonContainer>
-                    </Form>
-                </FormContainer>
-            </BaseContainer>
-        );
-    }
+              <ButtonContainer>
+                <Button
+                  type="button"
+                  disabled={!this.state.displayCode}
+                  width="70%"
+                  onClick={() => {
+                    this.join();
+                  }}
+                >
+                  Join
+                </Button>
+              </ButtonContainer>
+              <ButtonContainer>
+                <Button
+                  type="button"
+                  width="70%"
+                  onClick={() => {
+                    this.logout();
+                  }}
+                >
+                  Temporary Logout
+                </Button>
+              </ButtonContainer>
+              <ButtonContainer>
+                <Button
+                  type="button"
+                  width="70%"
+                  onClick={() => {
+                    this.profiles();
+                  }}
+                >
+                  Profiles
+                </Button>
+              </ButtonContainer>
+            </Form>
+          </Col>
+          <Col md="auto" />
+        </Row>
+      </Container>
+    );
+  }
 }
 
 /**

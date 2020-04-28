@@ -4,16 +4,15 @@
 class TournamentData {
     constructor(data = {}) {
         this.tournamentId = null;
-        this.tournamentState = null;
+        this.tournamentName = null;
+        this.tournamentCode = null;
         this.startTime = null;
         this.gameDuration = null;
         this.breakDuration = null;
         this.tournamentCode = null;
-        this.amountOfPlayer = null;
+        this.amountOfPlayers = null;
+        this.tournamentMode = null;
         this.numberOfTables = null;
-        this.bracket = null;
-        this.leaderboard = null;
-        this.activePlayers = null;
         Object.assign(this, data);
     }
 }

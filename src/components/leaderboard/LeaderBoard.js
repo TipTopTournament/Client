@@ -1,23 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
-import { BaseContainer } from '../../helpers/layout';
 import { api, handleError } from '../../helpers/api';
-import Player from '../../views/Player';
 import { NoData } from '../../views/design/NoData';
 import { Button } from '../../views/design/Button';
 import { withRouter } from 'react-router-dom';
-
-const Container = styled(BaseContainer)`
-  color: white;
-  text-align: center;
-`;
-
-const PlayerList = styled.ul`
-  margin-bottom: 50px;
-  list-style: none;
-  padding-left: 0;
-  border: 1px solid;
-`;
+import LeaderBoardPlayer from "../../views/LeaderBoardPlayer";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/Container";
 
 const PlayerContainer = styled.li`
   display: flex;
@@ -30,10 +20,9 @@ class LeaderBoard extends React.Component {
     constructor() {
         super();
         this.state = {
-            users: null
+            leaderBoardUsers: null,
         };
     }
-
 
     async componentDidMount() {
         try {
@@ -41,7 +30,7 @@ class LeaderBoard extends React.Component {
             const response = await api.get(`/tournaments/${tournamentCode}/leaderboard`);
             console.log("response", response.data);
 
-            this.setState({ users: response.data });
+            this.setState({ leaderBoardUsers: response.data });
 
         } catch (error) {
             alert(`Something went wrong while fetching the users: \n${handleError(error)}`);
@@ -51,19 +40,19 @@ class LeaderBoard extends React.Component {
     render() {
         return (
             <Container>
-                {!this.state.users ? (
+                <Row>
+                    <Col>
+                {!this.state.leaderBoardUsers ? (
                     <NoData />
                 ) : (
                     <div>
-                        <PlayerList>
-                            {this.state.users.map(user => {
+                            {this.state.leaderBoardUsers.map(leaderBoardUser => {
                                 return (
-                                    <PlayerContainer key={user.licenseNumber}>
-                                        <Player user={user} />
+                                    <PlayerContainer key={leaderBoardUser["participant"].participantID}>
+                                        <LeaderBoardPlayer leaderBoardUser={leaderBoardUser} />
                                     </PlayerContainer>
                                 );
                             })}
-                        </PlayerList>
                         <Button
                             width="100%"
                             onClick={() => {
@@ -74,6 +63,8 @@ class LeaderBoard extends React.Component {
                         </Button>
                     </div>
                 )}
+                    </Col>
+                </Row>
             </Container>
         );
     }

@@ -19,7 +19,7 @@ class PlayerList extends React.Component {
 
 
   handleClickOnPlayer = (playerId) => {
-    this.props.history.push(`/${this.props.match.params.tournamentsCode}/participants/${playerId}`);
+    this.props.history.push(`/${this.props.match.params.tournamentCode}/participants/${playerId}`);
   }
 
   renderPlayerList(player) {
@@ -40,7 +40,7 @@ class PlayerList extends React.Component {
     ]; //somthing like get.api(tournaments/participantslist) to get all participants in a tournament
     //const players = await api.get(`/tournaments/${tournamentsCode}/leaderboard`);
     this.setState({ playerList: participants }); //response.data.results blablabla
-    const tournamentsCode = this.props.match.params.tournamentsCode;
+    const tournamentsCode = this.props.match.params.tournamentCode;
     console.log('the tournamentcode is :', tournamentsCode);
   }
 

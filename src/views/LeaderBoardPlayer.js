@@ -11,24 +11,28 @@ const Container = styled.div`
   border: 1px solid #ffffff26;
 `;
 
-const Name = styled.div`
-  font-weight: bold;
+const Vorname = styled.div`
   color: #06c4ff;
+  font-weight: bold;
 `;
 
+const Nachname = styled.div`
+  font-weight: lighter;
+  margin-left: 5px;
+`;
 
-const Score = styled.div`
+const Wins = styled.div`
   margin-left: auto;
   margin-right: auto;
   font-weight: light;
 `;
 
-const LeaderBoardPlayer = ({ LeaderBoardUser }) => {
+const LeaderBoardPlayer = ({ leaderBoardUser }) => {
     return (
         <Container>
-            <Name>{LeaderBoardUser.name}</Name>
-            <Score>{LeaderBoardUser.elo} </Score>
-            <Score>{LeaderBoardUser.stats} </Score>
+            <Vorname>{leaderBoardUser["participant"].vorname}</Vorname>
+            <Nachname>{leaderBoardUser["participant"].nachname}</Nachname>
+            <Wins>Wins: {leaderBoardUser.wins} </Wins>
         </Container>
     );
 };

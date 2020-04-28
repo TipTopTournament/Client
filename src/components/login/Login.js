@@ -19,7 +19,9 @@ class Login extends React.Component {
     this.state = {
       username: null,
       password: null,
-      token: null
+      licenseNumber: null,
+      managerID:null,
+      participantID: null,
     };
   }
   /**
@@ -31,25 +33,31 @@ class Login extends React.Component {
 
     let response;
     try {
-      const requestBody = JSON.stringify({
-        username: this.state.username,
-        password: this.state.password
-      });
-
       if (is_manager) {
+        const requestBody = JSON.stringify({
+          username: this.state.username,
+          password: this.state.password
+        });
         response = await api.put("/managers/login", requestBody);
         // Get the returned manager and update a new object.
         const manager = new Manager(response.data) ;
         // Store the token into the local storage.
         localStorage.setItem("token", manager.token);
-        // Login successfully worked --> navigate to the route /managerMenu in the TournamentRouter
-        //this.props.history.push(`/managerMenu/${managerId}`);
+        const {managerID} = manager;
+        this.props.history.push(`/managerMenu/${managerID}`);
       } else {
-        response = await api.put("/participants/login", requestBody);
+        const requestBody1 = JSON.stringify({
+          licenseNumber: this.state.licenseNumber,
+          password: this.state.password
+        });
+        console.log("requestBody", requestBody1);
+        response = await api.put("/participants/login", requestBody1);
         // Get the returned user and update a new object.
         const user = new User(response.data);
         // Store the token into the local storage.
         localStorage.setItem("token", user.token);
+        // store the generated ID in the local storage.
+        localStorage.setItem("ParticipantID", user.participantID);
         // Login successfully worked --> navigate to the route /tournamentCode in the TournamentRouter
         this.props.history.push(`/tournamentCode`);
       }
@@ -84,10 +92,10 @@ class Login extends React.Component {
                   <Form.Group>
                     <Form.Label>Lizenznummer</Form.Label>
                     <Form.Control
-                      type="username"
+                      type="licenseNumber"
                       placeholder="z.B.: 908147"
                       onChange={e => {
-                        this.handleInputChange("token", e.target.value);
+                        this.handleInputChange("licenseNumber", e.target.value);
                       }}
                     />
                   </Form.Group>
@@ -103,7 +111,7 @@ class Login extends React.Component {
                     />
                   </Form.Group>
                   <Button type="button"
-                    disabled={!this.state.token || !this.state.password}
+                    disabled={!this.state.licenseNumber || !this.state.password}
                     width="auto"
                     onClick={() => {
                       this.login(false);
@@ -113,88 +121,13 @@ class Login extends React.Component {
                   </Button>
                 </Form>
               </Tab>
-              {/*
-
-              <Label>Username</Label>
-              <InputField
-                placeholder="Enter here.."
-                onChange={e => {
-                  this.handleInputChange("username", e.target.value);
-                }}
-              />
-              <Label>Password</Label>
-              <InputField
-                type="password"
-                placeholder="Enter here.."
-                onChange={e => {
-                  this.handleInputChange("password", e.target.value);
-                }}
-              />
-              <ButtonContainer>
-                <Button
-                  disabled={!this.state.username || !this.state.password}
-                  width="50%"
-                  onClick={() => {
-                    this.login(false);
-                  }}
-                >
-                  Login as a participant
-                </Button>
-                <Button
-                  width="50%"
-                  onClick={() => {
-                    this.props.history.goBack();
-                  }}
-                >
-                  Back
-                </Button>
-              </ButtonContainer>
-            </Tab>
-            <Tab eventKey="Manager" title="Manager">
-              <Label>Username</Label>
-              <InputField
-                placeholder="Enter here.."
-                onChange={e => {
-                  this.handleInputChange("username", e.target.value);
-                }}
-              />
-              <Label>Password</Label>
-              <InputField
-                placeholder="Enter here.."
-                onChange={e => {
-                  this.handleInputChange("password", e.target.value);
-                }}
-              />
-              <ButtonContainer>
-                <Button
-                  disabled={!this.state.username || !this.state.password}
-                  width="50%"
-                  onClick={() => {
-                    this.login(true);
-                  }}
-                >
-                  Login as a manager
-                </Button>
-                <Button
-                  width="50%"
-                  onClick={() => {
-                    this.props.history.goBack();
-                  }}
-                >
-                  Back
-                </Button>
-              </ButtonContainer>
-
-
-                */}
-
               <Tab eventKey="Manager" title="Manager">
                 <Form>
                   <Form.Group controlId="formBasicEmail">
                     <Form.Label>Username</Form.Label>
                     <Form.Control
-                      type="token"
-                      placeholder="z.B.: stefano noob"
+                      type="username"
+                      placeholder="Username"
                       onChange={e => {
                         this.handleInputChange("username", e.target.value);
                       }}
