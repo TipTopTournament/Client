@@ -18,19 +18,19 @@ class ParticipantMenu extends React.Component {
   }
   participants = () => {
     this.props.history.push(
-      `/${this.props.match.params.tournamentsCode}/playerlists`
+      `/${this.props.match.params.tournamentCode}/playerlists`
     );
   };
 
   brackets = () => {
     this.props.history.push(
-      `/${this.props.match.params.tournamentsCode}/bracket`
+      `/${this.props.match.params.tournamentCode}/bracket`
     );
   };
 
   leaderboard = () => {
     this.props.history.push(
-      `/${this.props.match.params.tournamentsCode}/leaderBoard`
+      `/${this.props.match.params.tournamentCode}/leaderBoard`
     );
   };
 

@@ -25,7 +25,7 @@ class ScoreReport extends React.Component {
         let response;
         let playerId = localStorage.getItem("ParticipantID"); // string
         try{
-            response = api.get(`/tournaments/${this.props.match.params.tournamentsCode}/bracket/${playerId}`); // returns GameData's data
+            response = api.get(`/tournaments/${this.props.match.params.tournamentCode}/bracket/${playerId}`); // returns GameData's data
             const game = new GameData(response);
             this.setState({game: game});
             this.setState({tournamentCode: game.tournamentCode});
