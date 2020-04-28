@@ -6,6 +6,7 @@ import { withRouter } from 'react-router-dom';
 import Form from "react-bootstrap/Form";
 import GameData from '../shared/models/GameData';
 import Button from "react-bootstrap/Button";
+import { api } from '../../helpers/api';
 
 
 class ScoreReport extends React.Component {
@@ -46,8 +47,20 @@ class ScoreReport extends React.Component {
         this.setState({ [key]: value });
       }
 
-    submitScore(){
+    async submitScore(){
         console.log(this.state);
+        try {
+            const requestBody = JSON.stringify({
+                tournamentCode: this.state.tournamentCode,
+                gameId: this.state.gameId,
+                score1: this.state.score1,
+                score2: this.state.score2,
+            });
+                await api.put(`/tournaments/${this.state.tournamentCode}/bracket/${this.state.gameId}`);
+        }catch(error){
+            console.log('there is something wrong with sending the scores', error);
+        }
+
     }
 
     render() {
