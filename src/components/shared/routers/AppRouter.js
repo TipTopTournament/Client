@@ -22,7 +22,7 @@ import PlayerList from "../../playerProfile/PlayerList";
 import TournamentInfo from "../../tournament/TournamentInfo";
 import ManagerMenu from "../../managerMenu/ManagerMenu";
 import ParticipantMenu from "../../participantMenu/ParticipantMenu";
-import ScoreReport from "../../bracket/ScoreReport"
+import ScoreReport from "../../bracket/ScoreReport";
 
 /**
  * Main router of your application.

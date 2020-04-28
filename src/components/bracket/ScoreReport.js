@@ -12,7 +12,11 @@ class ScoreReport extends React.Component {
     constructor(){
         super();
         this.state = {
-            game : null
+            tournamentCode: null,
+            gameId: null,
+            score1: null,
+            score2: null,
+            game: null
         }
     }
 
@@ -29,17 +33,22 @@ class ScoreReport extends React.Component {
                 score2: null,
                 gameId: 4,
                 gameState: 'NOTREADY',
-                tournamentCode: 4
+                startTime: null,
+                tournamentCode: 420420
             }
             const game = new GameData(testingData);
             this.setState({game: game});
+            this.setState({tournamentCode: game.tournamentCode});
+            this.setState({gameId: game.gameId});
     }
 
     handleEnterScore(key, value) {
-        // Example: if the key is username, this statement is the equivalent to the following one:
-        // this.setState({'username': value});
         this.setState({ [key]: value });
       }
+
+    submitScore(){
+        console.log(this.state);
+    }
 
     render() {
         if (!this.state.game) {
@@ -73,7 +82,7 @@ class ScoreReport extends React.Component {
                             <Form.Control
                                 placeholder="1-3"
                                 onChange={e => {
-                                    this.handleEnterScore(this.state.game.participant1, e.target.value);
+                                    this.handleEnterScore("score1", e.target.value);
                                 }} />
                         </Form.Group>
                         <Form.Group>
@@ -83,14 +92,14 @@ class ScoreReport extends React.Component {
                             <Form.Control
                                 placeholder="1-3"
                                 onChange={e => {
-                                    this.handleEnterScore(this.state.game.participant2, e.target.value);
+                                    this.handleEnterScore("score2", e.target.value);
                                 }} />
                         </Form.Group>
 
                     </Form>
 
                     <Button type="button"
-                        disabled={!this.state.game.score1 || !this.state.game.score2}
+                        disabled={!this.state.score1 || !this.state.score2}
                         onClick={() => {
                             this.submitScore();
                         }}>
