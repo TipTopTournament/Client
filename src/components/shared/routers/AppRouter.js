@@ -17,7 +17,6 @@ import { BracketGuard } from "../routeProtectors/BracketGuard";
 import { LeaderBoardGuard } from "../routeProtectors/LeaderBoardGuard";
 import { CreateTournamentGuard } from "../routeProtectors/CreateTournamentGuard";
 import { RegistrationGuard } from "../routeProtectors/RegistrationGuard";
-import { PlayerProfileGuard } from "../routeProtectors/PlayerProfileGuard";
 import PlayerList from "../../playerProfile/PlayerList";
 import TournamentInfo from "../../tournament/TournamentInfo";
 import ManagerMenu from "../../managerMenu/ManagerMenu";

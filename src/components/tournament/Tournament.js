@@ -31,9 +31,16 @@ class Tournament extends React.Component {
 
   handleClick(id){
     const tournamentCode = this.props.match.params.tournamentCode;
-    this.props.history.push(`/${tournamentCode}/${id}`);
-  }
+    if (this.isNumeric(id)){
 
+      this.props.history.push (`/${tournamentCode}/participants/${id}`)
+    } else {
+      this.props.history.push(`/${tournamentCode}/${id}`);
+    }
+  }
+  isNumeric(value) {
+    return /^\d+$/.test(value);
+  }
   async componentDidMount() {
     try {
       const {tournamentCode} = this.props.match.params;
@@ -68,7 +75,7 @@ class Tournament extends React.Component {
               <Form.Group>
                 {this.state.users.map(user => {
                   return (
-                    <PlayerContainer key={user.participantID}>
+                    <PlayerContainer key={user.participantID} onClick={()=> this.handleClick(user.participantID)}>
                       <Player user={user} />
                     </PlayerContainer>
                   );

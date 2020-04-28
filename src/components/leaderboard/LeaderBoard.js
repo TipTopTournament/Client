@@ -23,6 +23,10 @@ class LeaderBoard extends React.Component {
             leaderBoardUsers: null,
         };
     }
+    handleClick(playerID){
+        const {tournamentCode} = this.props.match.params;
+        this.props.history.push (`/${tournamentCode}/participants/${playerID}`)
+    }
 
     async componentDidMount() {
         try {
@@ -48,7 +52,7 @@ class LeaderBoard extends React.Component {
                     <div>
                             {this.state.leaderBoardUsers.map(leaderBoardUser => {
                                 return (
-                                    <PlayerContainer key={leaderBoardUser["participant"].participantID}>
+                                    <PlayerContainer key={leaderBoardUser["participant"].participantID} onClick={()=> this.handleClick(leaderBoardUser["participant"].participantID)}>
                                         <LeaderBoardPlayer leaderBoardUser={leaderBoardUser} />
                                     </PlayerContainer>
                                 );

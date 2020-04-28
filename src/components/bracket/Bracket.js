@@ -10,6 +10,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import '../../views/design/custom-container.css';
+import {ButtonContainer} from "../../views/design/ButtonContainer";
 
 const TournamentBracket = styled.ul`
   margin-bottom: 50px;
@@ -148,22 +149,14 @@ class Bracket extends React.Component {
                         <div className = "custom-container">
                             <Tree
                                 data={this.state.data}
-                                height={200}
+                                height={600}
                                 width={400}
                                 svgProps={{
                                     className: 'custom',
                                 }}/>
                                 }}/>
                         </div>
-                        <TournamentBracket>
-                            {this.state.games.map(game => {
-                                return (
-                                    <BracketContainer key={game.gameId} onClick={()=> this.inspectGame(game.gameId)}>
-                                        <Game gameData={game} />
-                                    </BracketContainer>
-                                );
-                            })}
-                        </TournamentBracket>
+                        <ButtonContainer>
                         <Button
                             width="100%"
                             onClick={() => {
@@ -172,6 +165,7 @@ class Bracket extends React.Component {
                         >
                             Back to Tournament Overview
                         </Button>
+                        </ButtonContainer>
                     </Col>
                 </Row>
                 )}
