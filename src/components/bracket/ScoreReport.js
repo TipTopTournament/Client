@@ -22,11 +22,16 @@ class ScoreReport extends React.Component {
     }
 
     async componentDidMount(){
-        //try{
-
-
-        //}catch(error){
-            //console.log('there was a problem getting the game', error)
+        let response;
+        let playerId = localStorage.getItem("ParticipantID"); // string
+        try{
+            response = api.get(`/tournaments/${this.props.match.params.tournamentsCode}/bracket/${playerId}`) // returns GameData's data
+            const game = new GameData(response);
+            this.setState({game: game});
+            this.setState({tournamentCode: game.tournamentCode});
+            this.setState({gameId: game.gameId});
+        }catch(error){
+            console.log('there was a problem getting the game', error)
             const testingData = {
                 participant1: 'Tony Ly',
                 participant2: 'Timo Boll',
@@ -41,6 +46,7 @@ class ScoreReport extends React.Component {
             this.setState({game: game});
             this.setState({tournamentCode: game.tournamentCode});
             this.setState({gameId: game.gameId});
+        }
     }
 
     handleEnterScore(key, value) {
@@ -57,6 +63,7 @@ class ScoreReport extends React.Component {
                 score2: this.state.score2,
             });
                 await api.put(`/tournaments/${this.state.tournamentCode}/bracket/${this.state.gameId}`);
+                this.props.history.goBack(); // after submitting automatically redirect to bracket?
         }catch(error){
             console.log('there is something wrong with sending the scores', error);
         }
