@@ -25,7 +25,7 @@ class ScoreReport extends React.Component {
         let response;
         let playerId = localStorage.getItem("ParticipantID"); // string
         try{
-            response = api.get(`/tournaments/${this.props.match.params.tournamentsCode}/bracket/${playerId}`) // returns GameData's data
+            response = api.get(`/tournaments/${this.props.match.params.tournamentsCode}/bracket/${playerId}`); // returns GameData's data
             const game = new GameData(response);
             this.setState({game: game});
             this.setState({tournamentCode: game.tournamentCode});
@@ -62,7 +62,7 @@ class ScoreReport extends React.Component {
                 score1: this.state.score1,
                 score2: this.state.score2,
             });
-                await api.put(`/tournaments/${this.state.tournamentCode}/bracket/${this.state.gameId}`);
+                await api.put(`/tournaments/${this.state.tournamentCode}/bracket/${this.state.gameId}`, requestBody);
                 this.props.history.goBack(); // after submitting automatically redirect to bracket?
         }catch(error){
             console.log('there is something wrong with sending the scores', error);
