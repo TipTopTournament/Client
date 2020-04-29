@@ -32,6 +32,7 @@ class ManagerMenu extends React.Component {
 
     logout(){
         localStorage.removeItem('token');
+        localStorage.removeItem('ManagerID');
         this.props.history.push("/login");
     }
 

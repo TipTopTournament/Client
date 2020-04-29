@@ -23,7 +23,8 @@ class TournamentCode extends React.Component {
   }
 
   logout() {
-    localStorage.removeItem("token"); // also remove user too but this is a thing with low prio
+    localStorage.removeItem("token");
+    localStorage.removeItem("ParticipantID");
     this.props.history.push("/home");
   }
 
