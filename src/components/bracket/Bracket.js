@@ -9,6 +9,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import '../../views/design/custom-container.css';
 import {ButtonContainer} from "../../views/design/ButtonContainer";
+import ScoreReport from './ScoreReport';
 
 class Bracket extends React.Component {
     constructor() {
@@ -101,7 +102,7 @@ class Bracket extends React.Component {
     render() {
         return (
             <Container>
-                {!this.state.games ? (
+                {!this.state.games} ? (
                     <NoData />
                 ) : (
                 <Row>
@@ -114,19 +115,29 @@ class Bracket extends React.Component {
                                 svgProps={{
                                     className: 'custom',
                                 }}/>
-                                }}/>
+                            }}/>
                         </div>
+                    </Col>
+                </Row>
+
+                <Row>
+                    <Col><ScoreReport /></Col>
+                </Row>
+                <Row>
+                    <Col />
+                    <Col>
                         <ButtonContainer>
-                        <Button
-                            width="100%"
-                            onClick={() => {
-                                this.props.history.goBack();
-                            }}
-                        >
-                            Back to Tournament Overview
-                        </Button>
+                            <Button
+                                width="100%"
+                                onClick={() => {
+                                    this.props.history.goBack();
+                                }}
+                            >
+                                Back to Tournament Overview
+                            </Button>
                         </ButtonContainer>
                     </Col>
+                    <Col />
                 </Row>
                 )}
             </Container>

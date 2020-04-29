@@ -92,9 +92,7 @@ class AppRouter extends React.Component {
             <Route
               path="/:tournamentCode/bracket"
               render={() => (
-                <BracketGuard>
                   <Bracket />
-                </BracketGuard>
               )}
             />
             <Route
@@ -114,10 +112,6 @@ class AppRouter extends React.Component {
             <Route
               path="/:tournamentCode/participantMenu"
               render={() => <ParticipantMenu />}
-            />
-            <Route 
-              path="/:tournamentCode/:matchID"
-              render={() => <ScoreReport />}
             />
           </div>
         </Switch>
