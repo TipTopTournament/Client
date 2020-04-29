@@ -34,10 +34,9 @@ class PlayerList extends React.Component {
   }
 
   async componentDidMount() {
-
+    const tournamentsCode = this.props.match.params.tournamentCode;
     const response = await api.get(`/tournaments/${tournamentsCode}/leaderboard`);
     this.setState({ playerList: response.data });
-    const tournamentsCode = this.props.match.params.tournamentCode;
     console.log('the tournamentcode is :', tournamentsCode);
   }
 

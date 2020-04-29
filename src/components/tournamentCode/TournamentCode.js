@@ -49,6 +49,9 @@ class TournamentCode extends React.Component {
       if (tmpCode.length < 4) {
         return tmpCode;
       }
+      if (tmpCode.length > 11) {
+        return "";
+      }
 
       switch (tmpCode.length) {
         case 4:
@@ -68,7 +71,7 @@ class TournamentCode extends React.Component {
           return tmpCode.substring(0, tmpCode.length - 1);
       }
     } else {
-      return (tmpCode = "");
+      return "";
     }
   }
 
