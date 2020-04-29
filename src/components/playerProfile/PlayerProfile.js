@@ -12,23 +12,18 @@ class PlayerProfile extends React.Component {
   constructor() {
     super();
     this.state = {
-      stats:null
+      stats : {
+        wins: 3,
+        loses: 3,
+        matches: 6
+      }
     };
   }
 
-  renderPlayerStats(){
-    return(
-      <tr>
-        <td>{this.state.stats.wins}</td>
-        <td>{this.state.stats.loses}</td>
-        <td>{this.state.stats.matches}</td>
-      </tr>
-    )
-  }
-
   async componentDidMount(){
+    console.log(this.state);
     const playerID = this.props.match.params.playerID;
-    const stats = await api.get(`/participants/${playerID}/statistics`)
+    const stats = await api.get(`/participants/${playerID}/statistics`);
     this.setState({stats: stats});
   }
 
@@ -48,7 +43,11 @@ class PlayerProfile extends React.Component {
                 </tr>
               </thead>
               <tbody>
-                {this.renderPlayerStats}
+                <tr>
+                  <td>{this.state.stats.wins}</td>
+                  <td>{this.state.stats.loses}</td>
+                  <td>{this.state.stats.matches}</td>
+                </tr>
               </tbody>
             </Table>
           </div>
