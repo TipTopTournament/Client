@@ -10,8 +10,8 @@ import { api } from '../../helpers/api';
 
 
 class ScoreReport extends React.Component {
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state = {
             tournamentCode: null,
             gameId: null,
@@ -76,7 +76,7 @@ class ScoreReport extends React.Component {
                 <Container>
                     <Row>
                         <Col />
-                        <Col><h1>Your next game has not been determend yet</h1></Col>
+                        <Col><h1>Your next game has not been determined yet</h1></Col>
                         <Col />
                     </Row>
                 </Container>

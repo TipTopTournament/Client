@@ -17,13 +17,28 @@ class Bracket extends React.Component {
         this.state = {
             games: null,
             data: {name: 'Finale', children: [{name: 'Halbfinale1',children:[{name: "Viertelfinale"}, {name:"Viertelfinale2"}]}, {name: 'Halbfinale2'}]},
+            participantID: localStorage.getItem("ParticipantID"),
+            myGame: null,
+            manager: null,
         };
     }
 
-    inspectGame(game){
-        const {tournamentCode} = this.props.match.params;
-        this.props.history.push(`/tournaments/${tournamentCode}/bracket/${game}`)
+    handleClick(){
+        const tournamentCode = this.props.match.params.tournamentCode;
+        this.props.history.push(`/tournaments/${tournamentCode}`);
     }
+
+    getGameOfParticipant(){
+        this.state.games.forEach(game => this.checkIfParticipantInThisGame(game));
+    }
+    checkIfParticipantInThisGame(game){
+        if (game.participant1 === this.state.participantID || game.participant2 === this.state.participantID){
+            this.setState({myGame:game});
+        } else{
+            alert(`Something went wrong while fetching your game`);
+        }
+    }
+
     setupBracket(Games){
         console.log("length",Games.length);
         switch (Games.length) {
@@ -71,6 +86,9 @@ class Bracket extends React.Component {
     
     async componentDidMount() {
         try {
+            if (localStorage.getItem("ManagerID")) {
+                this.setState({manager:localStorage.getItem("ManagerID")})
+            }
             const {tournamentCode} = this.props.match.params;
             const response = await api.get(`/tournaments/${tournamentCode}/bracket`);
             console.log("response", response.data);
@@ -123,11 +141,23 @@ class Bracket extends React.Component {
                     </Col>
                 </Row>
                 )}
+                {!this.state.games ? (
+                    <Row>
+                        <Col>
+                            <NoData />
+                        </Col>
+                    </Row>
+                ) : (
                 <Row>
                     <Col>
-                    <ScoreReport />
+                        {!this.state.manager ? (
+                            <NoData />
+                        ) : (
+                            <ScoreReport game={this.getGameOfParticipant()}/>
+                            )}
                     </Col>
                 </Row>
+                )}
                 <Row>
                     <Col />
                     <Col>
@@ -135,7 +165,7 @@ class Bracket extends React.Component {
                             <Button
                                 width="100%"
                                 onClick={() => {
-                                    this.props.history.goBack();
+                                    this.handleClick();
                                 }}
                             >
                                 Back to Tournament Overview

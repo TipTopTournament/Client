@@ -43,6 +43,7 @@ class Login extends React.Component {
         const manager = new Manager(response.data) ;
         // Store the token into the local storage.
         localStorage.setItem("token", manager.token);
+        localStorage.setItem("ManagerID", manager.managerID);
         const {managerID} = manager;
         this.props.history.push(`/managerMenu/${managerID}`);
       } else {
