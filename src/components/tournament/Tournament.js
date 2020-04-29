@@ -41,6 +41,11 @@ class Tournament extends React.Component {
   isNumeric(value) {
     return /^\d+$/.test(value);
   }
+
+  goBackToMenu(){
+    const managerID = localStorage.getItem("ManagerID");
+    this.props.history.push(`/managerMenu/${managerID}`);
+  }
   async componentDidMount() {
     try {
       const {tournamentCode} = this.props.match.params;
@@ -83,7 +88,7 @@ class Tournament extends React.Component {
                 <Button
                     type="button"
                     onClick={() => {
-                      this.props.history.goBack();
+                      this.goBackToMenu();
                     }}
                 >
                   Leave tournament
