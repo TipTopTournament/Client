@@ -1,31 +1,14 @@
 import React from 'react';
-import styled from 'styled-components';
 import { api, handleError } from '../../helpers/api';
 import { NoData } from '../../views/design/NoData';
 import { Button } from '../../views/design/Button';
 import { withRouter } from 'react-router-dom';
-import Game from "../../views/Game";
 import Tree from "react-tree-graph";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import '../../views/design/custom-container.css';
 import {ButtonContainer} from "../../views/design/ButtonContainer";
-
-const TournamentBracket = styled.ul`
-  margin-bottom: 50px;
-  list-style: none;
-  padding-left: 0;
-  border: 1px solid;
-`;
-
-const BracketContainer = styled.li`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`;
-
 
 class Bracket extends React.Component {
     constructor() {
@@ -79,34 +62,11 @@ class Bracket extends React.Component {
                                                                                   {name: Games['7']['participant1'].vorname + " " + Games['7'].score1 + " vs. " + Games['7'].score2 + " " + Games['7']['participant2'].vorname}]}]}]};
                 this.setState({data: setup3});
                 console.log("data", this.state.data);
+                break;
+            default:
+                break;
         }
     }
-    // setupEachGame(Games , length){
-    //     let i;
-    //     let setup;
-    //     let children;
-    //     if (length === 3) {
-    //         //children = 1;
-    //         //setup = {name: '', children: [{name: ''}, {name: ''}]}
-    //         for (i = length; i >= 0; i--) {
-    //             setup = {
-    //                 name: Games["'" + length + "'"]['participant1'].vorname + " " + Games["'" + length + "'"].score1 +
-    //                     " vs. " + Games["'" + length + "'"].score2 + " " + Games["'" + length + "'"]['participant2'].vorname
-    //             }
-    //         }
-    //     }
-    //     if (length === 7) {
-    //         //children = 3;
-    //         setup = {name: '', children: [{name: '',children: [{name: '',},{name: '',}]}, {name: '',children: [{name: '',},{name: '',}]}]}
-    //         // for (i = length; i >= 0; i--) {
-    //         //     setup = {
-    //         //         name: Games["'" + length + "'"]['participant1'].vorname + " " + Games["'" + length + "'"].score1 +
-    //         //             " vs. " + Games["'" + length + "'"].score2 + " " + Games["'" + length + "'"]['participant2'].vorname
-    //         //     }
-    //         // }
-    //     }
-    //
-    // }
     
     async componentDidMount() {
         try {

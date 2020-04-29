@@ -7,7 +7,6 @@ import Login from "../../login/Login";
 import HomeScreen from "../../homescreen/HomeScreen";
 import Registration from "../../register/Registration";
 import TournamentCode from "../../tournamentCode/TournamentCode";
-import { TournamentCodeGuard } from "../routeProtectors/TournamentCodeGuard";
 import Tournament from "../../tournament/Tournament";
 import LeaderBoard from "../../leaderboard/LeaderBoard";
 import Bracket from "../../bracket/Bracket";
