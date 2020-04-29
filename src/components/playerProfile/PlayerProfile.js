@@ -21,10 +21,13 @@ class PlayerProfile extends React.Component {
   }
 
   async componentDidMount(){
-    console.log(this.state);
     const playerID = this.props.match.params.playerID;
-    const stats = await api.get(`/participants/${playerID}/statistics`);
-    this.setState({stats: stats});
+    try{
+      const stats = await api.get(`/participants/${playerID}/statistics`);
+      this.setState({stats: stats});
+    }catch(error){
+      console.log('something bad happened while fetich player stats', error)
+    }
   }
 
   render() {
