@@ -19,7 +19,7 @@ class Bracket extends React.Component {
             data: {name: 'Finale', children: [{name: 'Halbfinale1',children:[{name: "Viertelfinale"}, {name:"Viertelfinale2"}]}, {name: 'Halbfinale2'}]},
             participantID: localStorage.getItem("ParticipantID"),
             myGame: null,
-            manager: null,
+            manager: localStorage.getItem("ManagerID"),
         };
     }
 
@@ -32,7 +32,9 @@ class Bracket extends React.Component {
         this.state.games.forEach(game => this.checkIfParticipantInThisGame(game));
     }
     checkIfParticipantInThisGame(game){
+        console.log("Game", game);
         if (game.participant1 === this.state.participantID || game.participant2 === this.state.participantID){
+            console.log("MyGame", game);
             this.setState({myGame:game});
         } else{
             alert(`Something went wrong while fetching your game`);
@@ -40,7 +42,6 @@ class Bracket extends React.Component {
     }
 
     setupBracket(Games){
-        console.log("length",Games.length);
         switch (Games.length) {
             case 3:
                 let setup1 = {name: Games['2']['participant1'].vorname + " " + Games['2'].score1 + " vs. " + Games['2'].score2 + " " + Games['2']['participant2'].vorname,
@@ -86,9 +87,6 @@ class Bracket extends React.Component {
     
     async componentDidMount() {
         try {
-            if (localStorage.getItem("ManagerID")) {
-                this.setState({manager:localStorage.getItem("ManagerID")})
-            }
             const {tournamentCode} = this.props.match.params;
             const response = await api.get(`/tournaments/${tournamentCode}/bracket`);
             console.log("response", response.data);
@@ -151,9 +149,9 @@ class Bracket extends React.Component {
                 <Row>
                     <Col>
                         {!this.state.manager ? (
-                            <NoData />
-                        ) : (
                             <ScoreReport game={this.getGameOfParticipant()}/>
+                        ) : (
+                            <NoData />
                             )}
                     </Col>
                 </Row>
