@@ -23,23 +23,24 @@ class Bracket extends React.Component {
         };
     }
 
-    handleClick(){
-        const tournamentCode = this.props.match.params.tournamentCode;
-        this.props.history.push(`/tournaments/${tournamentCode}`);
+    getGameOfParticipant(){
+        let myGame = null;
+        const GameAlreadyPlayed = "FINISHED";
+        this.state.games.map(game => {
+
+            let PlayerID1 = parseInt(game.participant1.participantID);
+            let PlayerID2 = parseInt(game.participant2.participantID);
+            let MyID = parseInt(this.state.participantID);
+            let GameState = game.gameState;
+
+            if ((PlayerID1 === MyID && GameState !== GameAlreadyPlayed) ||
+                (PlayerID2 === MyID && GameState !== GameAlreadyPlayed)){
+                myGame = game;
+            }
+        });
+        return myGame;
     }
 
-    getGameOfParticipant(){
-        this.state.games.forEach(game => this.checkIfParticipantInThisGame(game));
-    }
-    checkIfParticipantInThisGame(game){
-        console.log("Game", game);
-        if (game.participant1 === this.state.participantID || game.participant2 === this.state.participantID){
-            console.log("MyGame", game);
-            this.setState({myGame:game});
-        } else{
-            alert(`Something went wrong while fetching your game`);
-        }
-    }
 
     setupBracket(Games){
         switch (Games.length) {
@@ -48,7 +49,6 @@ class Bracket extends React.Component {
                     children: [{name: Games['0']['participant1'].vorname + " " + Games['0'].score1 + " vs. " + Games['0'].score2 + " " + Games['0']['participant2'].vorname},
                         {name: Games['1']['participant1'].vorname + " " + Games['1'].score1 + " vs. " + Games['1'].score2 + " " + Games['1']['participant2'].vorname}]};
                 this.setState({data: setup1});
-                console.log("data", this.state.data);
                 break;
             case 7:
                 let setup2 = {name: Games['6']['participant1'].vorname + " " + Games['6'].score1 + " vs. " + Games['6'].score2 + " " + Games['6']['participant2'].vorname,
@@ -59,7 +59,6 @@ class Bracket extends React.Component {
                                                       children:[{name: Games['2']['participant1'].vorname + " " + Games['2'].score1 + " vs. " + Games['2'].score2 + " " + Games['2']['participant2'].vorname},
                                                                 {name: Games['3']['participant1'].vorname + " " + Games['3'].score1 + " vs. " + Games['3'].score2 + " " + Games['3']['participant2'].vorname}]}]};
                 this.setState({data: setup2});
-                console.log("data", this.state.data);
                 break;
             case 15:
                 let setup3 = {name: Games['14']['participant1'].vorname + " " + Games['14'].score1 + " vs. " + Games['14'].score2 + " " + Games['14']['participant2'].vorname,
@@ -78,7 +77,6 @@ class Bracket extends React.Component {
                                                                         children:[{name: Games['6']['participant1'].vorname + " " + Games['6'].score1 + " vs. " + Games['6'].score2 + " " + Games['6']['participant2'].vorname},
                                                                                   {name: Games['7']['participant1'].vorname + " " + Games['7'].score1 + " vs. " + Games['7'].score2 + " " + Games['7']['participant2'].vorname}]}]}]};
                 this.setState({data: setup3});
-                console.log("data", this.state.data);
                 break;
             default:
                 break;
@@ -93,6 +91,7 @@ class Bracket extends React.Component {
             this.correctArray(response.data);
             this.setState({ games : response.data });
             this.setupBracket(response.data);
+
             // this.setState({data: {name: '', children: [{name: '',children: [{name: '',},{name: '',}]}, {name: '',children: [{name: '',},{name: '',}]}]}})
 
 
@@ -149,7 +148,7 @@ class Bracket extends React.Component {
                 <Row>
                     <Col>
                         {!this.state.manager ? (
-                            <ScoreReport game={this.getGameOfParticipant()}/>
+                            <ScoreReport gameFromBracket={this.getGameOfParticipant()}/>
                         ) : (
                             <NoData />
                             )}
@@ -163,7 +162,7 @@ class Bracket extends React.Component {
                             <Button
                                 width="100%"
                                 onClick={() => {
-                                    this.handleClick();
+                                    this.props.history.goBack();
                                 }}
                             >
                                 Back to Tournament Overview

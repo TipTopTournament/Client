@@ -10,44 +10,63 @@ import { api } from '../../helpers/api';
 
 
 class ScoreReport extends React.Component {
-    constructor(props){
-        super(props);
+    constructor(){
+        super();
         this.state = {
             tournamentCode: null,
             gameId: null,
+            participant1: null,
+            participant2: null,
             score1: null,
             score2: null,
-            game: null
+            game: null,
+            gameState: null,
+            startTime: null,
         }
     }
 
     async componentDidMount(){
+        this.setGame( this.props.gameFromBracket);
+        console.log(this.props.gameFromBracket);
         let response;
         let playerId = localStorage.getItem("ParticipantID"); // string
-        try{
-            response = api.get(`/tournaments/${this.props.match.params.tournamentCode}/bracket/${playerId}`); // returns GameData's data
-            const game = new GameData(response);
-            this.setState({game: game});
-            this.setState({tournamentCode: game.tournamentCode});
-            this.setState({gameId: game.gameId});
-        }catch(error){
-            console.log('there was a problem getting the game', error)
-            const testingData = {
-                participant1: 'Tony Ly',
-                participant2: 'Timo Boll',
-                score1: null,
-                score2: null,
-                gameId: 4,
-                gameState: 'NOTREADY',
-                startTime: null,
-                tournamentCode: 420420
-            }
-            const game = new GameData(testingData);
-            this.setState({game: game});
-            this.setState({tournamentCode: game.tournamentCode});
-            this.setState({gameId: game.gameId});
-        }
+        // try{
+        //     response = api.get(`/tournaments/${this.props.match.params.tournamentCode}/bracket/${playerId}`); // returns GameData's data
+        //     const game = new GameData(response);
+        //     this.setState({game: game});
+        //     this.setState({tournamentCode: game.tournamentCode});
+        //     this.setState({gameId: game.gameId});
+        // }catch(error){
+        //     console.log('there was a problem getting the game', error)
+        //     const testingData = {
+        //         participant1: 'Tony Ly',
+        //         participant2: 'Timo Boll',
+        //         score1: null,
+        //         score2: null,
+        //         gameId: 4,
+        //         gameState: 'NOTREADY',
+        //         startTime: null,
+        //         tournamentCode: 420420
+        //     }
+        //     const game = new GameData(testingData);
+        //     this.setState({game: game});
+        //     this.setState({tournamentCode: game.tournamentCode});
+        //     this.setState({gameId: game.gameId});
+        // }
     }
+
+    setGame(game){
+            this.setState({game: game});
+            this.setState({gameId: game.gameId});
+            this.setState({gameState: game.gameState});
+            this.setState({participant1: game.participant1.vorname});
+            this.setState({participant2: game.participant2.vorname});
+            this.setState({score1: game.score1});
+            this.setState({score2: game.score2});
+            this.setState({startTime: game.startTime});
+            this.setState({tournamentCode: game.tournamentCode});
+    }
+
 
     handleEnterScore(key, value) {
         this.setState({ [key]: value });
@@ -57,8 +76,6 @@ class ScoreReport extends React.Component {
         console.log(this.state);
         try {
             const requestBody = JSON.stringify({
-                tournamentCode: this.state.tournamentCode,
-                gameId: this.state.gameId,
                 score1: this.state.score1,
                 score2: this.state.score2,
             });
@@ -87,7 +104,7 @@ class ScoreReport extends React.Component {
                 <Row>
                     <Col />
                     <Col>
-                        {this.state.game.participant1} vs {this.state.game.participant2}
+                        {this.state.participant1} vs {this.state.participant2}
                     </Col>
                     <Col />
                 </Row>
@@ -97,7 +114,7 @@ class ScoreReport extends React.Component {
                     <Form>
                         <Form.Group>
                             <Form.Label>
-                                Enter score of {this.state.game.participant1}
+                                Enter score of {this.state.participant1}
                             </Form.Label>
                             <Form.Control
                                 placeholder="1-3"
@@ -107,7 +124,7 @@ class ScoreReport extends React.Component {
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>
-                                Enter score of {this.state.game.participant2}
+                                Enter score of {this.state.participant2}
                             </Form.Label>
                             <Form.Control
                                 placeholder="1-3"

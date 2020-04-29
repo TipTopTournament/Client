@@ -8,6 +8,7 @@ import Button from "react-bootstrap/Button";
 import { api } from "../../helpers/api";
 import TournamentData from "../shared/models/TournamentData";
 import Table from "react-bootstrap/Table";
+import {ButtonContainer} from "../../views/design/ButtonContainer";
 
 class TournamentInfo extends React.Component {
   constructor() {
@@ -93,18 +94,31 @@ class TournamentInfo extends React.Component {
                 </tr>
               </tbody>
             </Table>
-            <Button type="button" onClick={() => this.handleClick("playerList")}>
-              Participants
-            </Button>
-            <Button type="button" onClick={() => this.handleClick("bracket")}>
-              Bracket
-            </Button>
-            <Button type="button" onClick={() => this.handleClick("leaderBoard")}>
+
+            <ButtonContainer>
+              <Button type="button" onClick={() => this.handleClick("playerList")}>
+                Participants
+              </Button>
+            </ButtonContainer>
+
+            <ButtonContainer>
+              <Button type="button" onClick={() => this.handleClick("bracket")}>
+                Bracket
+              </Button>
+            </ButtonContainer>
+
+            <ButtonContainer>
+              <Button type="button" onClick={() => this.handleClick("leaderBoard")}>
               Leaderboard
             </Button>
-            <Button type="button" onClick={() => this.handleClick("leave")}>
-              Leave Tournament
-            </Button>
+            </ButtonContainer>
+
+            <ButtonContainer>
+              <Button type="button" onClick={() => this.handleClick("leave")}>
+                Leave Tournament
+              </Button>
+            </ButtonContainer>
+
           </Col>
           <Col />
         </Row>
