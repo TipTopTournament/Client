@@ -18,15 +18,16 @@ class TournamentInfo extends React.Component {
     };
   }
 
-  participants() {
-    this.props.history.push(`/${this.state.tournamentCode}/playerList`);
+  handleClick(id){
+    if (id === "leave"){
+      api.put(`/tournaments/${this.state.tournamentCode}/${localStorage.getItem("ParticipantID")}/leave`);
+      this.props.history.push(`/tournamentCode`);
+    } else{
+      this.props.history.push(`/${this.state.tournamentCode}/${id}`);
+    }
   }
-  goToBracket(){
-    this.props.history.push(`/${this.state.tournamentCode}/bracket`);
-  }
-  goToLeaderBoard(){
-    this.props.history.push(`/${this.state.tournamentCode}/leaderBoard`);
-  }
+
+
 
   async componentDidMount() {
     const tournamentCode = this.props.match.params.tournamentCode;
@@ -92,14 +93,17 @@ class TournamentInfo extends React.Component {
                 </tr>
               </tbody>
             </Table>
-            <Button type="button" onClick={() => this.participants()}>
+            <Button type="button" onClick={() => this.handleClick("playerList")}>
               Participants
             </Button>
-            <Button type="button" onClick={() => this.goToBracket()}>
+            <Button type="button" onClick={() => this.handleClick("bracket")}>
               Bracket
             </Button>
-            <Button type="button" onClick={() => this.goToLeaderBoard()}>
+            <Button type="button" onClick={() => this.handleClick("leaderBoard")}>
               Leaderboard
+            </Button>
+            <Button type="button" onClick={() => this.handleClick("leave")}>
+              Leave Tournament
             </Button>
           </Col>
           <Col />
