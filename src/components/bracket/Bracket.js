@@ -102,8 +102,12 @@ class Bracket extends React.Component {
     render() {
         return (
             <Container>
-                {!this.state.games} ? (
-                    <NoData />
+                {!this.state.games ? (
+                    <Row>
+                        <Col>
+                             <NoData />
+                        </Col>
+                    </Row>
                 ) : (
                 <Row>
                     <Col>
@@ -115,13 +119,14 @@ class Bracket extends React.Component {
                                 svgProps={{
                                     className: 'custom',
                                 }}/>
-                            }}/>
                         </div>
                     </Col>
                 </Row>
-
+                )}
                 <Row>
-                    <Col><ScoreReport /></Col>
+                    <Col>
+                    <ScoreReport />
+                    </Col>
                 </Row>
                 <Row>
                     <Col />
@@ -139,7 +144,6 @@ class Bracket extends React.Component {
                     </Col>
                     <Col />
                 </Row>
-                )}
             </Container>
         );
     }
