@@ -49,10 +49,6 @@ class TournamentCode extends React.Component {
       if (tmpCode.length < 4) {
         return tmpCode;
       }
-      if (tmpCode.length > 11) {
-        return "";
-      }
-
       switch (tmpCode.length) {
         case 4:
           return tmpCode.replace(/^(\d{4}).*/, "$1-");
@@ -144,17 +140,6 @@ class TournamentCode extends React.Component {
                   }}
                 >
                   Temporary Logout
-                </Button>
-              </ButtonContainer>
-              <ButtonContainer>
-                <Button
-                  type="button"
-                  width="70%"
-                  onClick={() => {
-                    this.profiles();
-                  }}
-                >
-                  Profiles
                 </Button>
               </ButtonContainer>
             </Form>
