@@ -43,7 +43,7 @@ class LeaderBoard extends React.Component {
 
     render() {
         return (
-            <Container>
+            <Container className= "custom-container2">
                 <Row>
                     <Col>
                 {!this.state.leaderBoardUsers ? (

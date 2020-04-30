@@ -104,7 +104,7 @@ class TournamentCode extends React.Component {
 
   render() {
     return (
-      <Container>
+      <Container className= "custom-container2">
         <Navbar>
           <Navbar.Brand>TIPTOPTournament</Navbar.Brand>
           <Navbar.Toggle />

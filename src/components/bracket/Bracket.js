@@ -116,7 +116,7 @@ class Bracket extends React.Component {
 
     render() {
         return (
-            <Container>
+            <Container className= "custom-container2">
                 {!this.state.games ? (
                     <Row>
                         <Col>

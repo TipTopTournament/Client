@@ -38,7 +38,7 @@ class PlayerProfile extends React.Component {
 
   render() {
   return (
-    <Container>
+    <Container className= "custom-container2">
       <Row>
         <Col/>
         <Col>

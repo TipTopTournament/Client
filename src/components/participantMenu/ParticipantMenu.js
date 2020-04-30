@@ -86,7 +86,7 @@ class ParticipantMenu extends React.Component {
       return <div>Loading...</div>;
     }
     return (
-      <Container>
+      <Container className= "custom-container2">
         <Row>
           <Col />
           <Col>

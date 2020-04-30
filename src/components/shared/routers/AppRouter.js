@@ -15,7 +15,6 @@ import CreateTournament from "../../tournament/CreateTournament";
 import { BracketGuard } from "../routeProtectors/BracketGuard";
 import { LeaderBoardGuard } from "../routeProtectors/LeaderBoardGuard";
 import { CreateTournamentGuard } from "../routeProtectors/CreateTournamentGuard";
-import { RegistrationGuard } from "../routeProtectors/RegistrationGuard";
 import PlayerList from "../../playerProfile/PlayerList";
 import TournamentInfo from "../../tournament/TournamentInfo";
 import ManagerMenu from "../../managerMenu/ManagerMenu";
@@ -61,11 +60,7 @@ class AppRouter extends React.Component {
             />
             <Route
               path="/register"
-              render={() => (
-                <RegistrationGuard>
-                  <Registration />
-                </RegistrationGuard>
-              )}
+              render={() => (<Registration />)}
             />
             <Route
               path="/login"

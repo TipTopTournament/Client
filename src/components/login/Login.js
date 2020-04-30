@@ -77,7 +77,7 @@ class Login extends React.Component {
 
   render() {
     return (
-      <Container>
+      <Container className= "custom-container2">
         <Row>
           <Col>
             <h1 style={{ textAlign: "center" }}>TipTopTournament</h1>

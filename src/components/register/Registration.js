@@ -82,7 +82,7 @@ class Registration extends React.Component {
 
   render() {
     return (
-      <Container>
+      <Container className= "custom-container2">
         <p className="text-center">
           <Row>
             <Col>
@@ -97,40 +97,43 @@ class Registration extends React.Component {
               <Tab eventKey="Manager" title="Manager">
                 <Form style={{ align: "center" }}>
                   <Form.Group>
-                    <Label>Vorname</Label>
-                    <InputField
-                      placeholder="Enter here.."
-                      onChange={e => {
-                        this.handleInputChange("vorname", e.target.value);
-                      }}
+                    <Form.Label>Vorname</Form.Label>
+                    <Form.Control
+                        type="vorname"
+                        placeholder="Enter here ..."
+                        onChange={e => {
+                          this.handleInputChange("vorname", e.target.value);
+                        }}
                     />
                   </Form.Group>
                   <Form.Group>
-                    <Label>Nachname</Label>
-                    <InputField
-                      placeholder="Enter here.."
-                      onChange={e => {
-                        this.handleInputChange("nachname", e.target.value);
-                      }}
+                    <Form.Label>Nachname</Form.Label>
+                    <Form.Control
+                        type="nachname"
+                        placeholder="Enter here ..."
+                        onChange={e => {
+                          this.handleInputChange("nachname", e.target.value);
+                        }}
                     />
                   </Form.Group>
                   <Form.Group>
-                    <Label>Username</Label>
-                    <InputField
-                      placeholder="Enter here.."
-                      onChange={e => {
-                        this.handleInputChange("username", e.target.value);
-                      }}
+                    <Form.Label>Username</Form.Label>
+                    <Form.Control
+                        type="username"
+                        placeholder="Enter here ..."
+                        onChange={e => {
+                          this.handleInputChange("username", e.target.value);
+                        }}
                     />
                   </Form.Group>
                   <Form.Group>
-                    <Label>Password</Label>
-                    <InputField
-                      type="password"
-                      placeholder="Enter here.."
-                      onChange={e => {
-                        this.handleInputChange("password", e.target.value);
-                      }}
+                    <Form.Label>Password</Form.Label>
+                    <Form.Control
+                        type="password"
+                        placeholder="Enter here ..."
+                        onChange={e => {
+                          this.handleInputChange("password", e.target.value);
+                        }}
                     />
                   </Form.Group>
                   <ButtonContainer>
@@ -164,31 +167,33 @@ class Registration extends React.Component {
               <Tab eventKey="PlayerNoLicense" title="PlayerNoLicense">
                 <Form style={{ align: "center" }}>
                   <Form.Group>
-                    <Label>Vorname</Label>
-                    <InputField
-                      placeholder="Enter here.."
-                      onChange={e => {
-                        this.handleInputChange("vorname", e.target.value);
-                      }}
+                    <Form.Label>Vorname</Form.Label>
+                    <Form.Control
+                        type="vorname"
+                        placeholder="Enter here ..."
+                        onChange={e => {
+                          this.handleInputChange("vorname", e.target.value);
+                        }}
                     />
                   </Form.Group>
                   <Form.Group>
-                    <Label>Nachname</Label>
-                    <InputField
-                      placeholder="Enter here.."
-                      onChange={e => {
-                        this.handleInputChange("nachname", e.target.value);
-                      }}
+                    <Form.Label>Nachname</Form.Label>
+                    <Form.Control
+                        type="nachname"
+                        placeholder="Enter here ..."
+                        onChange={e => {
+                          this.handleInputChange("nachname", e.target.value);
+                        }}
                     />
                   </Form.Group>
                   <Form.Group>
-                    <Label>Password</Label>
-                    <InputField
-                      type="password"
-                      placeholder="Enter here.."
-                      onChange={e => {
-                        this.handleInputChange("password", e.target.value);
-                      }}
+                    <Form.Label>Password</Form.Label>
+                    <Form.Control
+                        type="password"
+                        placeholder="Enter here ..."
+                        onChange={e => {
+                          this.handleInputChange("password", e.target.value);
+                        }}
                     />
                   </Form.Group>
                   <ButtonContainer>
@@ -221,40 +226,43 @@ class Registration extends React.Component {
               <Tab eventKey="PlayerWithLicense" title="PlayerWithLicense">
                 <Form style={{ align: "center" }}>
                   <Form.Group>
-                    <Label>Vorname</Label>
-                    <InputField
-                      placeholder="Enter here.."
-                      onChange={e => {
-                        this.handleInputChange("vorname", e.target.value);
-                      }}
+                    <Form.Label>Vorname</Form.Label>
+                    <Form.Control
+                        type="vorname"
+                        placeholder="Enter here ..."
+                        onChange={e => {
+                          this.handleInputChange("vorname", e.target.value);
+                        }}
                     />
                   </Form.Group>
                   <Form.Group>
-                    <Label>Nachname</Label>
-                    <InputField
-                      placeholder="Enter here.."
-                      onChange={e => {
-                        this.handleInputChange("nachname", e.target.value);
-                      }}
+                    <Form.Label>Nachname</Form.Label>
+                    <Form.Control
+                        type="nachname"
+                        placeholder="Enter here ..."
+                        onChange={e => {
+                          this.handleInputChange("nachname", e.target.value);
+                        }}
                     />
                   </Form.Group>
                   <Form.Group>
-                    <Label>Password</Label>
-                    <InputField
-                      type="password"
-                      placeholder="Enter here.."
-                      onChange={e => {
-                        this.handleInputChange("password", e.target.value);
-                      }}
+                    <Form.Label>Password</Form.Label>
+                    <Form.Control
+                        type="password"
+                        placeholder="Enter here ..."
+                        onChange={e => {
+                          this.handleInputChange("password", e.target.value);
+                        }}
                     />
                   </Form.Group>
                   <Form.Group>
-                    <Label>License Number</Label>
-                    <InputField
-                      placeholder="Enter here.."
-                      onChange={e => {
-                        this.handleInputChange("licensenumber", e.target.value);
-                      }}
+                    <Form.Label>Licensenumber</Form.Label>
+                    <Form.Control
+                        type="licensenumber"
+                        placeholder="Enter here ..."
+                        onChange={e => {
+                          this.handleInputChange("licensenumber", e.target.value);
+                        }}
                     />
                   </Form.Group>
                   <ButtonContainer>

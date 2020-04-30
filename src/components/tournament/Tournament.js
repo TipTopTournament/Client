@@ -67,7 +67,7 @@ class Tournament extends React.Component {
 
   render() {
     return (
-      <Container>
+      <Container className= "custom-container2">
         {!this.state.users ||! this.state.leaderBoardUsers ? (
             <NoData/>
         ):(

@@ -6,7 +6,6 @@ import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import {Title} from "../../views/design/Title";
-/** These four components are HomeScreen specific not necessary to make View class for it*/
 
 
 class HomeScreen extends React.Component{
@@ -19,7 +18,7 @@ class HomeScreen extends React.Component{
 
     render(){
         return (
-                <Container>
+                <Container className= "custom-container2" >
                         <Row>
                             <Col />
                             <Col>

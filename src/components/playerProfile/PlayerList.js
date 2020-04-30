@@ -43,7 +43,7 @@ class PlayerList extends React.Component {
 
   render() {
     return (
-      <Container>
+      <Container className= "custom-container2">
         <Row>
           <Col />
           <Col xs={12} sm={12} md={8}>

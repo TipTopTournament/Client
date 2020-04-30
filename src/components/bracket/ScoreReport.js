@@ -63,7 +63,7 @@ class ScoreReport extends React.Component {
     render() {
         if (!this.state.game) {
             return (
-                <Container>
+                <Container className= "custom-container2" >
                     <Row>
                         <Col />
                         <Col><h1>Your next game has not been determined yet</h1></Col>

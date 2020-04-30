@@ -1,6 +1,9 @@
 div.custom-container {
     background-color: #242424;
 }
+div.custom-container2 {
+    background-color: #F3F3FF;
+}
 
 svg.custom .node circle {
     fill: #F3F3FF;
