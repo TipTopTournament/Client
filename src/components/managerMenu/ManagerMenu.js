@@ -9,6 +9,7 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import SingleTournament from "../../views/SingleTournament";
 import {Button} from "../../views/design/Button";
+import {ButtonContainer} from "../../views/design/ButtonContainer";
 
 const TournamentContainer = styled.li`
   display: flex;
@@ -39,6 +40,9 @@ class ManagerMenu extends React.Component {
     handleClick(tournamentCode){
         this.props.history.push(`/tournaments/${tournamentCode}/`);
     }
+    goToCreate(){
+        this.props.history.push(`/managerMenu/${localStorage.getItem("ManagerID")}/createTournament`);
+    }
 
     async componentDidMount() {
         try {
@@ -58,7 +62,7 @@ class ManagerMenu extends React.Component {
 
     render() {
         return (
-            <Container>
+            <Container className= "custom-container2">
                 <Row>
                     <Col>
                         <h1 style={{ textAlign: "center" }}>TipTopTournament</h1>
@@ -85,6 +89,7 @@ class ManagerMenu extends React.Component {
                                     );
                                 })}
                                 </Tournaments>
+                                <ButtonContainer>
                                 <Button
                                     width="100%"
                                     onClick={() => {
@@ -93,6 +98,17 @@ class ManagerMenu extends React.Component {
                                 >
                                     Logout
                                 </Button>
+                                </ButtonContainer>
+                                <ButtonContainer>
+                                <Button
+                                    width="100%"
+                                    onClick={() => {
+                                        this.goToCreate();
+                                    }}
+                                >
+                                    Create a new tournament
+                                </Button>
+                                </ButtonContainer>
                             </Form.Group>
                             </Form>
                 )}

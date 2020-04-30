@@ -10,6 +10,17 @@ import Col from "react-bootstrap/Col";
 import '../../views/design/custom-container.css';
 import {ButtonContainer} from "../../views/design/ButtonContainer";
 import ScoreReport from './ScoreReport';
+import styled from "styled-components";
+import Game from "../../views/Game";
+
+
+
+const GameContainer = styled.li`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
 
 class Bracket extends React.Component {
     constructor() {
@@ -44,38 +55,81 @@ class Bracket extends React.Component {
 
     setupBracket(Games){
         switch (Games.length) {
+            case 1:
+                let setup0 = {name: Games['0']['participant1'].vorname + " " + Games['0'].score1 + " vs. " + Games['0'].score2 + " " + Games['0']['participant2'].vorname};
+                this.setState({data: setup0});
+                break;
+
             case 3:
                 let setup1 = {name: Games['2']['participant1'].vorname + " " + Games['2'].score1 + " vs. " + Games['2'].score2 + " " + Games['2']['participant2'].vorname,
-                    children: [{name: Games['0']['participant1'].vorname + " " + Games['0'].score1 + " vs. " + Games['0'].score2 + " " + Games['0']['participant2'].vorname},
-                        {name: Games['1']['participant1'].vorname + " " + Games['1'].score1 + " vs. " + Games['1'].score2 + " " + Games['1']['participant2'].vorname}]};
+                              children: [{
+                                        name: Games['0']['participant1'].vorname + " " + Games['0'].score1 + " vs. " + Games['0'].score2 + " " + Games['0']['participant2'].vorname
+                              }, {
+                                        name: Games['1']['participant1'].vorname + " " + Games['1'].score1 + " vs. " + Games['1'].score2 + " " + Games['1']['participant2'].vorname
+                              }]
+                };
                 this.setState({data: setup1});
                 break;
+
             case 7:
                 let setup2 = {name: Games['6']['participant1'].vorname + " " + Games['6'].score1 + " vs. " + Games['6'].score2 + " " + Games['6']['participant2'].vorname,
-                                    children: [{name: Games['4']['participant1'].vorname + " " + Games['4'].score1 + " vs. " + Games['0'].score2 + " " + Games['4']['participant2'].vorname,
-                                                      children: [{name: Games['0']['participant1'].vorname + " " + Games['0'].score1 + " vs. " + Games['0'].score2 + " " + Games['0']['participant2'].vorname},
-                                                                 {name: Games['1']['participant1'].vorname + " " + Games['1'].score1 + " vs. " + Games['1'].score2 + " " + Games['1']['participant2'].vorname}]},
-                                               {name: Games['5']['participant1'].vorname + " " + Games['5'].score1 + " vs. " + Games['5'].score2 + " " + Games['5']['participant2'].vorname,
-                                                      children:[{name: Games['2']['participant1'].vorname + " " + Games['2'].score1 + " vs. " + Games['2'].score2 + " " + Games['2']['participant2'].vorname},
-                                                                {name: Games['3']['participant1'].vorname + " " + Games['3'].score1 + " vs. " + Games['3'].score2 + " " + Games['3']['participant2'].vorname}]}]};
+                              children: [{
+                                        name: Games['4']['participant1'].vorname + " " + Games['4'].score1 + " vs. " + Games['0'].score2 + " " + Games['4']['participant2'].vorname,
+                                        children: [{
+                                                name: Games['0']['participant1'].vorname + " " + Games['0'].score1 + " vs. " + Games['0'].score2 + " " + Games['0']['participant2'].vorname
+                                        }, {
+                                                name: Games['1']['participant1'].vorname + " " + Games['1'].score1 + " vs. " + Games['1'].score2 + " " + Games['1']['participant2'].vorname
+                                        }]
+                              }, {
+                                        name: Games['5']['participant1'].vorname + " " + Games['5'].score1 + " vs. " + Games['5'].score2 + " " + Games['5']['participant2'].vorname,
+                                        children:[{
+                                                name: Games['2']['participant1'].vorname + " " + Games['2'].score1 + " vs. " + Games['2'].score2 + " " + Games['2']['participant2'].vorname
+                                        }, {
+                                                name: Games['3']['participant1'].vorname + " " + Games['3'].score1 + " vs. " + Games['3'].score2 + " " + Games['3']['participant2'].vorname
+                                        }]
+                              }]
+                };
                 this.setState({data: setup2});
                 break;
+
             case 15:
                 let setup3 = {name: Games['14']['participant1'].vorname + " " + Games['14'].score1 + " vs. " + Games['14'].score2 + " " + Games['14']['participant2'].vorname,
-                                    children: [{name: Games['12']['participant1'].vorname + " " + Games['12'].score1 + " vs. " + Games['12'].score2 + " " + Games['12']['participant2'].vorname,
-                                                      children: [{name: Games['8']['participant1'].vorname + " " + Games['8'].score1 + " vs. " + Games['8'].score2 + " " + Games['8']['participant2'].vorname,
-                                                                        children:[{name: Games['0']['participant1'].vorname + " " + Games['0'].score1 + " vs. " + Games['0'].score2 + " " + Games['0']['participant2'].vorname},
-                                                                                  {name: Games['1']['participant1'].vorname + " " + Games['1'].score1 + " vs. " + Games['1'].score2 + " " + Games['1']['participant2'].vorname}]},
-                                                                 {name: Games['9']['participant1'].vorname + " " + Games['9'].score1 + " vs. " + Games['9'].score2 + " " + Games['9']['participant2'].vorname,
-                                                                        children:[{name: Games['2']['participant1'].vorname + " " + Games['2'].score1 + " vs. " + Games['2'].score2 + " " + Games['2']['participant2'].vorname},
-                                                                                  {name: Games['3']['participant1'].vorname + " " + Games['3'].score1 + " vs. " + Games['3'].score2 + " " + Games['3']['participant2'].vorname}]}]},
-                                               {name: Games['13']['participant1'].vorname + " " + Games['13'].score1 + " vs. " + Games['13'].score2 + " " + Games['13']['participant2'].vorname,
-                                                      children:[{name: Games['10']['participant1'].vorname + " " + Games['10'].score1 + " vs. " + Games['10'].score2 + " " + Games['10']['participant2'].vorname,
-                                                                       children:[{name: Games['4']['participant1'].vorname + " " + Games['4'].score1 + " vs. " + Games['4'].score2 + " " + Games['4']['participant2'].vorname},
-                                                                                 {name: Games['5']['participant1'].vorname + " " + Games['5'].score1 + " vs. " + Games['5'].score2 + " " + Games['5']['participant2'].vorname}]},
-                                                                {name: Games['11']['participant1'].vorname + " " + Games['11'].score1 + " vs. " + Games['11'].score2 + " " + Games['11']['participant2'].vorname,
-                                                                        children:[{name: Games['6']['participant1'].vorname + " " + Games['6'].score1 + " vs. " + Games['6'].score2 + " " + Games['6']['participant2'].vorname},
-                                                                                  {name: Games['7']['participant1'].vorname + " " + Games['7'].score1 + " vs. " + Games['7'].score2 + " " + Games['7']['participant2'].vorname}]}]}]};
+                              children: [{
+                                        name: Games['12']['participant1'].vorname + " " + Games['12'].score1 + " vs. " + Games['12'].score2 + " " + Games['12']['participant2'].vorname,
+                                        children: [{
+                                                name: Games['8']['participant1'].vorname + " " + Games['8'].score1 + " vs. " + Games['8'].score2 + " " + Games['8']['participant2'].vorname,
+                                                children:[{
+                                                        name: Games['0']['participant1'].vorname + " " + Games['0'].score1 + " vs. " + Games['0'].score2 + " " + Games['0']['participant2'].vorname
+                                                }, {
+                                                        name: Games['1']['participant1'].vorname + " " + Games['1'].score1 + " vs. " + Games['1'].score2 + " " + Games['1']['participant2'].vorname
+                                                }]
+                                        }, {
+                                                name: Games['9']['participant1'].vorname + " " + Games['9'].score1 + " vs. " + Games['9'].score2 + " " + Games['9']['participant2'].vorname,
+                                                children:[{
+                                                        name: Games['2']['participant1'].vorname + " " + Games['2'].score1 + " vs. " + Games['2'].score2 + " " + Games['2']['participant2'].vorname
+                                                }, {
+                                                        name: Games['3']['participant1'].vorname + " " + Games['3'].score1 + " vs. " + Games['3'].score2 + " " + Games['3']['participant2'].vorname
+                                                }]
+                                        }]
+                              }, {
+                                        name: Games['13']['participant1'].vorname + " " + Games['13'].score1 + " vs. " + Games['13'].score2 + " " + Games['13']['participant2'].vorname,
+                                        children:[{
+                                                name: Games['10']['participant1'].vorname + " " + Games['10'].score1 + " vs. " + Games['10'].score2 + " " + Games['10']['participant2'].vorname,
+                                                                       children:[{
+                                                                                name: Games['4']['participant1'].vorname + " " + Games['4'].score1 + " vs. " + Games['4'].score2 + " " + Games['4']['participant2'].vorname
+                                                                       }, {
+                                                                                name: Games['5']['participant1'].vorname + " " + Games['5'].score1 + " vs. " + Games['5'].score2 + " " + Games['5']['participant2'].vorname
+                                                                        }]
+                                        }, {
+                                                name: Games['11']['participant1'].vorname + " " + Games['11'].score1 + " vs. " + Games['11'].score2 + " " + Games['11']['participant2'].vorname,
+                                                                        children:[{
+                                                                                name: Games['6']['participant1'].vorname + " " + Games['6'].score1 + " vs. " + Games['6'].score2 + " " + Games['6']['participant2'].vorname
+                                                                        }, {
+                                                                                name: Games['7']['participant1'].vorname + " " + Games['7'].score1 + " vs. " + Games['7'].score2 + " " + Games['7']['participant2'].vorname
+                                                                        }]
+                                        }]
+                              }]
+                };
                 this.setState({data: setup3});
                 break;
             default:
@@ -91,9 +145,6 @@ class Bracket extends React.Component {
             this.correctArray(response.data);
             this.setState({ games : response.data });
             this.setupBracket(response.data);
-
-            // this.setState({data: {name: '', children: [{name: '',children: [{name: '',},{name: '',}]}, {name: '',children: [{name: '',},{name: '',}]}]}})
-
 
         } catch (error) {
             alert(`Something went wrong while fetching the users: \n${handleError(error)}`);
@@ -150,8 +201,15 @@ class Bracket extends React.Component {
                         {!this.state.manager ? (
                             <ScoreReport gameFromBracket={this.getGameOfParticipant()}/>
                         ) : (
-                            <NoData />
-                            )}
+                                this.state.games.map(gameData => {
+                                    return (
+                                        <GameContainer key={gameData.gameId}
+                                                             // onClick={() => this.handleClick(gameData.gameId)} //TODO Manager can click game and edit score
+                                        >
+                                            <Game gameData={gameData} />
+                                        </GameContainer>
+                                    )})
+                         )}
                     </Col>
                 </Row>
                 )}
