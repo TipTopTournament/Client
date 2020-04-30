@@ -34,30 +34,30 @@ class TournamentInfo extends React.Component {
     const tournamentCode = this.props.match.params.tournamentCode;
     this.setState({ tournamentCode: tournamentCode });
     try {
-      const requestTournament = await api.get(`/tournaments/${tournamentCode}`);
-      console.log("the tournament data is :", requestTournament);
+      const response = await api.get(`/tournaments/${tournamentCode}`);
+      console.log("the tournament data is :", response.data);
       // here we can also store the tournament in localStorage to access it globally.
       // For example signed up players in playerList don't have to load from server again
-      const tournament = new TournamentData(requestTournament);
+      const tournament = new TournamentData(response.data);
       this.setState({ tournament: tournament });
     } catch (error) {
-      const testTournament = {
-        tournamentId: "testID",
-        tournamentName: "TestName",
-        tournamentState: "READY",
-        location: "testlocation",
-        startTime: 8,
-        gameDuration: 30,
-        breakDuration: 10,
-        tournamentCode: this.state.tournamentCode,
-        amountOfPlayer: 50,
-        numberOfTables: 10,
-        bracket: "bracketdata",
-        leaderboard: "leaderboard",
-        activePlayers: "playerwhoareactive"
-      };
-      this.setState({ tournament: testTournament });
-      console.log(this.state.tournament.tournamentCode);
+      // const testTournament = {
+      //   tournamentId: "testID",
+      //   tournamentName: "TestName",
+      //   tournamentState: "READY",
+      //   location: "testlocation",
+      //   startTime: 8,
+      //   gameDuration: 30,
+      //   breakDuration: 10,
+      //   tournamentCode: this.state.tournamentCode,
+      //   amountOfPlayer: 50,
+      //   numberOfTables: 10,
+      //   bracket: "bracketdata",
+      //   leaderboard: "leaderboard",
+      //   activePlayers: "playerwhoareactive"
+      // };
+      // this.setState({ tournament: testTournament });
+      // console.log(this.state.tournament.tournamentCode);
       console.log(
         "there is something wrong with getting the tournament data",
         error
@@ -81,15 +81,15 @@ class TournamentInfo extends React.Component {
         <Row>
           <Col />
           <Col>
-            <h2>Informationen</h2>
+            <h5>Tournament Information</h5>
             <Table>
               <tbody>
                 <tr>
-                  <td>Ort</td>
+                  <td>Location</td>
                   <td>{this.state.tournament.location}</td>
                 </tr>
                 <tr>
-                  <td>Beginn</td>
+                  <td>Starttime</td>
                   <td>{this.state.tournament.startTime} Uhr</td>
                 </tr>
               </tbody>
