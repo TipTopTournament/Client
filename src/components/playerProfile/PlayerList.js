@@ -18,17 +18,17 @@ class PlayerList extends React.Component {
 
 
 
-  handleClickOnPlayer = (playerId) => {
-    this.props.history.push(`/${this.props.match.params.tournamentCode}/participants/${playerId}`);
-  }
+  handleClickOnPlayer = (participantID) => {
+    this.props.history.push(`/${this.props.match.params.tournamentCode}/participants/${participantID}`);
+  };
 
-  renderPlayerList(player) {
+  renderPlayerList(participant) {
     return (
-      <tr key={player.id} onClick={() => this.handleClickOnPlayer(player.id)}>
-        <td>{player.id}</td>
-        <td>{player.name}</td>
-        <td>{player.vorname}</td>
-        <td>{player.licenseNumber}</td>
+      <tr key={participant.participantID} onClick={() => this.handleClickOnPlayer(participant.participantID)}>
+        <td>{participant.participantID}</td>
+        <td>{participant.vorname}</td>
+        <td>{participant.nachname}</td>
+        <td>{participant.licenseNumber}</td>
       </tr>
     );
   }
@@ -37,6 +37,7 @@ class PlayerList extends React.Component {
     const tournamentsCode = this.props.match.params.tournamentCode;
     const response = await api.get(`/tournaments/${tournamentsCode}/leaderboard`);
     this.setState({ playerList: response.data });
+    console.log("response", response.data);
     console.log('the tournamentcode is :', tournamentsCode);
   }
 
@@ -53,12 +54,12 @@ class PlayerList extends React.Component {
                     <th>ID</th>
                     <th>First Name</th>
                     <th>Last Name</th>
-                    <th>Lizenznummer</th>
+                    <th>Licensenumber</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {this.state.playerList.map(player =>
-                    this.renderPlayerList(player)
+                  {this.state.playerList.map(playerObject =>
+                    this.renderPlayerList(playerObject["participant"])
                   )}
                 </tbody>
               </Table>

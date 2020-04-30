@@ -13,20 +13,26 @@ class PlayerProfile extends React.Component {
     super();
     this.state = {
       stats : {
-        wins: 3,
-        loses: 3,
-        matches: 6
+        wins: 0,
+        losses: 0,
+        history: 0
+      },
+      personalInfo : {
+        vorname : null,
+        nachname: null,
       }
     };
   }
 
   async componentDidMount(){
-    const playerID = this.props.match.params.playerID;
+    const participantID = this.props.match.params.participantID;
     try{
-      const stats = await api.get(`/participants/${playerID}/statistics`);
-      this.setState({stats: stats});
+      const response = await api.get(`/participants/${participantID}/statistics`);
+      const response2 = await api.get(`/participants/${participantID}`);
+      this.setState({stats: response.data});
+      this.setState({personalInfo: response2.data});
     }catch(error){
-      console.log('something bad happened while fetich player stats', error)
+      console.log('something bad happened while fetching player stats', error)
     }
   }
 
@@ -40,16 +46,20 @@ class PlayerProfile extends React.Component {
             <Table bordered hover size="sm">
               <thead>
                 <tr>
+                  <th>Vorname</th>
+                  <th>Nachname</th>
                   <th>Wins</th>
-                  <th>Loses</th>
-                  <th>Matches</th>
+                  <th>Losses</th>
+                  <th>History</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
+                  <td>{this.state.personalInfo.vorname}</td>
+                  <td>{this.state.personalInfo.nachname}</td>
                   <td>{this.state.stats.wins}</td>
-                  <td>{this.state.stats.loses}</td>
-                  <td>{this.state.stats.matches}</td>
+                  <td>{this.state.stats.losses}</td>
+                  <td>{this.state.stats.history}</td>
                 </tr>
               </tbody>
             </Table>
