@@ -17,7 +17,10 @@ class TournamentCode extends React.Component {
     this.state = {
       displayCode: "",
       tournamentCode: "",
-      participantID: null,
+      personalInfo : {
+        vorname : null,
+        nachname: null,
+      }
     };
     this.handleInputChange = this.handleInputChange.bind(this);
   }
@@ -89,8 +92,15 @@ class TournamentCode extends React.Component {
       this.setState({ tournamentCode: value.replace("-", "") || "" });
     }
   }
+  async componentDidMount() {
+    try{
+      const response = await api.get(`/participants/${localStorage.getItem("ParticipantID")}`);
+      this.setState({personalInfo: response.data});
+    } catch (error) {
+      alert(`Something went wrong fetching your data: \n${handleError(error)}`);
+    }
 
-  componentDidMount() {}
+  }
 
   render() {
     return (
@@ -100,7 +110,7 @@ class TournamentCode extends React.Component {
           <Navbar.Toggle />
           <Navbar.Collapse className="justify-content-end">
             <Navbar.Text>
-              Signed in as: <a>Tonygayy</a>
+              Signed in as: <a>{this.state.personalInfo.vorname}{this.state.personalInfo.nachname}</a>
             </Navbar.Text>
           </Navbar.Collapse>
         </Navbar>

@@ -51,7 +51,6 @@ class Login extends React.Component {
           licenseNumber: this.state.licenseNumber,
           password: this.state.password
         });
-        console.log("requestBody", requestBody1);
         response = await api.put("/participants/login", requestBody1);
         // Get the returned user and update a new object.
         const user = new User(response.data);

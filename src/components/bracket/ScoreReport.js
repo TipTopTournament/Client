@@ -4,7 +4,6 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { withRouter } from 'react-router-dom';
 import Form from "react-bootstrap/Form";
-import GameData from '../shared/models/GameData';
 import Button from "react-bootstrap/Button";
 import { api } from '../../helpers/api';
 
@@ -25,34 +24,8 @@ class ScoreReport extends React.Component {
         }
     }
 
-    async componentDidMount(){
+    componentDidMount(){
         this.setGame( this.props.gameFromBracket);
-        console.log(this.props.gameFromBracket);
-        let response;
-        let playerId = localStorage.getItem("ParticipantID"); // string
-        // try{
-        //     response = api.get(`/tournaments/${this.props.match.params.tournamentCode}/bracket/${playerId}`); // returns GameData's data
-        //     const game = new GameData(response);
-        //     this.setState({game: game});
-        //     this.setState({tournamentCode: game.tournamentCode});
-        //     this.setState({gameId: game.gameId});
-        // }catch(error){
-        //     console.log('there was a problem getting the game', error)
-        //     const testingData = {
-        //         participant1: 'Tony Ly',
-        //         participant2: 'Timo Boll',
-        //         score1: null,
-        //         score2: null,
-        //         gameId: 4,
-        //         gameState: 'NOTREADY',
-        //         startTime: null,
-        //         tournamentCode: 420420
-        //     }
-        //     const game = new GameData(testingData);
-        //     this.setState({game: game});
-        //     this.setState({tournamentCode: game.tournamentCode});
-        //     this.setState({gameId: game.gameId});
-        // }
     }
 
     setGame(game){

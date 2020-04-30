@@ -20,7 +20,6 @@ import PlayerList from "../../playerProfile/PlayerList";
 import TournamentInfo from "../../tournament/TournamentInfo";
 import ManagerMenu from "../../managerMenu/ManagerMenu";
 import ParticipantMenu from "../../participantMenu/ParticipantMenu";
-import ScoreReport from "../../bracket/ScoreReport";
 import {ManagerMenuGuard} from "../routeProtectors/ManagerMenuGuard";
 import {TournamentCodeGuard} from "../routeProtectors/TournamentCodeGuard";
 import {PlayerProfileGuard} from "../routeProtectors/PlayerProfileGuard";
