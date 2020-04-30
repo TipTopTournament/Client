@@ -21,6 +21,12 @@ import TournamentInfo from "../../tournament/TournamentInfo";
 import ManagerMenu from "../../managerMenu/ManagerMenu";
 import ParticipantMenu from "../../participantMenu/ParticipantMenu";
 import ScoreReport from "../../bracket/ScoreReport";
+import {ManagerMenuGuard} from "../routeProtectors/ManagerMenuGuard";
+import {TournamentCodeGuard} from "../routeProtectors/TournamentCodeGuard";
+import {PlayerProfileGuard} from "../routeProtectors/PlayerProfileGuard";
+import {PlayerListGuard} from "../routeProtectors/PlayerListGuard";
+import {TournamentInfoGuard} from "../routeProtectors/TournamentInfoGuard";
+import {ParticipantMenuGuard} from "../routeProtectors/ParticipantMenuGuard";
 
 /**
  * Main router of your application.
@@ -73,13 +79,34 @@ class AppRouter extends React.Component {
             />
             <Route
               path="/managerMenu/:managerID"
-              render={() => <ManagerMenu />}
+              render={() => (
+                  <ManagerMenuGuard>
+                    <ManagerMenu />
+                  </ManagerMenuGuard>
+              )}
             />
+            <Route
+                path="/managerMenu/:managerID/createTournament"
+                render={() =>(
+                    <CreateTournamentGuard>
+                    <CreateTournament/>
+                    </CreateTournamentGuard>
+                )}
+                />
             <Route path="/" exact render={() => <Redirect to={"/home"} />} />
-            <Route path="/tournamentCode" render={() => <TournamentCode />} />
+
+            <Route path="/tournamentCode" render={() => (
+                <TournamentCodeGuard>
+                    <TournamentCode />
+                </TournamentCodeGuard>
+            )} />
             <Route
               path="/tournaments/:tournamentCode"
-              render={() => <Tournament />}
+              render={() => (
+                  <TournamentGuard>
+                  <Tournament />
+                  </TournamentGuard>
+              )}
             />
             <Route
               path="/:tournamentCode/leaderBoard"
@@ -92,26 +119,44 @@ class AppRouter extends React.Component {
             <Route
               path="/:tournamentCode/bracket"
               render={() => (
+                  <BracketGuard>
                   <Bracket />
+                  </BracketGuard>
               )}
             />
             <Route
-              path="/:tournamentCode/participants/:playerID"
-              render={() => <PlayerProfile />}
+              path="/:tournamentCode/participants/:participantID"
+              render={() => (
+                  <PlayerProfileGuard>
+                  <PlayerProfile />
+                  </PlayerProfileGuard>
+              )}
             />
 
             <Route
               path="/:tournamentCode/playerList"
-              render={() => <PlayerList />}
+              render={() => (
+                  <PlayerListGuard>
+                  <PlayerList />
+                  </PlayerListGuard>
+              )}
             />
 
             <Route
               path="/:tournamentCode/tournamentInfo"
-              render={() => <TournamentInfo />}
+              render={() => (
+                  <TournamentInfoGuard>
+                  <TournamentInfo />
+                  </TournamentInfoGuard>
+              )}
             />
             <Route
               path="/:tournamentCode/participantMenu"
-              render={() => <ParticipantMenu />}
+              render={() => (
+                  <ParticipantMenuGuard>
+                      <ParticipantMenu />
+                  </ParticipantMenuGuard>
+              )}
             />
           </div>
         </Switch>

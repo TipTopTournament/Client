@@ -140,7 +140,7 @@ class TournamentCode extends React.Component {
                     this.logout();
                   }}
                 >
-                  Temporary Logout
+                  Logout
                 </Button>
               </ButtonContainer>
             </Form>
