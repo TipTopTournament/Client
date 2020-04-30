@@ -58,10 +58,10 @@ class Registration extends React.Component {
         });
         //Request to /participants to create a new player
         const response = await api.post("/participants", requestBody);
-        this.setState({ user: response.data });
-        // if (id === "PlayerNoLicense") {
-        //   alert("Your new licenseNumber: " + user.licenseNumber); //TODO EDGE CASE WHERE PARTICIPANT DOESNT KNOW LICENSENUMBER WAITING ON BACKEND FOR DATA
-        // }
+        console.log(response.data);
+        if (id === "PlayerNoLicense") {
+          alert("Your new licenseNumber: " + response.data.licenseNumber);
+        }
         // Register successfully worked --> navigate to the route /login in the TournamentRouter
         this.props.history.push(`/login`);
       } catch (error) {
