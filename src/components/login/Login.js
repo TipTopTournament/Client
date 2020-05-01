@@ -80,7 +80,7 @@ class Login extends React.Component {
       <Container className= "custom-container2">
         <Row>
           <Col>
-            <h1 style={{ textAlign: "center" }}>TipTopTournament</h1>
+            <h1 style={{ textAlign: "center" , marginTop: '200px'}}>TipTopTournament</h1>
           </Col>
         </Row>
         <Row className="justify-content-md-center">

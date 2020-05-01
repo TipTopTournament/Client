@@ -3,6 +3,8 @@ div.custom-container {
 }
 div.custom-container2 {
     background-color: #F3F3FF;
+    min-height: 768px;
+    max-width: 1366px;
 }
 
 svg.custom .node circle {

@@ -19,11 +19,11 @@ class HomeScreen extends React.Component{
 
     render(){
         return (
-                <Container className= "custom-container2" >
+                <Container className= "custom-container2">
                         <Row>
                             <Col />
                             <Col>
-                                <Title>TIPTOPTournament</Title>
+                                <Title style={{marginTop: '200px'}}>TIPTOPTournament</Title>
                             </Col>
                             <Col />
                         </Row>
