@@ -9,6 +9,7 @@ import {Title} from "../../views/design/Title";
 
 
 class HomeScreen extends React.Component{
+    
     goLogin() {
     this.props.history.push(`/login`)
     }
