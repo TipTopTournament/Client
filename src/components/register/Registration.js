@@ -76,7 +76,9 @@ class Registration extends React.Component {
     this.setState({ is_manager: !this.state.is_manager });
   };
 
-  componentDidMount() {}
+  componentDidMount() {
+    localStorage.removeItem("token");
+  }
 
   render() {
     return (
