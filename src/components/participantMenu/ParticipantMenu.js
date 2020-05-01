@@ -35,13 +35,14 @@ class ParticipantMenu extends React.Component {
   };
 
   leavetournament() {
-    this.props.history.push("/");
+    api.put(`//tournaments/${this.props.match.params.tournamentCode}/${localStorage.getItem("ParticipantID")}/leave`)
     localStorage.removeItem("token", "ParticipantID");
+    this.props.history.push("/");
   }
 
   async ready() {
     //define new state
-    const state = "READY";
+    const state = JSON.stringify({userState: "READY"});
     // send new state to backend
     try {
       await api.put(`/participants/${this.state.player.participantID}`, state);
@@ -127,15 +128,6 @@ class ParticipantMenu extends React.Component {
           <Col>
             <Button type="button" onClick={() => this.leaderboard()}>
               Leaderboard
-            </Button>
-          </Col>
-          <Col />
-        </Row>
-        <Row>
-          <Col />
-          <Col>
-            <Button type="button" onClick={() => this.participants()}>
-              My next match
             </Button>
           </Col>
           <Col />

@@ -74,32 +74,32 @@ class AppRouter extends React.Component {
             <Route
               path="/managerMenu/:managerID"
               render={() => (
-                  <ManagerMenuGuard>
-                    <ManagerMenu />
-                  </ManagerMenuGuard>
+                <ManagerMenuGuard>
+                  <ManagerMenu />
+                </ManagerMenuGuard>
               )}
             />
             <Route
-                path="/managerMenu/:managerID/createTournament"
-                render={() =>(
-                    <CreateTournamentGuard>
-                    <CreateTournament/>
-                    </CreateTournamentGuard>
-                )}
+              path="/managerMenu/:managerID/createTournament"
+              render={() =>(
+                <CreateTournamentGuard>
+                  <CreateTournament/>
+                </CreateTournamentGuard>
+              )}
                 />
             <Route path="/" exact render={() => <Redirect to={"/home"} />} />
 
             <Route path="/tournamentCode" render={() => (
                 <TournamentCodeGuard>
-                    <TournamentCode />
+                  <TournamentCode />
                 </TournamentCodeGuard>
             )} />
             <Route
               path="/tournaments/:tournamentCode"
               render={() => (
-                  <TournamentGuard>
+                <TournamentGuard>
                   <Tournament />
-                  </TournamentGuard>
+                </TournamentGuard>
               )}
             />
             <Route
@@ -113,43 +113,41 @@ class AppRouter extends React.Component {
             <Route
               path="/:tournamentCode/bracket"
               render={() => (
-                  <BracketGuard>
+                <BracketGuard>
                   <Bracket />
-                  </BracketGuard>
+                </BracketGuard>
               )}
             />
             <Route
               path="/:tournamentCode/participants/:participantID"
               render={() => (
-                  <PlayerProfileGuard>
+                <PlayerProfileGuard>
                   <PlayerProfile />
-                  </PlayerProfileGuard>
+                </PlayerProfileGuard>
               )}
             />
 
             <Route
               path="/:tournamentCode/playerList"
               render={() => (
-                  <PlayerListGuard>
+                <PlayerListGuard>
                   <PlayerList />
-                  </PlayerListGuard>
+                </PlayerListGuard>
               )}
             />
 
             <Route
               path="/:tournamentCode/tournamentInfo"
               render={() => (
-                  <TournamentInfoGuard>
+                <TournamentInfoGuard>
                   <TournamentInfo />
-                  </TournamentInfoGuard>
+                </TournamentInfoGuard>
               )}
             />
             <Route
               path="/:tournamentCode/participantMenu"
               render={() => (
-                  <ParticipantMenuGuard>
-                      <ParticipantMenu />
-                  </ParticipantMenuGuard>
+                  <ParticipantMenu />
               )}
             />
           </div>
