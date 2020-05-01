@@ -180,12 +180,25 @@ Geocode.fromLatLng( newLat , newLng ).then(
      city = this.getCity( addressArray ),
      area = this.getArea( addressArray ),
      state = this.getState( addressArray );
-this.setState( {
-     address: ( address ) ? address : '',
-     area: ( area ) ? area : '',
-     city: ( city ) ? city : '',
-     state: ( state ) ? state : ''
-    } )
+     let newLat = event.latLng.lat(),
+   newLng = event.latLng.lng();
+   
+    
+   this.setState({
+    address: ( address ) ? address : '',
+    area: ( area ) ? area : '',
+    city: ( city ) ? city : '',
+    state: ( state ) ? state : '',
+    markerPosition: {
+     lat: newLat,
+     lng: newLng
+    },
+    mapPosition: {
+     lat: newLat,
+     lng: newLng
+    },
+   })
+    
     localStorage.setItem("address", this.state.address );
    },
    error => {

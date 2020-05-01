@@ -8,7 +8,8 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { ButtonContainer } from "../../views/design/ButtonContainer"
-
+import { api, handleError } from "../../helpers/api";
+import Card from 'react-bootstrap/Card'
 
 class CreateTournament extends React.Component {
   constructor() {
@@ -21,13 +22,6 @@ class CreateTournament extends React.Component {
       tournamentMode: 'K.O.'
   };
   }
-/*
-
-  handleSubmit(event) {
-    alert('Your favorite flavor is: ' + this.state.value);        
-    event.preventDefault();
-  }
-*/  
 
 handleInputChange(key, value) {
   // Example: if the key is username, this statement is the equivalent to the following one:
@@ -55,7 +49,7 @@ handleInputChange(key, value) {
       
 
     } catch (error) {
-      alert(`Something went wrong during tournamnet creation: \n$`);
+      alert(`Something went wrong during the login: \n${handleError(error)}`);
     }
   }
 
@@ -70,15 +64,15 @@ handleInputChange(key, value) {
       <Row>
           <Col>
       <Form>
-        <Form.Group controlId="exampleForm.ControlInput1">
+        <Form.Group controlId="ControlInput1">
           <Form.Label>Tournament Name</Form.Label>
           <Form.Control type="TournamentName" placeholder="Tournament Name" onChange={e => {this.handleInputChange("tournamentName", e.target.value);}}/>
         </Form.Group>
-        <Form.Group controlId="exampleForm.ControlInput1">
+        <Form.Group controlId="ControlInput1">
           <Form.Label>Startzeit</Form.Label>
-          <Form.Control type="startTime" placeholder="start Time" onChange={e => {this.handleInputChange("startTime", e.target.value);}}/>
+          <Form.Control type="startTime" placeholder="Startzeit" onChange={e => {this.handleInputChange("startTime", e.target.value);}}/>
         </Form.Group>
-        <Form.Group controlId="exampleForm.ControlSelect1">
+        <Form.Group controlId="ControlSelect1">
           <Form.Label>Anzahl Spieler</Form.Label>
           <Form.Control as="select" onChange={e => {this.handleInputChange("amountOfPlayers", e.target.value);}}>
             <option>2</option>
@@ -88,28 +82,35 @@ handleInputChange(key, value) {
           
           </Form.Control>
         </Form.Group>
-        <Form.Group controlId="exampleForm.ControlTextarea1">
+        <Form.Group controlId="ControlTextarea1">
           <Form.Label>Tournamentbeschreibung</Form.Label>
           <Form.Control as="textarea" rows="3" />
         </Form.Group>
-        <Map
-          google={this.props.google}
-          center={{lat: 46.5204, lng: 8.8567}}
-          height='300px'
-          zoom={9} />
+        <Card border= "primary" >
+          <Card.Title>  Setze einen Standort fest</Card.Title>
+          <Card.Body> 
+            <Card.Text>
+              Suche die gewünschte Ortschaft auf der Map mit der Suchleiste und verschiebe dann denn Marker bis die gewünschte Adresse angezeigt wird.
+            </Card.Text>
+          </Card.Body>
+        </Card>
+        <div style={{marginBottom: '60px'}}>
+          <Map
+     google={this.props.google}
+     center={{lat: 47.36667, lng: 8.55}}
+     height='300px'
+     zoom={15}
+    />
+        </div>
+        
          
       </Form>
       </Col>
       </Row>
-      <Row>
-          <Col>
-          <ButtonContainer>
-                    <Button  disabled={!this.state.tournamentName||!this.state.amountOfPlayers||!this.state.startTime||!localStorage.getItem("address")} type="submit" onClick={() => {
-          alert('Your favorite flavor is: ' + this.state.tournamentName);}}>Tournament erstellen</Button> 
-          </ButtonContainer>
-          </Col>
-      </Row>
       
+        <Button  disabled={!this.state.tournamentName||!this.state.amountOfPlayers||!this.state.startTime||!localStorage.getItem("address")} type="submit" onClick={() => {
+         this.sendtournamentdetails();}}>Tournament erstellen</Button> 
+       
      
       
     </Container>
