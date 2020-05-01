@@ -15,7 +15,7 @@ class CreateTournament extends React.Component {
   constructor() {
     super();
     this.state = {
-      amountOfPlayers: null,
+      amountOfPlayers: 2,
       startTime: '',
       informationBox: '',
       tournamentName: '',
