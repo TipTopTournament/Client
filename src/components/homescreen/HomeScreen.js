@@ -16,7 +16,9 @@ class HomeScreen extends React.Component{
     goRegister() {
     this.props.history.push('/register')
     }
-
+    componentDidMount() {
+        localStorage.removeItem("token");
+    }
     render(){
         return (
                 <Container className= "custom-container2">

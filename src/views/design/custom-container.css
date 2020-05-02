@@ -1,10 +1,6 @@
+/** Bracket**/
 div.custom-container {
-    background-color: #242424;
-}
-div.custom-container2 {
     background-color: #F3F3FF;
-    min-height: 768px;
-    max-width: 1366px;
 }
 
 svg.custom .node circle {
@@ -16,7 +12,7 @@ svg.custom .node circle {
 svg.custom .node text {
     font-size: 11px;
     background-color: #444;
-    fill: #F4F4F4;
+    fill: #000000;
     text-shadow: 0 1px 4px black;
 }
 
@@ -28,4 +24,11 @@ svg.custom path.link {
     fill: none;
     stroke: #2593B8;
     stroke-width: 1.5px;
+}
+
+/** Container Display all pages**/
+div.custom-container2 {
+    background-color: #F3F3FF;
+    min-height: 768px;
+    max-width: 1366px;
 }

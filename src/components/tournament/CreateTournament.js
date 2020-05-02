@@ -15,13 +15,14 @@ class CreateTournament extends React.Component {
   constructor() {
     super();
     this.state = {
-      amountOfPlayers: null,
+      amountOfPlayers: 2,
       startTime: '',
       informationBox: '',
       tournamentName: '',
       tournamentMode: 'K.O.',
-      breakDuration: null,
-      gameDuration: null,
+      breakDuration: 10,
+      gameDuration: 20,
+      numberTables: 2,
   };
   }
 
@@ -34,23 +35,22 @@ handleInputChange(key, value) {
 
     try {
       const requestBody = JSON.stringify({
-        breakDuration: 5,
-        gameDuration: 20,
+        breakDuration: this.state.breakDuration,
+        gameDuration: this.state.gameDuration,
         startTime: this.state.startTime,
-        numberTables: this.numberTables,
-        amountOfPlayers: 2,
+        numberTables: this.state.numberTables,
+        amountOfPlayers: this.state.amountOfPlayers,
         informationBox: this.state.informationBox,
         tournamentName: this.state.tournamentName,
         managerId: localStorage.getItem("ManagerID"),
+        location: localStorage.getItem("address"),
         //tournamentMode: this.state.tournamentMode, //TODO In next sprints we can add further tournament modes
-        location: localStorage.getItem("address")
       });
+
         const response = await api.post("/tournaments", requestBody);
         alert("Your Tournamentcode is: " + response.data);
         const {managerID} = localStorage.getItem("ManagerID");
-        this.props.history.push(`/managerMenu/${managerID}`);
-        this.render();
-      
+        this.props.history.push(`/manager/menu/${managerID}`);
 
     } catch (error) {
       alert(`Something went wrong during the creation of the torunament: \n${handleError(error)}`);
@@ -74,7 +74,7 @@ handleInputChange(key, value) {
               </Form.Group>
               <Form.Group controlId="ControlInput1">
                 <Form.Label>Startzeit</Form.Label>
-                <Form.Control type="startTime" placeholder="Startzeit" onChange={e => {this.handleInputChange("startTime", e.target.value);}}/>
+                <Form.Control type="startTime" placeholder="Startzeit e.g(08:00)" onChange={e => {this.handleInputChange("startTime", e.target.value);}}/>
               </Form.Group>
               <Form.Group controlId="ControlSelect1">
                 <Form.Label>Spielzeit</Form.Label>
@@ -87,14 +87,23 @@ handleInputChange(key, value) {
               <Form.Group controlId="ControlSelect1">
                 <Form.Label>Pausenzeit</Form.Label>
                 <Form.Control as="select" onChange={e => {this.handleInputChange("breakDuration", e.target.value);}}>
-                  <option>5</option>
                   <option>10</option>
                   <option>20</option>
+                  <option>30</option>
                 </Form.Control>
               </Form.Group>
               <Form.Group controlId="ControlSelect1">
                 <Form.Label>Anzahl Spieler</Form.Label>
                 <Form.Control as="select" onChange={e => {this.handleInputChange("amountOfPlayers", e.target.value);}}>
+                  <option>2</option>
+                  <option>4</option>
+                  <option>8</option>
+                  <option>16</option>
+                </Form.Control>
+              </Form.Group>
+              <Form.Group controlId="ControlSelect1">
+                <Form.Label>Anzahl Spieltische</Form.Label>
+                <Form.Control as="select" onChange={e => {this.handleInputChange("numberTables", e.target.value);}}>
                   <option>2</option>
                   <option>4</option>
                   <option>8</option>

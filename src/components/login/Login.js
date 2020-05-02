@@ -45,7 +45,7 @@ class Login extends React.Component {
         localStorage.setItem("token", manager.token);
         localStorage.setItem("ManagerID", manager.managerID);
         const {managerID} = manager;
-        this.props.history.push(`/managerMenu/${managerID}`);
+        this.props.history.push(`/manager/menu/${managerID}`);
       } else {
         const requestBody1 = JSON.stringify({
           licenseNumber: this.state.licenseNumber,

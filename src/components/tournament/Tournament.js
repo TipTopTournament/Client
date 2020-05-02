@@ -44,12 +44,13 @@ class Tournament extends React.Component {
 
   goBackToMenu(){
     const managerID = localStorage.getItem("ManagerID");
-    this.props.history.push(`/managerMenu/${managerID}`);
+    this.props.history.push(`/manager/menu/${managerID}`);
   }
   async componentDidMount() {
     try {
       const {tournamentCode} = this.props.match.params;
       const response = await api.get(`/tournaments/${tournamentCode}/leaderboard`);
+      console.log(response.data);
       //response returns participants, with their wins e.g. {{participantObj1, wins1}, {participantObj2, wins2}}
       this.setState({ leaderBoardUsers : response.data });
       //I split it for the playerList since wins not relevant there

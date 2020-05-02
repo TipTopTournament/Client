@@ -72,7 +72,7 @@ class AppRouter extends React.Component {
               )}
             />
             <Route
-              path="/managerMenu/:managerID"
+              path="/manager/menu/:managerID"
               render={() => (
                 <ManagerMenuGuard>
                   <ManagerMenu />
@@ -80,7 +80,7 @@ class AppRouter extends React.Component {
               )}
             />
             <Route
-              path="/managerMenu/:managerID/createTournament"
+              path="/manager/createTournament/:managerID"
               render={() =>(
                 <CreateTournamentGuard>
                   <CreateTournament/>

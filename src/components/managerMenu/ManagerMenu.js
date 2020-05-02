@@ -41,7 +41,7 @@ class ManagerMenu extends React.Component {
         this.props.history.push(`/tournaments/${tournamentCode}/`);
     }
     goToCreate(){
-        this.props.history.push(`/managerMenu/${localStorage.getItem("ManagerID")}/createTournament`);
+        this.props.history.push(`/manager/createTournament/${localStorage.getItem("ManagerID")}`);
     }
 
     async componentDidMount() {

@@ -197,7 +197,7 @@ Geocode.fromLatLng( newLat , newLng ).then(
      lat: newLat,
      lng: newLng
     },
-   })
+   });
     
     localStorage.setItem("address", this.state.address );
    },
