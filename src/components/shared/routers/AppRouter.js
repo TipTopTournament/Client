@@ -147,7 +147,9 @@ class AppRouter extends React.Component {
             <Route
               path="/:tournamentCode/participantMenu"
               render={() => (
+                <ParticipantMenuGuard>
                   <ParticipantMenu />
+                </ParticipantMenuGuard>
               )}
             />
           </div>
