@@ -117,7 +117,7 @@ class TournamentCode extends React.Component {
         <Row className="justify-content-md-center">
           <Col md="auto" />
           <Col xs={12} sm={12} md={8}>
-            <Form style={{ align: "center" }}>
+            <Form style={{ align: "center", marginTop: '100px', marginLeft: '100px'}} >
               <Form.Group>
                 <Label>TournamentCode: </Label>
                 <InputField

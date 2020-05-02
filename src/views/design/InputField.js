@@ -10,7 +10,7 @@ export const InputField = styled.input`
   border: none;
   border-radius: 20px;
   margin-bottom: 20px;
-  background: #F2F2F2;
+  background: #FFFFFF;
   color: #2F80ED;
   width: 50%
 `;
