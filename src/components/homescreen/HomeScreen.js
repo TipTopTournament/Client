@@ -6,6 +6,7 @@ import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import {Title} from "../../views/design/Title";
+import {TipTopTournamentLogo} from "../../views/design/TipTopTournamentLogo";
 
 
 class HomeScreen extends React.Component{
@@ -25,7 +26,13 @@ class HomeScreen extends React.Component{
                         <Row>
                             <Col />
                             <Col>
-                                <Title style={{marginTop: '200px'}}>TIPTOPTournament</Title>
+                                <TipTopTournamentLogo/>
+                                <Title>TIPTOPTournament</Title>
+                                <Col>
+                                    <Row>
+                                        <p style={{color:"#2F80ED", marginLeft:'80px'}}>"Easy organisation of your table tennis tournament"</p>
+                                    </Row>
+                                </Col>
                             </Col>
                             <Col />
                         </Row>
@@ -33,6 +40,7 @@ class HomeScreen extends React.Component{
                              <Col xs={12} sm={12}>
                                 <Form>
                                      <Button
+                                        style={{marginTop: '50px'}}
                                         type="button"
                                         width="50%"
                                         onClick={() => {
