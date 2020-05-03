@@ -171,22 +171,17 @@ class Bracket extends React.Component {
         });
 
     }
-    handleInputChange(key, value) {
-        // Example: if the key is username, this statement is the equivalent to the following one:
-        // this.setState({'username': value});
-        this.setState({ [key]: value });
-      }
-    async   changescore(gameId,tournamentCode,score1,score2){
+    async changeScore(gameId,tournamentCode){
        
             try {
               const requestBody = JSON.stringify({
-                score1,
-                score2
-                //tournamentMode: this.state.tournamentMode, //TODO In next sprints we can add further tournament modes
+                score1: this.state.score1,
+                score2: this.state.score2,
               });
         
-                const response = await api.post(`/tournaments/${tournamentCode}/bracket/${gameId}/${this.state.manager}`, requestBody);
-                alert("Succesfully updated score ");
+                await api.put(`/tournaments/${tournamentCode}/bracket/${gameId}/${this.state.manager}`, requestBody);
+                alert("Successfully updated score ");
+                this.render();
                
         
             } catch (error) {
@@ -234,7 +229,6 @@ class Bracket extends React.Component {
                                 this.state.games.map(gameData => {
                                     return (
                                         <GameContainer key={gameData.gameId}
-                                                             // onClick={() => this.handleClick(gameData.gameId)} //TODO Manager can click game and edit score
                                         >
                                             <Game gameData={gameData} />
                                             <Form>
@@ -252,7 +246,7 @@ class Bracket extends React.Component {
                     
                     width="auto"
                     onClick={() => {
-                      this.changescore(gameData.gameId,gameData.tournamentCode, this.state.score1,this.state.score2)
+                      this.changeScore(gameData.gameId,gameData.tournamentCode)
                     }}
                   >
                     bearbeiten

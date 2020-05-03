@@ -32,11 +32,12 @@ const Game = ({ gameData }) => {
     return (
         <Container>
               <Alert variant='danger'>
-                          Zwei Spieler haben unterschiedliche Scores eingetragen! geben sie den richtigen Score ein
+                          Zwei Spieler haben unterschiedliche Scores eingetragen! Geben sie den richtigen Score ein
                         </Alert>}
            <Name>{gameData["participant1"]["vorname"]}</Name>
+            <Score>{gameData["score1"]} </Score> :
             <Name>{gameData["participant2"]["vorname"]}</Name>
-            <Score>{gameData["score1"]} </Score> <Score>{gameData["score2"]} </Score>.
+            <Score>{gameData["score2"]} </Score>
             <GameState>{gameData.gameState}</GameState>
             
         </Container>
@@ -46,8 +47,9 @@ const Game = ({ gameData }) => {
       <Container>
   
          <Name>{gameData["participant1"]["vorname"]}</Name>
+          <Score>{gameData["score1"]} </Score> :
           <Name>{gameData["participant2"]["vorname"]}</Name>
-          <Score>{gameData["score1"]} </Score> <Score>{gameData["score2"]} </Score>.
+          <Score>{gameData["score2"]} </Score>
           <GameState>{gameData.gameState}</GameState>
           
       </Container>);
