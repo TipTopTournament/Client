@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { api, handleError } from '../../helpers/api';
-import { withRouter } from 'react-router-dom';
-import { NoData } from "../../views/design/NoData";
+import {withRouter} from 'react-router-dom';
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -21,7 +20,6 @@ const TournamentContainer = styled.li`
 const Tournaments = styled.ul`
   list-style: none;
   padding-left: 0;
-
 `;
 class ManagerMenu extends React.Component {
     constructor() {
@@ -30,7 +28,6 @@ class ManagerMenu extends React.Component {
             tournaments: null,
         };
     }
-
     logout(){
         localStorage.removeItem('token');
         localStorage.removeItem('ManagerID');
@@ -42,19 +39,16 @@ class ManagerMenu extends React.Component {
     }
     goToCreate(){
         this.props.history.push(`/manager/createTournament/${localStorage.getItem("ManagerID")}`);
-    }
+        }
+
 
     async componentDidMount() {
         try {
-
             const managerID = this.props.match.params.managerID;
             const response = await api.get(`/managers/${managerID}/tournaments`);
-            console.log("response_raw", response);
-            console.log("response", response.data);
             // Get the returned users and update the state.
+            console.log(response.data);
             this.setState({ tournaments: response.data });
-
-            console.log(response);
         } catch (error) {
             alert(`Something went wrong while fetching the users: \n${handleError(error)}`);
         }
@@ -71,14 +65,41 @@ class ManagerMenu extends React.Component {
                 <Row className="justify-content-md-center">
                     <Col md="auto" />
                     <Col xs={12} sm={12} md={8}>
-                {!this.state.tournaments ? (
-                    <NoData />
+                {!this.state.tournaments || this.state.tournaments.length === 0 ? (
+                    <Form style={{marginTop: '50px'}}>
+                        <Form.Group>
+                            <h3>My Tournaments: </h3>
+                            <h3 style={{marginTop: '80px'}}>Hey, it looks empty! What about creating a new tournament?</h3>
+                            <h6> If you created a tournament and it did not show up, press F5</h6>
+                            <ButtonContainer style={{marginTop: '100px'}}>
+                                <Button
+                                    width="100%"
+                                    onClick={() => {
+                                        this.goToCreate();
+                                    }}
+                                >
+                                    Create a new tournament
+                                </Button>
+                            </ButtonContainer>
+                            <ButtonContainer>
+                                <Button
+                                    width="100%"
+                                    onClick={() => {
+                                        this.logout();
+                                    }}
+                                >
+                                    Logout
+                                </Button>
+                            </ButtonContainer>
+                        </Form.Group>
+                    </Form>
 
                 ) : (
 
-                        <Form>
+                        <Form style={{marginTop: '50px'}}>
                             <Form.Group>
-                                <h3>My Tournaments:</h3>
+                                <h3>My Tournaments: </h3>
+                                <h6> If you created a tournament and it did not show up, press F5</h6>
                                 <Tournaments>
                                 {this.state.tournaments.map(tournamentData => {
                                     return (
@@ -89,6 +110,16 @@ class ManagerMenu extends React.Component {
                                     );
                                 })}
                                 </Tournaments>
+                                <ButtonContainer style={{marginTop: '100px'}}>
+                                    <Button
+                                        width="100%"
+                                        onClick={() => {
+                                            this.goToCreate();
+                                        }}
+                                    >
+                                        Create a new tournament
+                                    </Button>
+                                </ButtonContainer>
                                 <ButtonContainer>
                                 <Button
                                     width="100%"
@@ -97,16 +128,6 @@ class ManagerMenu extends React.Component {
                                     }}
                                 >
                                     Logout
-                                </Button>
-                                </ButtonContainer>
-                                <ButtonContainer>
-                                <Button
-                                    width="100%"
-                                    onClick={() => {
-                                        this.goToCreate();
-                                    }}
-                                >
-                                    Create a new tournament
                                 </Button>
                                 </ButtonContainer>
                             </Form.Group>

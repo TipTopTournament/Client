@@ -7,7 +7,6 @@ import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { ButtonContainer } from "../../views/design/ButtonContainer"
 import { api, handleError } from "../../helpers/api";
 import Card from 'react-bootstrap/Card'
 
@@ -16,9 +15,9 @@ class CreateTournament extends React.Component {
     super();
     this.state = {
       amountOfPlayers: 2,
-      startTime: '',
-      informationBox: '',
-      tournamentName: '',
+      startTime: null,
+      informationBox: null,
+      tournamentName: null,
       tournamentMode: 'K.O.',
       breakDuration: 10,
       gameDuration: 20,
@@ -49,11 +48,10 @@ handleInputChange(key, value) {
 
         const response = await api.post("/tournaments", requestBody);
         alert("Your Tournamentcode is: " + response.data);
-        const {managerID} = localStorage.getItem("ManagerID");
-        this.props.history.push(`/manager/menu/${managerID}`);
+        this.props.history.goBack();
 
     } catch (error) {
-      alert(`Something went wrong during the creation of the torunament: \n${handleError(error)}`);
+      alert(`Something went wrong during the creation of the tournament: \n${handleError(error)}`);
     }
   }
 
@@ -112,7 +110,7 @@ handleInputChange(key, value) {
               </Form.Group>
               <Form.Group controlId="ControlTextarea1">
                 <Form.Label>Tournamentbeschreibung</Form.Label>
-                <Form.Control as="textarea" rows="3" />
+                <Form.Control as="textarea" rows="3" onChange={e => {this.handleInputChange("informationBox", e.target.value);}}/>
               </Form.Group>
               <Card border= "primary" >
                 <Card.Title>  Setze einen Standort fest</Card.Title>
@@ -134,7 +132,7 @@ handleInputChange(key, value) {
                    disabled={!this.state.startTime||!this.state.tournamentName||!this.state.gameDuration||!this.state.breakDuration
                              ||!this.state.amountOfPlayers||!this.state.startTime||!localStorage.getItem("address")}
                   type="submit" onClick={() => {
-                   this.sendTournamentDetails();}}
+                   this.sendTournamentDetails(); }}
                     >Tournament erstellen</Button>
             </Form>
           </Col>
