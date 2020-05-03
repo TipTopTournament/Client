@@ -1,7 +1,8 @@
-import React from "react";
+  import React from "react";
 import styled from "styled-components";
-
-const Container = styled.div`
+import Alert from 'react-bootstrap/Alert';
+import { Button } from "./design/Button";
+const Container = styled.div`;
   margin: 6px 0;
   width: 280px;
   padding: 10px;
@@ -27,14 +28,30 @@ const Score = styled.div`
 `;
 
 const Game = ({ gameData }) => {
+  if(gameData.gameState=="CONFLICT")
     return (
         <Container>
+              <Alert variant='danger'>
+                          Zwei Spieler haben unterschiedliche Scores eingetragen! geben sie den richtigen Score ein
+                        </Alert>}
            <Name>{gameData["participant1"]["vorname"]}</Name>
             <Name>{gameData["participant2"]["vorname"]}</Name>
-            <Score>{gameData["score1"]} </Score> <Score>{gameData["score2"]} </Score>
+            <Score>{gameData["score1"]} </Score> <Score>{gameData["score2"]} </Score>.
             <GameState>{gameData.gameState}</GameState>
+            
         </Container>
     );
+    else
+    return (
+      <Container>
+  
+         <Name>{gameData["participant1"]["vorname"]}</Name>
+          <Name>{gameData["participant2"]["vorname"]}</Name>
+          <Score>{gameData["score1"]} </Score> <Score>{gameData["score2"]} </Score>.
+          <GameState>{gameData.gameState}</GameState>
+          
+      </Container>);
+
 };
 
 export default Game;

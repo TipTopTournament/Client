@@ -92,7 +92,7 @@ class Tournament extends React.Component {
                       this.goBackToMenu();
                     }}
                 >
-                  Leave tournament
+                  Back to Menu
                 </Button>
               </Form.Group>
             </Form>

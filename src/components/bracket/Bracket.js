@@ -12,7 +12,7 @@ import {ButtonContainer} from "../../views/design/ButtonContainer";
 import ScoreReport from './ScoreReport';
 import styled from "styled-components";
 import Game from "../../views/Game";
-
+import Form from 'react-bootstrap/Form'
 
 
 const GameContainer = styled.li`
@@ -31,8 +31,15 @@ class Bracket extends React.Component {
             participantID: localStorage.getItem("ParticipantID"),
             myGame: null,
             manager: localStorage.getItem("ManagerID"),
+            score1: null,
+            score2: null,
+
         };
     }
+    handleInputChange(key, value) {
+        // Example: if the key is username, this statement is the equivalent to the following one:
+        // this.setState({'username': value});
+        this.setState({ [key]: value });}
 
     getGameOfParticipant(){
         let myGame = null;
@@ -164,6 +171,29 @@ class Bracket extends React.Component {
         });
 
     }
+    handleInputChange(key, value) {
+        // Example: if the key is username, this statement is the equivalent to the following one:
+        // this.setState({'username': value});
+        this.setState({ [key]: value });
+      }
+    async   changescore(gameId,tournamentCode,score1,score2){
+       
+            try {
+              const requestBody = JSON.stringify({
+                score1,
+                score2
+                //tournamentMode: this.state.tournamentMode, //TODO In next sprints we can add further tournament modes
+              });
+        
+                const response = await api.post(`/tournaments/${tournamentCode}/bracket/${gameId}/${this.state.manager}`, requestBody);
+                alert("Succesfully updated score ");
+               
+        
+            } catch (error) {
+              alert(`Something went wrong during changing the score     : \n${handleError(error)}`);
+            }
+
+    }
 
     render() {
         return (
@@ -207,6 +237,26 @@ class Bracket extends React.Component {
                                                              // onClick={() => this.handleClick(gameData.gameId)} //TODO Manager can click game and edit score
                                         >
                                             <Game gameData={gameData} />
+                                            <Form>
+                                                <Form.Group controlId="ControlInput1">
+                                                    <Form.Label>Score 1</Form.Label>
+                                                    <Form.Control type="TournamentName" placeholder="Score 1" onChange={e => {this.handleInputChange("score1", e.target.value);}}/>
+                                                </Form.Group>
+                                                <Form.Group controlId="ControlInput1">
+                                                    <Form.Label>Score 1</Form.Label>
+                                                    <Form.Control type="TournamentName" placeholder="Score 2" onChange={e => {this.handleInputChange("score2", e.target.value);}}/>
+                                                </Form.Group>
+                                            </Form>
+                                                                        
+                                            <Button type="button"
+                    
+                    width="auto"
+                    onClick={() => {
+                      this.changescore(gameData.gameId,gameData.tournamentCode, this.state.score1,this.state.score2)
+                    }}
+                  >
+                    bearbeiten
+                  </Button>
                                         </GameContainer>
                                     )})
                          )}
