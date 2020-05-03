@@ -70,7 +70,7 @@ class ManagerMenu extends React.Component {
                         <Form.Group>
                             <h3>My Tournaments: </h3>
                             <h3 style={{marginTop: '80px'}}>Hey, it looks empty! What about creating a new tournament?</h3>
-                            <h6> If you created a tournament and it did not show up, try to refresh the page (F5) </h6>
+                            <p> If you created a tournament and it did not show up, try to refresh the page (F5) </p>
                             <ButtonContainer style={{marginTop: '100px'}}>
                                 <Button
                                     width="100%"
@@ -99,6 +99,7 @@ class ManagerMenu extends React.Component {
                         <Form style={{marginTop: '50px'}}>
                             <Form.Group>
                                 <h3>My Tournaments: </h3>
+                                <p>If you created a tournament and it did not show up, try to refresh the page (F5) </p>
                                 <Tournaments>
                                 {this.state.tournaments.map(tournamentData => {
                                     return (

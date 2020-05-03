@@ -128,12 +128,19 @@ handleInputChange(key, value) {
                   zoom={15}
                 />
               </div>
-              <Button
-                   disabled={!this.state.startTime||!this.state.tournamentName||!this.state.gameDuration||!this.state.breakDuration
-                             ||!this.state.amountOfPlayers||!this.state.startTime||!localStorage.getItem("address")}
-                  type="submit" onClick={() => {
-                   this.sendTournamentDetails(); }}
-                    >Tournament erstellen</Button>
+              <Row>
+                <Col/>
+                <Col>
+                  <Button
+                      style={{marginLeft: '60px'}}
+                      disabled={!this.state.startTime||!this.state.tournamentName||!this.state.gameDuration||!this.state.breakDuration
+                      ||!this.state.amountOfPlayers||!this.state.startTime||!localStorage.getItem("address")}
+                      type="submit" onClick={() => {
+                    this.sendTournamentDetails(); }}
+                  >Tournament erstellen</Button>
+                </Col>
+                <Col/>
+              </Row>
             </Form>
           </Col>
         </Row>

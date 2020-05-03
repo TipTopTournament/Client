@@ -26,6 +26,11 @@ const Score = styled.div`
   margin-right: auto;
   font-weight: light;
 `;
+  const Time = styled.div`
+  margin-right: 25px;
+  margin-left: auto;
+  font-weight: light;
+`;
 
 const Game = ({ gameData }) => {
   if(gameData.gameState=="CONFLICT")
@@ -34,10 +39,11 @@ const Game = ({ gameData }) => {
               <Alert variant='danger'>
                           Zwei Spieler haben unterschiedliche Scores eingetragen! Geben sie den richtigen Score ein
                         </Alert>}
+            <Time> {gameData.startTime}</Time>
            <Name>{gameData["participant1"]["vorname"]}</Name>
             <Score>{gameData["score1"]} </Score> :
-            <Name>{gameData["participant2"]["vorname"]}</Name>
             <Score>{gameData["score2"]} </Score>
+            <Name>{gameData["participant2"]["vorname"]}</Name>
             <GameState>{gameData.gameState}</GameState>
             
         </Container>
@@ -45,11 +51,11 @@ const Game = ({ gameData }) => {
     else
     return (
       <Container>
-  
+          <Time>{gameData.startTime}</Time>
          <Name>{gameData["participant1"]["vorname"]}</Name>
           <Score>{gameData["score1"]} </Score> :
-          <Name>{gameData["participant2"]["vorname"]}</Name>
           <Score>{gameData["score2"]} </Score>
+          <Name>{gameData["participant2"]["vorname"]}</Name>
           <GameState>{gameData.gameState}</GameState>
           
       </Container>);

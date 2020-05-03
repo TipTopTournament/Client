@@ -237,7 +237,7 @@ class Bracket extends React.Component {
                                                     <Form.Control type="TournamentName" placeholder="Score 1" onChange={e => {this.handleInputChange("score1", e.target.value);}}/>
                                                 </Form.Group>
                                                 <Form.Group controlId="ControlInput1">
-                                                    <Form.Label>Score 1</Form.Label>
+                                                    <Form.Label>Score 2</Form.Label>
                                                     <Form.Control type="TournamentName" placeholder="Score 2" onChange={e => {this.handleInputChange("score2", e.target.value);}}/>
                                                 </Form.Group>
                                             </Form>
@@ -248,8 +248,7 @@ class Bracket extends React.Component {
                     onClick={() => {
                       this.changeScore(gameData.gameId,gameData.tournamentCode)
                     }}
-                  >
-                    bearbeiten
+                  >{"Edit Game of " + gameData["participant1"].vorname + " vs. " +  gameData["participant2"].vorname}
                   </Button>
                                         </GameContainer>
                                     )})
