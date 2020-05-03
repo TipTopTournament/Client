@@ -10,6 +10,8 @@ import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import LeaderBoardPlayer from "../../views/LeaderBoardPlayer";
+import Bracket from "../bracket/Bracket";
+import {ButtonContainer} from "../../views/design/ButtonContainer";
 
 
 const PlayerContainer = styled.li`
@@ -69,8 +71,41 @@ class Tournament extends React.Component {
   render() {
     return (
       <Container className= "custom-container2">
-        {!this.state.users ||! this.state.leaderBoardUsers ? (
-            <NoData/>
+        {!this.state.users ||! this.state.leaderBoardUsers || this.state.leaderBoardUsers.length === 0? (
+            <Row>
+              <Col>
+                <Form>
+                  <Form.Label> Playerlist </Form.Label>
+                  <Form.Group>
+                    <h5>No players have joined yet!</h5>
+                    <Button style ={{marginTop:'100px'}}
+                        type="button"
+                        onClick={() => {
+                          this.goBackToMenu();
+                        }}
+                    >
+                      Back to Menu
+                    </Button>
+                    <Form>
+                      <ButtonContainer>
+                        <Button
+                            width="100%"
+                            onClick={()=> this.handleClick('bracket')}
+                        >
+                          Bracket
+                        </Button>
+                      </ButtonContainer>
+                    </Form>
+                  </Form.Group>
+                </Form>
+              </Col>
+              <Col>
+                <Form >
+                  <Form.Label> Leaderboard </Form.Label>
+                  <h5>No players have joined yet!</h5>
+                </Form>
+              </Col>
+            </Row>
         ):(
         <Row>
           <Col>
@@ -87,6 +122,7 @@ class Tournament extends React.Component {
                   );
                 })}
                 <Button
+                    style ={{marginTop:'100px'}}
                     type="button"
                     onClick={() => {
                       this.goBackToMenu();
@@ -94,6 +130,16 @@ class Tournament extends React.Component {
                 >
                   Back to Menu
                 </Button>
+                <Form>
+                  <ButtonContainer>
+                    <Button
+                        width="100%"
+                        onClick={()=> this.handleClick('bracket')}
+                    >
+                      Bracket
+                    </Button>
+                  </ButtonContainer>
+                </Form>
               </Form.Group>
             </Form>
           </Col>
@@ -108,10 +154,6 @@ class Tournament extends React.Component {
                 );
               })}
             </Form>
-            <Form onClick={()=> this.handleClick('bracket')}>
-              <Form.Label> Bracket </Form.Label>
-            </Form>
-
             </Col>
         </Row>
             )}
