@@ -61,7 +61,7 @@ handleInputChange(key, value) {
       <Container className= "custom-container2">
         <Row>
             <Col>
-              <h1 style={{ textAlign: "center" }}>Neues Tournament erstellen</h1>
+              <h1 style={{ textAlign: "center", color: "#2F80ED"}}>Neues Tournament erstellen</h1>
             </Col>
         </Row>
         <Row>
@@ -133,7 +133,7 @@ handleInputChange(key, value) {
                 <Col/>
                 <Col>
                   <Button
-                      style={{marginLeft: '60px'}}
+                      style={{marginLeft: '60px', color: "#F3F3FF"}}
                       disabled={!this.state.startTime||!this.state.tournamentName||!this.state.gameDuration||!this.state.breakDuration
                       ||!this.state.amountOfPlayers||!this.state.startTime||!localStorage.getItem("address")}
                       type="submit" onClick={() => {

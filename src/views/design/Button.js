@@ -13,6 +13,6 @@ export const Button = styled.button`
   border-radius: 20px;
   cursor: ${props => (props.disabled ? "default" : "pointer")};
   opacity: ${props => (props.disabled ? 0.4 : 1)};
-  background: rgb(16, 89, 255);
+  background: #2F80ED;
   transition: all 0.3s ease;
 `;

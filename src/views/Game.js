@@ -3,13 +3,8 @@ import styled from "styled-components";
 import Alert from 'react-bootstrap/Alert';
 import { Button } from "./design/Button";
 const Container = styled.div`;
-  margin: 6px 0;
   width: 280px;
-  padding: 10px;
-  border-radius: 6px;
   display: flex;
-  align-items: center;
-  border: 1px solid #ffffff26;
 `;
 
 const GameState = styled.div`
@@ -19,11 +14,10 @@ const GameState = styled.div`
 const Name = styled.div`
   font-weight: lighter;
   margin-left: 5px;
+  margin-right: 5px;
 `;
 
 const Score = styled.div`
-  margin-left: auto;
-  margin-right: auto;
   font-weight: light;
 `;
   const Time = styled.div`

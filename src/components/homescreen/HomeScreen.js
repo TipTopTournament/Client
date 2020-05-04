@@ -24,10 +24,12 @@ class HomeScreen extends React.Component{
         return (
                 <Container className= "custom-container2">
                         <Row>
-                            <Col />
                             <Col>
-                                <TipTopTournamentLogo/>
-                                <Title>TIPTOPTournament</Title>
+                                <TipTopTournamentLogo style={{marginTop:"50px"}}/>
+                                <h4 className="custom1" style={{color: "#2F80ED", marginLeft:"50px"}}>TIPTOPTournament</h4>
+                            </Col>
+                            <Col>
+                                <Title   style={{marginTop: '250px'}}>TIPTOPTournament</Title>
                                 <Col>
                                     <Row>
                                         <p style={{color:"#2F80ED", marginLeft:'80px'}}>"Easy organisation of your table tennis tournament"</p>

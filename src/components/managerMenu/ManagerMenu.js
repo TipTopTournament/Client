@@ -59,7 +59,7 @@ class ManagerMenu extends React.Component {
             <Container className= "custom-container2">
                 <Row>
                     <Col>
-                        <h1 style={{ textAlign: "center" }}>TipTopTournament</h1>
+                        <h1 style={{textAlign: "center",color: "#2F80ED", marginTop: '200px'}}>TipTopTournament</h1>
                     </Col>
                 </Row>
                 <Row className="justify-content-md-center">
@@ -69,7 +69,7 @@ class ManagerMenu extends React.Component {
                     <Form style={{marginTop: '50px'}}>
                         <Form.Group>
                             <h3>My Tournaments: </h3>
-                            <h3 style={{marginTop: '80px'}}>Hey, it looks empty! What about creating a new tournament?</h3>
+                            <h3 style={{marginTop: '50px'}}>Hey, it looks empty! What about creating a new tournament?</h3>
                             <p> If you created a tournament and it did not show up, try to refresh the page (F5) </p>
                             <ButtonContainer style={{marginTop: '100px'}}>
                                 <Button
@@ -96,9 +96,9 @@ class ManagerMenu extends React.Component {
 
                 ) : (
 
-                        <Form style={{marginTop: '50px'}}>
+                        <Form>
                             <Form.Group>
-                                <h3>My Tournaments: </h3>
+                                <h3 style={{marginTop: '50px'}}>My Tournaments: </h3>
                                 <p>If you created a tournament and it did not show up, try to refresh the page (F5) </p>
                                 <Tournaments>
                                 {this.state.tournaments.map(tournamentData => {

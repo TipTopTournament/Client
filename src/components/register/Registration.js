@@ -86,7 +86,7 @@ class Registration extends React.Component {
         <p className="text-center">
           <Row>
             <Col>
-              <Title>TIPTOPTournament</Title>
+              <h1 style={{textAlign: "center",color: "#2F80ED", marginTop: '200px'}}>TipTopTournament</h1>
             </Col>
           </Row>
         </p>

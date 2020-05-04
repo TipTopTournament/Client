@@ -9,8 +9,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 class App extends Component {
   render() {
     return (
-      <div>
-        <AppRouter />
+      <div style={{background:"#F3F3FF"}}>
+        <div className="header">
+        <AppRouter/>
+        </div>
       </div>
     );
   }

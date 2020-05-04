@@ -13,13 +13,13 @@ import ScoreReport from './ScoreReport';
 import styled from "styled-components";
 import Game from "../../views/Game";
 import Form from 'react-bootstrap/Form'
+import ListGroup from "react-bootstrap/ListGroup";
 
 
 const GameContainer = styled.li`
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  
 `;
 
 class Bracket extends React.Component {
@@ -226,12 +226,13 @@ class Bracket extends React.Component {
                         {!this.state.manager ? (
                             <ScoreReport gameFromBracket={this.getGameOfParticipant()}/>
                         ) : (
-                                this.state.games.map(gameData => {
+                            <ListGroup variant="flush">
+                                {this.state.games.map(gameData => {
                                     return (
-                                        <GameContainer key={gameData.gameId}
+                                        <ListGroup.Item style={{background:  "#F3F3FF",   display: "flex", alignItems: "center", justifyContent: "center"}} key={gameData.gameId}
                                         >
                                             <Game gameData={gameData} />
-                                            <Form>
+                                            <Form style={{marginLeft:"30px"}}>
                                                 <Form.Group controlId="ControlInput1">
                                                     <Form.Label>Score 1</Form.Label>
                                                     <Form.Control type="TournamentName" placeholder="Score 1" onChange={e => {this.handleInputChange("score1", e.target.value);}}/>
@@ -241,17 +242,17 @@ class Bracket extends React.Component {
                                                     <Form.Control type="TournamentName" placeholder="Score 2" onChange={e => {this.handleInputChange("score2", e.target.value);}}/>
                                                 </Form.Group>
                                             </Form>
-                                                                        
-                                            <Button type="button"
-                    
-                    width="auto"
-                    onClick={() => {
-                      this.changeScore(gameData.gameId,gameData.tournamentCode)
-                    }}
-                  >{"Edit Game of " + gameData["participant1"].vorname + " vs. " +  gameData["participant2"].vorname}
-                  </Button>
-                                        </GameContainer>
-                                    )})
+                                            <Button style={{marginLeft:"50px"}}
+                                                    type="button"
+                                                    width="auto"
+                                                    onClick={() => {
+                                                      this.changeScore(gameData.gameId,gameData.tournamentCode)
+                                                    }}
+                                                  >{"Edit Game of " + gameData["participant1"].vorname + " vs. " +  gameData["participant2"].vorname}
+                                                  </Button>
+                                        </ListGroup.Item>
+                                    )})}
+                                </ListGroup>
                          )}
                     </Col>
                 </Row>

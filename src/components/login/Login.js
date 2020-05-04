@@ -12,6 +12,7 @@ import Tab from "react-bootstrap/Tab";
 
 import Form from "react-bootstrap/Form";
 import Manager from "../shared/models/Manager";
+import {TipTopTournamentLogo} from "../../views/design/TipTopTournamentLogo";
 
 class Login extends React.Component {
   constructor() {
@@ -80,13 +81,13 @@ class Login extends React.Component {
       <Container className= "custom-container2">
         <Row>
           <Col>
-            <h1 style={{ textAlign: "center" , marginTop: '200px'}}>TipTopTournament</h1>
+            <h1 style={{textAlign: "center",color: "#2F80ED", marginTop: '200px'}}>TipTopTournament</h1>
           </Col>
         </Row>
         <Row className="justify-content-md-center">
           <Col md="auto" />
           <Col xs={12} sm={12} md={8}>
-            <Tabs defaultActiveKey="Player" style={{ margin: "0 auto" }}>
+            <Tabs defaultActiveKey="Player" style={{ margin: "0 auto"}}>
               <Tab eventKey="Player" title="Player">
                 <Form>
                   <Form.Group>
