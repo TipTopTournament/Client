@@ -47,6 +47,7 @@ handleInputChange(key, value) {
       });
 
         const response = await api.post("/tournaments", requestBody);
+        console.log(response);
         alert("Your Tournamentcode is: " + response.data);
         this.props.history.goBack();
 
