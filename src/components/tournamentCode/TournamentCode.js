@@ -110,7 +110,7 @@ class TournamentCode extends React.Component {
           <Navbar.Toggle />
           <Navbar.Collapse className="justify-content-end">
             <Navbar.Text>
-              Signed in as: <a>{this.state.personalInfo.vorname}{this.state.personalInfo.nachname}</a>
+              Signed in as: <a>{this.state.personalInfo.vorname + " "+ this.state.personalInfo.nachname}</a>
             </Navbar.Text>
           </Navbar.Collapse>
         </Navbar>

@@ -1,7 +1,7 @@
 import React from "react";
 import { api, handleError } from "../../helpers/api";
 import User from "../shared/models/User";
-import { withRouter } from "react-router-dom";
+import {withRouter} from "react-router-dom";
 import { Button } from "../../views/design/Button";
 
 import Container from "react-bootstrap/Container";
@@ -12,7 +12,7 @@ import Tab from "react-bootstrap/Tab";
 
 import Form from "react-bootstrap/Form";
 import Manager from "../shared/models/Manager";
-import {TipTopTournamentLogo} from "../../views/design/TipTopTournamentLogo";
+
 
 class Login extends React.Component {
   constructor() {
@@ -55,6 +55,14 @@ class Login extends React.Component {
         response = await api.put("/participants/login", requestBody1);
         // Get the returned user and update a new object.
         const user = new User(response.data);
+        let responseUserInTournament = await api.get(`/participants/${user.participantID}`);
+        if (responseUserInTournament.data.code){
+          localStorage.setItem("TournamentCode", responseUserInTournament.data.code);
+        }
+
+
+
+
         // Store the token into the local storage.
         localStorage.setItem("token", user.token);
         // store the generated ID in the local storage.

@@ -36,7 +36,7 @@ class ParticipantMenu extends React.Component {
 
   leavetournament() {
     api.put(`//tournaments/${this.props.match.params.tournamentCode}/${localStorage.getItem("ParticipantID")}/leave`)
-    localStorage.removeItem("token", "ParticipantID");
+    localStorage.removeItem("token", "ParticipantID", "TournamentCode");
     this.props.history.push("/");
   }
 

@@ -10,6 +10,7 @@ const Container = styled.div`;
 const GameState = styled.div`
   font-weight: bold;
   color: #06c4ff;
+  margin-left: 25px;
 `;
 const Name = styled.div`
   font-weight: lighter;

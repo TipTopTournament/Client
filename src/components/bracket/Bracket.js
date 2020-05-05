@@ -10,17 +10,10 @@ import Col from "react-bootstrap/Col";
 import '../../views/design/custom-container.css';
 import {ButtonContainer} from "../../views/design/ButtonContainer";
 import ScoreReport from './ScoreReport';
-import styled from "styled-components";
 import Game from "../../views/Game";
 import Form from 'react-bootstrap/Form'
 import ListGroup from "react-bootstrap/ListGroup";
-
-
-const GameContainer = styled.li`
-  display: flex;
-  align-items: center;
-  
-`;
+import Winner from "../../views/design/Winner";
 
 class Bracket extends React.Component {
     constructor() {
@@ -33,6 +26,7 @@ class Bracket extends React.Component {
             manager: localStorage.getItem("ManagerID"),
             score1: null,
             score2: null,
+            winner: null,
 
         };
     }
@@ -45,7 +39,6 @@ class Bracket extends React.Component {
         let myGame = null;
         const GameAlreadyPlayed = "FINISHED";
         this.state.games.map(game => {
-
             let PlayerID1 = parseInt(game.participant1.participantID);
             let PlayerID2 = parseInt(game.participant2.participantID);
             let MyID = parseInt(this.state.participantID);
@@ -143,20 +136,7 @@ class Bracket extends React.Component {
                 break;
         }
     }
-    
-    async componentDidMount() {
-        try {
-            const {tournamentCode} = this.props.match.params;
-            const response = await api.get(`/tournaments/${tournamentCode}/bracket`);
-            console.log("response", response.data);
-            this.correctArray(response.data);
-            this.setState({ games : response.data });
-            this.setupBracket(response.data);
 
-        } catch (error) {
-            alert(`Something went wrong while fetching the users: \n${handleError(error)}`);
-        }
-    }
     correctArray(response){
         response.map(game => {
 
@@ -172,22 +152,37 @@ class Bracket extends React.Component {
 
     }
     async changeScore(gameId,tournamentCode){
-       
-            try {
-              const requestBody = JSON.stringify({
+
+        try {
+            const requestBody = JSON.stringify({
                 score1: this.state.score1,
                 score2: this.state.score2,
-              });
-        
-                await api.put(`/tournaments/${tournamentCode}/bracket/${gameId}/${this.state.manager}`, requestBody);
-                alert("Successfully updated score ");
-                this.render();
-               
-        
-            } catch (error) {
-              alert(`Something went wrong during changing the score     : \n${handleError(error)}`);
-            }
+            });
 
+            await api.put(`/tournaments/${tournamentCode}/bracket/${gameId}/${this.state.manager}`, requestBody);
+            alert("Successfully updated score ");
+            this.render();
+
+
+        } catch (error) {
+            alert(`Something went wrong during changing the score     : \n${handleError(error)}`);
+        }
+
+    }
+    
+    async componentDidMount() {
+        try {
+            const {tournamentCode} = this.props.match.params;
+            const responseWinnerCheck = await api.get(`/tournaments/${tournamentCode}`);
+            this.setState({winner : responseWinnerCheck.data.winner});
+            const response = await api.get(`/tournaments/${tournamentCode}/bracket`);
+            this.correctArray(response.data);
+            this.setState({ games : response.data });
+            this.setupBracket(response.data);
+
+        } catch (error) {
+            alert(`Something went wrong while fetching the users: \n${handleError(error)}`);
+        }
     }
 
     render() {
@@ -224,7 +219,11 @@ class Bracket extends React.Component {
                 <Row>
                     <Col>
                         {!this.state.manager ? (
+                            !this.state.winner ? (
                             <ScoreReport gameFromBracket={this.getGameOfParticipant()}/>
+                            ) :(
+                                <Winner winnerFrom Bracket ={this.state.winner}/>
+                            )
                         ) : (
                             <ListGroup variant="flush">
                                 {this.state.games.map(gameData => {
@@ -234,15 +233,17 @@ class Bracket extends React.Component {
                                             <Game gameData={gameData} />
                                             <Form style={{marginLeft:"30px"}}>
                                                 <Form.Group controlId="ControlInput1">
-                                                    <Form.Label>Score 1</Form.Label>
-                                                    <Form.Control type="TournamentName" placeholder="Score 1" onChange={e => {this.handleInputChange("score1", e.target.value);}}/>
+                                                    <Form.Label>{gameData.participant1.vorname + "'s score"}</Form.Label>
+                                                    <Form.Control type="TournamentName" placeholder={gameData.participant1.vorname} onChange={e => {this.handleInputChange("score1", e.target.value);}}/>
                                                 </Form.Group>
                                                 <Form.Group controlId="ControlInput1">
-                                                    <Form.Label>Score 2</Form.Label>
-                                                    <Form.Control type="TournamentName" placeholder="Score 2" onChange={e => {this.handleInputChange("score2", e.target.value);}}/>
+                                                    <Form.Label>{gameData.participant2.vorname + "'s score"}</Form.Label>
+                                                    <Form.Control type="TournamentName" placeholder={gameData.participant2.vorname} onChange={e => {this.handleInputChange("score2", e.target.value);}}/>
                                                 </Form.Group>
                                             </Form>
-                                            <Button style={{marginLeft:"50px"}}
+                                            <Button
+                                                    disabled={!gameData.participant1 ||!gameData.participant2}
+                                                    style={{marginLeft:"50px"}}
                                                     type="button"
                                                     width="auto"
                                                     onClick={() => {
