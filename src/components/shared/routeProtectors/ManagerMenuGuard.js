@@ -5,5 +5,5 @@ export const ManagerMenuGuard = props => {
     if (localStorage.getItem("ManagerID") && localStorage.getItem("token")){
         return props.children;
     }
-    return <Redirect to={"/login"} />;
+    return <Redirect to={"/home"} />;
 };

@@ -3,43 +3,33 @@ import React from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Button from "react-bootstrap/Button";
-
-import { api } from "../../helpers/api";
 import { withRouter } from "react-router-dom";
-import User from "../shared/models/User";
+import Button from "react-bootstrap/Button";
+import { api } from "../../helpers/api";
+import TournamentData from "../shared/models/TournamentData";
+import Table from "react-bootstrap/Table";
+import {ButtonContainer} from "../../views/design/ButtonContainer";
 
 class ParticipantMenu extends React.Component {
   constructor() {
     super();
     this.state = {
-      player: null
+      tournament: null,
+      tournamentCode: null
     };
   }
-  participants = () => {
-    this.props.history.push(
-      `/${this.props.match.params.tournamentCode}/playerlists`
-    );
-  };
 
-  brackets = () => {
-    this.props.history.push(
-      `/${this.props.match.params.tournamentCode}/bracket`
-    );
-  };
-
-  leaderboard = () => {
-    this.props.history.push(
-      `/${this.props.match.params.tournamentCode}/leaderBoard`
-    );
-  };
-
-  leavetournament() {
-    api.put(`//tournaments/${this.props.match.params.tournamentCode}/${localStorage.getItem("ParticipantID")}/leave`)
-    localStorage.removeItem("token", "ParticipantID", "TournamentCode");
-    this.props.history.push("/");
+  handleClick(id){
+    if (id === "leave"){
+      api.put(`/tournaments/${this.state.tournamentCode}/${localStorage.getItem("ParticipantID")}/leave`);
+      this.props.history.push(`/tournamentCode`);
+      localStorage.removeItem("token");
+      localStorage.removeItem("ParticipantID");
+      localStorage.removeItem("TournamentCode");
+    } else{
+      this.props.history.push(`/${this.state.tournamentCode}/${id}`);
+    }
   }
-
   async ready() {
     //define new state
     const state = JSON.stringify({userState: "READY"});
@@ -52,7 +42,7 @@ class ParticipantMenu extends React.Component {
     try {
       // get new state
       const playerUpdated = await api.get(
-        `/participants/${this.state.player.participantID}`
+          `/participants/${this.state.player.participantID}`
       );
       // set updated player to the state
       this.setState({ player: playerUpdated });
@@ -61,92 +51,83 @@ class ParticipantMenu extends React.Component {
     }
   }
 
+
   async componentDidMount() {
-    const playerID = localStorage.getItem("ParticipantID"); //saved user in the local Storage
+    const tournamentCode = this.props.match.params.tournamentCode;
+    this.setState({ tournamentCode: tournamentCode });
     try {
-      const requestPlayer = await api.get(`/participants/${playerID}`);
-      const player = new User(requestPlayer);
-      this.setState({ player: player });
+      const response = await api.get(`/tournaments/${tournamentCode}`);
+      console.log("the tournament data is :", response.data);
+      // here we can also store the tournament in localStorage to access it globally.
+      // For example signed up players in playerList don't have to load from server again
+      const tournament = new TournamentData(response.data);
+      this.setState({ tournament: tournament });
     } catch (error) {
-      const dummyPlayer = {
-        participantID: 420,
-        name: "Dogg",
-        vorname: "Snoop",
-        username: "Snoop Dogg",
-        token: 420420,
-        licenseNumber: 420710,
-        status: "NOTREADY"
-      };
-      this.setState({ player: dummyPlayer });
-      console.log("could not fetch player", error, this.state.player);
+      console.log(
+        "there is something wrong with getting the tournament data",
+        error
+      );
     }
   }
 
   render() {
-    if (!this.state.player) {
+    if (!this.state.tournament) {
       return <div>Loading...</div>;
     }
     return (
-      <Container className= "custom-container2">
+      <Container className= "custom-container2" >
         <Row>
           <Col />
           <Col>
-            <h1>Menu</h1>
+            <h2>{this.state.tournament.tournamentName}</h2>
           </Col>
           <Col />
         </Row>
         <Row>
           <Col />
           <Col>
-            <div>
-              {this.state.player.vorname} {this.state.player.name} is{" "}
-              {this.state.player.status}
-            </div>
-          </Col>
-          <Col />
-        </Row>
-        <Row>
-          <Col />
-          <Col>
-            <Button type="button" onClick={() => this.participants()}>
-              Teilnehmer
-            </Button>
-          </Col>
-          <Col />
-        </Row>
-        <Row>
-          <Col />
-          <Col>
-            <Button type="button" onClick={() => this.brackets()}>
-              Brackets
-            </Button>
-          </Col>
-          <Col />
-        </Row>
-        <Row>
-          <Col />
-          <Col>
-            <Button type="button" onClick={() => this.leaderboard()}>
+            <h5>Tournament Information</h5>
+            <Table>
+              <tbody>
+                <tr>
+                  <td>Location</td>
+                  <td>{this.state.tournament.location}</td>
+                </tr>
+                <tr>
+                  <td>Starttime</td>
+                  <td>{this.state.tournament.startTime} Uhr</td>
+                </tr>
+              </tbody>
+            </Table>
+
+            <ButtonContainer>
+              <Button type="button" onClick={() => this.handleClick("playerList")}>
+                Participants
+              </Button>
+            </ButtonContainer>
+
+            <ButtonContainer>
+              <Button type="button" onClick={() => this.handleClick("bracket")}>
+                Bracket
+              </Button>
+            </ButtonContainer>
+
+            <ButtonContainer>
+              <Button type="button" onClick={() => this.handleClick("leaderBoard")}>
               Leaderboard
             </Button>
-          </Col>
-          <Col />
-        </Row>
-        <Row>
-          <Col />
-          <Col>
-            <Button type="button" onClick={() => this.leavetournament()}>
-              Leave tournament
-            </Button>
-          </Col>
-          <Col />
-        </Row>
-        <Row>
-          <Col />
-          <Col>
+            </ButtonContainer>
+
+            <ButtonContainer>
+              <Button type="button" onClick={() => this.handleClick("leave")}>
+                Leave Tournament
+              </Button>
+            </ButtonContainer>
+            <ButtonContainer>
             <Button type="button" onClick={() => this.ready()}>
               Ready button
             </Button>
+            </ButtonContainer>
           </Col>
           <Col />
         </Row>

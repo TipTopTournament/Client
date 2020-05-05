@@ -28,6 +28,7 @@ class TournamentCode extends React.Component {
   logout() {
     localStorage.removeItem("token");
     localStorage.removeItem("ParticipantID");
+    localStorage.removeItem("TournamentCode");
     this.props.history.push("/home");
   }
 
@@ -39,7 +40,7 @@ class TournamentCode extends React.Component {
     });
     console.log("tournamentCode", this.state.tournamentCode);
     await api.put(`/tournaments/${this.state.tournamentCode}/${localStorage.getItem("ParticipantID")}`, requestBody);
-    this.props.history.push(`/${this.state.tournamentCode}/tournamentInfo`);
+    this.props.history.push(`/${this.state.tournamentCode}/participantMenu`);
     } catch (error) {
       alert(`Something went wrong during the check-in with your tournamentCode: \n${handleError(error)}`);
     }

@@ -5,5 +5,5 @@ export const BracketGuard = props => {
     if (localStorage.getItem("token")) {
         return props.children;
     }
-    return <Redirect to={"/login"} />;
+    return <Redirect to={"/home"} />;
 };

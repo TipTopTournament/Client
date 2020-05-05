@@ -42,7 +42,7 @@ class Registration extends React.Component {
         //Request to /managers to create a new manager
         await api.post("/managers", requestBody);
         // Register successfully worked --> navigate to the route /login in the TournamentRouter
-        this.props.history.push(`/login`);
+        this.props.history.push(`/login/manager`);
       } catch (error) {
         alert(`Something went wrong during the Registration: \n${handleError(error)}`);
       }
@@ -61,7 +61,7 @@ class Registration extends React.Component {
           alert("Your new licenseNumber: " + response.data.licenseNumber);
         }
         // Register successfully worked --> navigate to the route /login in the TournamentRouter
-        this.props.history.push(`/login`);
+        this.props.history.push(`/login/participant`);
       } catch (error) {
         alert(`Something went wrong during the login: \n${handleError(error)}`);
       }

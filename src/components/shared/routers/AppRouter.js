@@ -2,8 +2,8 @@ import React from "react";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import { TournamentGuard } from "../routeProtectors/TournamentGuard";
 import TournamentRouter from "./TournamentRouter";
-import { LoginGuard } from "../routeProtectors/LoginGuard";
-import Login from "../../login/Login";
+import { ParticipantLoginGuard } from "../routeProtectors/ParticipantLoginGuard";
+import ParticipantLogin from "../../login/ParticipantLogin";
 import HomeScreen from "../../homescreen/HomeScreen";
 import Registration from "../../register/Registration";
 import TournamentCode from "../../tournamentCode/TournamentCode";
@@ -16,15 +16,15 @@ import { BracketGuard } from "../routeProtectors/BracketGuard";
 import { LeaderBoardGuard } from "../routeProtectors/LeaderBoardGuard";
 import { CreateTournamentGuard } from "../routeProtectors/CreateTournamentGuard";
 import PlayerList from "../../playerProfile/PlayerList";
-import TournamentInfo from "../../tournament/TournamentInfo";
-import ManagerMenu from "../../managerMenu/ManagerMenu";
 import ParticipantMenu from "../../participantMenu/ParticipantMenu";
+import ManagerMenu from "../../managerMenu/ManagerMenu";
 import {ManagerMenuGuard} from "../routeProtectors/ManagerMenuGuard";
 import {TournamentCodeGuard} from "../routeProtectors/TournamentCodeGuard";
 import {PlayerProfileGuard} from "../routeProtectors/PlayerProfileGuard";
 import {PlayerListGuard} from "../routeProtectors/PlayerListGuard";
-import {TournamentInfoGuard} from "../routeProtectors/TournamentInfoGuard";
 import {ParticipantMenuGuard} from "../routeProtectors/ParticipantMenuGuard";
+import ManagerLogin from "../../login/ManagerLogin";
+import {ManagerLoginGuard} from "../routeProtectors/ManagerLoginGuard";
 
 /**
  * Main router of your application.
@@ -63,14 +63,23 @@ class AppRouter extends React.Component {
               render={() => (<Registration />)}
             />
             <Route
-              path="/login"
+              path="/login/participant"
               exact
               render={() => (
-                <LoginGuard>
-                  <Login />
-                </LoginGuard>
+                <ParticipantLoginGuard>
+                  <ParticipantLogin />
+                </ParticipantLoginGuard>
               )}
             />
+              <Route
+                  path="/login/manager"
+                  exact
+                  render={() => (
+                      <ManagerLoginGuard>
+                          <ManagerLogin />
+                      </ManagerLoginGuard>
+                  )}
+              />
             <Route
               path="/manager/menu/:managerID"
               render={() => (
@@ -136,14 +145,6 @@ class AppRouter extends React.Component {
               )}
             />
 
-            <Route
-              path="/:tournamentCode/tournamentInfo"
-              render={() => (
-                <TournamentInfoGuard>
-                  <TournamentInfo />
-                </TournamentInfoGuard>
-              )}
-            />
             <Route
               path="/:tournamentCode/participantMenu"
               render={() => (

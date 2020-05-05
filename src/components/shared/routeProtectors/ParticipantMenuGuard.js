@@ -5,5 +5,5 @@ export const ParticipantMenuGuard = props => {
     if (localStorage.getItem("ParticipantID") && localStorage.getItem("token")){
         return props.children;
     }
-    return <Redirect to={"/login"} />;
+    return <Redirect to={"/home"} />;
 };

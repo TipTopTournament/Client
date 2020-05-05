@@ -4,21 +4,29 @@ import {Button} from "../../views/design/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
-import Form from "react-bootstrap/Form";
 import {Title} from "../../views/design/Title";
 import {TipTopTournamentLogo} from "../../views/design/TipTopTournamentLogo";
 
 
 class HomeScreen extends React.Component{
-    
-    goLogin() {
-    this.props.history.push(`/login`)
+
+
+    goLogin(id) {
+        if (id ==="manager"){
+            this.props.history.push(`/login/manager`)
+        }else {
+            this.props.history.push(`/login/participant`)
+        }
     }
     goRegister() {
     this.props.history.push('/register')
     }
     componentDidMount() {
         localStorage.removeItem("token");
+        localStorage.removeItem("ParticipantID");
+        localStorage.removeItem("ManagerID");
+        localStorage.removeItem("TournamentCode");
+        localStorage.removeItem("address");
     }
     render(){
         return (
@@ -39,27 +47,39 @@ class HomeScreen extends React.Component{
                             <Col />
                         </Row>
                         <Row className="align-self-center">
-                             <Col xs={12} sm={12}>
-                                <Form>
-                                     <Button
-                                        style={{marginTop: '50px'}}
-                                        type="button"
-                                        width="50%"
-                                        onClick={() => {
-                                            this.goLogin();
-                                        }}
-                                     >Login
-                                    </Button>
-                                    <Button
-                                        type="button"
-                                        width="50%"
-                                        onClick={() => {
-                                            this.goRegister();
-                                        }}
-                                    >Register
-                                    </Button>
-                                </Form>
+                             <Col>
+                                 <Button
+                                     style={{marginTop: '100px'}}
+                                     type="button"
+                                     width="50%"
+                                     onClick={() => {
+                                         this.goLogin("participant");
+                                     }}
+                                 >Login as Participant
+                                 </Button>
+                                 <Button
+                                     style={{marginTop: '100px'}}
+                                     type="button"
+                                     width="50%"
+                                     onClick={() => {
+                                         this.goLogin("manager");
+                                     }}
+                                 >Login as Manager
+                                 </Button>
                              </Col>
+                            <Col/>
+                            <Col>
+                                <p style={{color: "#2F80ED", marginTop:'60px', marginLeft:'40px'}}>Not registered yet?</p>
+                                <Button
+
+                                type="button"
+                                width="50%"
+                                onClick={() => {
+                                    this.goRegister();
+                                }}
+                            >Register
+                            </Button>
+                            </Col>
                         </Row>
                 </Container>
         );

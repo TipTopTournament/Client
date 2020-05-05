@@ -7,14 +7,13 @@ import { Button } from "../../views/design/Button";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
 
 import Form from "react-bootstrap/Form";
 import Manager from "../shared/models/Manager";
 
 
-class Login extends React.Component {
+class ParticipantLogin extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -56,18 +55,16 @@ class Login extends React.Component {
         // Get the returned user and update a new object.
         const user = new User(response.data);
         let responseUserInTournament = await api.get(`/participants/${user.participantID}`);
+        console.log(responseUserInTournament.data);
+        console.log("tournamentcode", responseUserInTournament.data.code);
         if (responseUserInTournament.data.code){
           localStorage.setItem("TournamentCode", responseUserInTournament.data.code);
         }
-
-
-
-
         // Store the token into the local storage.
         localStorage.setItem("token", user.token);
         // store the generated ID in the local storage.
         localStorage.setItem("ParticipantID", user.participantID);
-        // Login successfully worked --> navigate to the route /tournamentCode in the TournamentRouter
+        // ParticipantLogin successfully worked --> navigate to the route /tournamentCode in the TournamentRouter
         this.props.history.push(`/tournamentCode`);
       }
 
@@ -95,8 +92,6 @@ class Login extends React.Component {
         <Row className="justify-content-md-center">
           <Col md="auto" />
           <Col xs={12} sm={12} md={8}>
-            <Tabs defaultActiveKey="Player" style={{ margin: "0 auto"}}>
-              <Tab eventKey="Player" title="Player">
                 <Form>
                   <Form.Group>
                     <Form.Label>Lizenznummer</Form.Label>
@@ -129,46 +124,6 @@ class Login extends React.Component {
                     Als Spieler einloggen
                   </Button>
                 </Form>
-              </Tab>
-              <Tab eventKey="Manager" title="Manager">
-                <Form>
-                  <Form.Group controlId="formBasicEmail">
-                    <Form.Label>Username</Form.Label>
-                    <Form.Control
-                      type="username"
-                      placeholder="Username"
-                      onChange={e => {
-                        this.handleInputChange("username", e.target.value);
-                      }}
-                    />
-                  </Form.Group>
-
-                  <Form.Group controlId="formBasicPassword">
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control
-                      type="password"
-                      placeholder="Password"
-                      onChange={e => {
-                        this.handleInputChange("password", e.target.value);
-                      }}
-                    />
-                  </Form.Group>
-                  <Form.Group controlId="formBasicCheckbox">
-                    <Form.Check type="checkbox" label="eingeloggt bleiben" />
-                    {/*TODO: eingeloggt bleiben feature*/}
-                  </Form.Group>
-                  <Button type="button"
-                    disabled={!this.state.username || !this.state.password}
-                    width="auto"
-                    onClick={() => {
-                      this.login(true);
-                    }}
-                  >
-                    Als Manager einloggen
-                  </Button>
-                </Form>
-              </Tab>
-            </Tabs>
           </Col>
           <Col md="auto" />
         </Row>
@@ -177,4 +132,4 @@ class Login extends React.Component {
   }
 }
 
-export default withRouter(Login);
+export default withRouter(ParticipantLogin);
