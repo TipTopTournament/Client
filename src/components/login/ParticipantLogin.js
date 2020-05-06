@@ -7,7 +7,6 @@ import { Button } from "../../views/design/Button";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Tab from "react-bootstrap/Tab";
 
 import Form from "react-bootstrap/Form";
 import Manager from "../shared/models/Manager";
@@ -29,44 +28,31 @@ class ParticipantLogin extends React.Component {
    * If the request is successful, a user is returned to the front-end
    * and its token is stored in the localStorage.
    */
-  async login(is_manager) {
-
-    let response;
+  async login() {
     try {
-      if (is_manager) {
-        const requestBody = JSON.stringify({
-          username: this.state.username,
-          password: this.state.password
-        });
-        response = await api.put("/managers/login", requestBody);
-        // Get the returned manager and update a new object.
-        const manager = new Manager(response.data) ;
-        // Store the token into the local storage.
-        localStorage.setItem("token", manager.token);
-        localStorage.setItem("ManagerID", manager.managerID);
-        const {managerID} = manager;
-        this.props.history.push(`/manager/menu/${managerID}`);
-      } else {
         const requestBody1 = JSON.stringify({
           licenseNumber: this.state.licenseNumber,
           password: this.state.password
         });
-        response = await api.put("/participants/login", requestBody1);
+
+        let response = await api.put("/participants/login", requestBody1);
+
         // Get the returned user and update a new object.
         const user = new User(response.data);
-        let responseUserInTournament = await api.get(`/participants/${user.participantID}`);
-        console.log(responseUserInTournament.data);
-        console.log("tournamentcode", responseUserInTournament.data.code);
-        if (responseUserInTournament.data.code){
-          localStorage.setItem("TournamentCode", responseUserInTournament.data.code);
+
+        //Check whether user is already signed up in a tournament
+        let responseUserHasCode = await api.get(`/participants/${user.participantID}`);
+        if (responseUserHasCode.data.code){
+          localStorage.setItem("TournamentCode", responseUserHasCode.data.code);
         }
+
         // Store the token into the local storage.
         localStorage.setItem("token", user.token);
         // store the generated ID in the local storage.
         localStorage.setItem("ParticipantID", user.participantID);
         // ParticipantLogin successfully worked --> navigate to the route /tournamentCode in the TournamentRouter
         this.props.history.push(`/tournamentCode`);
-      }
+
 
     } catch (error) {
       alert(`Something went wrong during the login: \n${handleError(error)}`);
@@ -96,7 +82,6 @@ class ParticipantLogin extends React.Component {
                   <Form.Group>
                     <Form.Label>Lizenznummer</Form.Label>
                     <Form.Control
-                      type="licenseNumber"
                       placeholder="z.B.: 908147"
                       onChange={e => {
                         this.handleInputChange("licenseNumber", e.target.value);
@@ -114,16 +99,32 @@ class ParticipantLogin extends React.Component {
                       }}
                     />
                   </Form.Group>
-                  <Button type="button"
-                    disabled={!this.state.licenseNumber || !this.state.password}
-                    width="auto"
-                    onClick={() => {
-                      this.login(false);
-                    }}
-                  >
-                    Als Spieler einloggen
-                  </Button>
                 </Form>
+              <Row>
+                  <Col/>
+                  <Col>
+                      <Button
+                          style={{marginTop:"30px"}}
+                          type="button"
+                          disabled={!this.state.licenseNumber || !this.state.password}
+                          width="100%"
+                          onClick={() => {
+                              this.login();
+                          }}
+                      >Als Spieler einloggen
+                      </Button>
+                    <Button
+                        style={{marginTop:"15px"}}
+                        type="button"
+                        width="100%"
+                        onClick={() => {
+                            this.props.history.goBack();
+                        }}
+                    >Back
+                    </Button>
+                  </Col>
+                  <Col/>
+              </Row>
           </Col>
           <Col md="auto" />
         </Row>

@@ -2,7 +2,6 @@ import React from "react";
 import { api, handleError } from "../../helpers/api";
 import { withRouter } from "react-router-dom";
 import { Button } from "../../views/design/Button";
-import { Title } from "../../views/design/Title";
 import { ButtonContainer } from "../../views/design/ButtonContainer";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";

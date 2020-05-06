@@ -1,15 +1,11 @@
 import React from "react";
 import { api, handleError } from "../../helpers/api";
-import User from "../shared/models/User";
 import {withRouter} from "react-router-dom";
 import { Button } from "../../views/design/Button";
 
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Tabs from "react-bootstrap/Tabs";
-import Tab from "react-bootstrap/Tab";
-
 import Form from "react-bootstrap/Form";
 import Manager from "../shared/models/Manager";
 
@@ -38,9 +34,10 @@ class ManagerLogin extends React.Component {
             let response = await api.put("/managers/login", requestBody);
             // Get the returned manager and update a new object.
             const manager = new Manager(response.data);
-            // Store the token into the local storage.
+            // Store the token & ManagerID into the local storage.
             localStorage.setItem("token", manager.token);
             localStorage.setItem("ManagerID", manager.managerID);
+
             const {managerID} = manager;
             this.props.history.push(`/manager/menu/${managerID}`);
 
@@ -72,7 +69,6 @@ class ManagerLogin extends React.Component {
                                     <Form.Group controlId="formBasicEmail">
                                         <Form.Label>Username</Form.Label>
                                         <Form.Control
-                                            type="username"
                                             placeholder="Username"
                                             onChange={e => {
                                                 this.handleInputChange("username", e.target.value);
@@ -94,16 +90,34 @@ class ManagerLogin extends React.Component {
                                         <Form.Check type="checkbox" label="eingeloggt bleiben" />
                                         {/*TODO: eingeloggt bleiben feature*/}
                                     </Form.Group>
-                                    <Button type="button"
-                                            disabled={!this.state.username || !this.state.password}
-                                            width="auto"
-                                            onClick={() => {
-                                                this.login();
-                                            }}
-                                    >
-                                        Als Manager einloggen
-                                    </Button>
                                 </Form>
+                        <Row>
+                            <Col/>
+                            <Col>
+                                <Button
+                                    style={{marginTop:"30px"}}
+                                    type="button"
+                                    disabled={!this.state.username || !this.state.password}
+                                    width="100%"
+                                    onClick={() => {
+                                        this.login();
+                                    }}
+                                >
+                                    Als Manager einloggen
+                                </Button>
+                                <Button
+                                    style={{marginTop:"15px"}}
+                                    type="button"
+                                    width="100%"
+                                    onClick={() => {
+                                        this.props.history.goBack();
+                                    }}
+                                >
+                                    Back
+                                </Button>
+                            </Col>
+                            <Col/>
+                        </Row>
                     </Col>
                     <Col md="auto" />
                 </Row>

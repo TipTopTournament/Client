@@ -1,5 +1,5 @@
 import React from "react";
-import {Redirect, withRouter} from "react-router-dom";
+import {withRouter} from "react-router-dom";
 import "react-tabs/style/react-tabs.css";
 import Form from 'react-bootstrap/Form'
 import Map from './Map'
@@ -43,7 +43,6 @@ handleInputChange(key, value) {
         tournamentName: this.state.tournamentName,
         managerId: localStorage.getItem("ManagerID"),
         location: localStorage.getItem("address"),
-        //tournamentMode: this.state.tournamentMode, //TODO In next sprints we can add further tournament modes
       });
 
         const response = await api.post("/tournaments", requestBody);

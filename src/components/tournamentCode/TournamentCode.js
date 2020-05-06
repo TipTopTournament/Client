@@ -120,6 +120,7 @@ class TournamentCode extends React.Component {
           <Col xs={12} sm={12} md={8}>
             <Form style={{ align: "center", marginTop: '100px', marginLeft: '100px'}} >
               <Form.Group>
+                <h6 style={{color:"#2F80ED" , marginBottom:"20px"}}>Insert the code that was given to you by the Manager</h6>
                 <Label>TournamentCode: </Label>
                 <InputField
                   placeholder="(e.g. 1234-4567)"

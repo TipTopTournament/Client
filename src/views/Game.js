@@ -1,7 +1,6 @@
-  import React from "react";
+import React from "react";
 import styled from "styled-components";
 import Alert from 'react-bootstrap/Alert';
-import { Button } from "./design/Button";
 const Container = styled.div`;
   width: 280px;
   display: flex;
@@ -28,6 +27,7 @@ const Score = styled.div`
 `;
 
 const Game = ({ gameData }) => {
+    //To compare ENUM
   if(gameData.gameState=="CONFLICT")
     return (
         <Container>
