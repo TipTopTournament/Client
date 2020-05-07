@@ -9,7 +9,6 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
 import Form from "react-bootstrap/Form";
-import Manager from "../shared/models/Manager";
 
 
 class ParticipantLogin extends React.Component {
@@ -23,6 +22,10 @@ class ParticipantLogin extends React.Component {
       participantID: null,
     };
   }
+    UserStatusEnum = {
+        ONLINE: 1,
+        OFFLINE: 2,
+    };
   /**
    * HTTP PUT request is sent to the backend.
    * If the request is successful, a user is returned to the front-end
@@ -46,10 +49,15 @@ class ParticipantLogin extends React.Component {
           localStorage.setItem("TournamentCode", responseUserHasCode.data.code);
         }
 
-        // Store the token into the local storage.
         localStorage.setItem("token", user.token);
-        // store the generated ID in the local storage.
         localStorage.setItem("ParticipantID", user.participantID);
+
+        const requestBodyStatus = JSON.stringify(({
+            userStatus: this.UserStatusEnum.ONLINE,
+            token: localStorage.getItem("token")
+        }));
+        await api.put(`/participants/${localStorage.getItem("ParticipantID")}`, requestBodyStatus);
+
         // ParticipantLogin successfully worked --> navigate to the route /tournamentCode in the TournamentRouter
         this.props.history.push(`/tournamentCode`);
 
