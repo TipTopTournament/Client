@@ -32,7 +32,7 @@ class ManagerMenu extends React.Component {
         localStorage.removeItem('token');
         localStorage.removeItem('ManagerID');
         localStorage.removeItem('address');
-        this.props.history.push("/login");
+        this.props.history.push("/login/manager");
     }
 
     handleClick(tournamentCode){

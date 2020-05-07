@@ -48,7 +48,7 @@ handleInputChange(key, value) {
         const response = await api.post("/tournaments", requestBody);
         console.log(response);
         alert("Your Tournamentcode is: " + response.data);
-        this.props.history.goBack();
+      
 
     } catch (error) {
       alert(`Something went wrong during the creation of the tournament: \n${handleError(error)}`);
@@ -133,10 +133,11 @@ handleInputChange(key, value) {
                 <Col>
                   <Button
                       style={{marginLeft: '60px', color: "#F3F3FF"}}
-                      disabled={!this.state.startTime||!this.state.tournamentName||!this.state.gameDuration||!this.state.breakDuration
-                      ||!this.state.amountOfPlayers||!this.state.startTime||!localStorage.getItem("address")}
+                      disabled={!this.state.startTime||!this.state.tournamentName
+                      ||!localStorage.getItem("address")}
                       type="submit" onClick={() => {
-                    this.sendTournamentDetails(); }}
+                    this.sendTournamentDetails();
+                    this.props.history.push(`/manager/menu/${localStorage.getItem("ManagerID")}`); }}
                   >Tournament erstellen</Button>
                 </Col>
                 <Col/>
