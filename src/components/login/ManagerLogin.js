@@ -20,6 +20,10 @@ class ManagerLogin extends React.Component {
         };
     }
 
+    UserStatusEnum = {
+        ONLINE: 1,
+        OFFLINE: 2,
+    };
     /**
      * HTTP PUT request is sent to the backend.
      * If the request is successful, a user is returned to the front-end
@@ -34,9 +38,16 @@ class ManagerLogin extends React.Component {
             let response = await api.put("/managers/login", requestBody);
             // Get the returned manager and update a new object.
             const manager = new Manager(response.data);
-            // Store the token & ManagerID into the local storage.
+
             localStorage.setItem("token", manager.token);
             localStorage.setItem("ManagerID", manager.managerID);
+
+            const requestBodyStatus = JSON.stringify(({
+                userStatus: this.UserStatusEnum.ONLINE,
+                token: localStorage.getItem("token")
+            }));
+            console.log(this.UserStatusEnum.ONLINE);
+            await api.put(`/managers/${localStorage.getItem("ManagerID")}`, requestBodyStatus);
 
             const {managerID} = manager;
             this.props.history.push(`/manager/menu/${managerID}`);

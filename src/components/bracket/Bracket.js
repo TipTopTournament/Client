@@ -176,6 +176,7 @@ class Bracket extends React.Component {
             const responseWinnerCheck = await api.get(`/tournaments/${tournamentCode}`);
             this.setState({winner : responseWinnerCheck.data.winner});
             const response = await api.get(`/tournaments/${tournamentCode}/bracket`);
+            console.log(response.data);
             this.correctArray(response.data);
             this.setState({ games : response.data });
             this.setupBracket(response.data);
