@@ -5,7 +5,8 @@ import Col from 'react-bootstrap/Col';
 import { withRouter } from 'react-router-dom';
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { api } from '../../helpers/api';
+import { api, handleError } from "../../helpers/api";
+
 
 
 class ScoreReport extends React.Component {
@@ -52,10 +53,10 @@ class ScoreReport extends React.Component {
                 score1: this.state.score1,
                 score2: this.state.score2,
             });
-                await api.put(`/tournaments/${this.state.tournamentCode}/bracket/${this.state.gameId}`, requestBody);
+                await api.put(`/tournaments/${this.state.tournamentCode}/bracket/report/${this.state.gameId}/${localStorage.getItem("ParticipantID")}`, requestBody);
                 this.props.history.goBack(); // after submitting automatically redirect to bracket?
-        }catch(error){
-            console.log('there is something wrong with sending the scores', error);
+        }catch(error) {
+            alert(`you have already entered the score: \n${handleError(error)}`);
         }
 
     }
