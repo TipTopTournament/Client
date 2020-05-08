@@ -7,9 +7,9 @@ import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import {Button} from "../../views/design/Button";
-import LeaderBoardPlayer from "../../views/LeaderBoardPlayer";
 import {ButtonContainer} from "../../views/design/ButtonContainer";
 import Card from "react-bootstrap/Card";
+import Table from "react-bootstrap/Table";
 
 
 const PlayerContainer = styled.li`
@@ -28,7 +28,7 @@ class Tournament extends React.Component {
       leaderBoardUsers: null,
     };
   }
-
+  counter = 0;
   handleClick(id){
     const tournamentCode = this.props.match.params.tournamentCode;
     if (this.isNumeric(id)){
@@ -46,6 +46,22 @@ class Tournament extends React.Component {
     const managerID = localStorage.getItem("ManagerID");
     this.props.history.push(`/manager/menu/${managerID}`);
   }
+
+  renderLeaderBoard(leaderBoardUser) {
+    this.counter ++;
+    return (
+        <tr key={leaderBoardUser["participant"].participantID} onClick={() => this.handleClick(leaderBoardUser["participant"].participantID)}>
+          <td>{this.counter}</td>
+          <td>{leaderBoardUser["participant"].vorname}</td>
+          <td>{leaderBoardUser["participant"].nachname}</td>
+          <td>{leaderBoardUser.wins}</td>
+          <td>{leaderBoardUser.losses}</td>
+          <td>{leaderBoardUser.pointsConceded}</td>
+          <td>{leaderBoardUser.pointsScored}</td>
+        </tr>
+    );
+  }
+
   async componentDidMount() {
     try {
       const {tournamentCode} = this.props.match.params;
@@ -58,7 +74,7 @@ class Tournament extends React.Component {
         return responseArray["participant"];
       });
       this.setState({ users: onlyParticipantArray});
-
+      this.counter = 0;
 
     } catch (error) {
       alert(`Something went wrong while fetching the users: \n${handleError(error)}`);
@@ -108,8 +124,8 @@ class Tournament extends React.Component {
         <Row>
           <Col>
             <Card style={{background:  "#F3F3FF"}}>
-              <Card.Body>
-              <Card.Title> Playerlist </Card.Title>
+              <Card.Body >
+              <Card.Title style={{marginBottom: "100px"}}> Playerlist </Card.Title>
                 {this.state.users.map(user => {
                   return (
                     <PlayerContainer key={user.participantID} onClick={()=> this.handleClick(user.participantID)}>
@@ -124,13 +140,28 @@ class Tournament extends React.Component {
             <Card style={{background:  "#F3F3FF"}} onClick={()=> this.handleClick('leaderBoard')}>
               <Card.Body>
               <Card.Title> Leaderboard </Card.Title>
-              {this.state.leaderBoardUsers.map(leaderBoardUser => {
-                return (
-                    <PlayerContainer key={leaderBoardUser["participant"].participantID}>
-                      <LeaderBoardPlayer leaderBoardUser={leaderBoardUser} />
-                    </PlayerContainer>
-                );
-              })}
+                <div>
+                  <Table responsive="sm" style={{marginTop: "100px"}}>
+                    <thead>
+                    <tr>
+                      <th>Rank</th>
+                      <th>First Name</th>
+                      <th>Last Name</th>
+                      <th>Wins</th>
+                      <th>Losses</th>
+                      <th>Sets conceded</th>
+                      <th>Sets scored</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {this.state.leaderBoardUsers.map(leaderBoardUser => {
+                      return (
+                          this.renderLeaderBoard(leaderBoardUser)
+                      );
+                    })}
+                    </tbody>
+                  </Table>
+                </div>
               </Card.Body>
             </Card>
             </Col>
