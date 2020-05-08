@@ -175,6 +175,10 @@ class Bracket extends React.Component {
             const {tournamentCode} = this.props.match.params;
             const responseWinnerCheck = await api.get(`/tournaments/${tournamentCode}`);
             this.setState({winner : responseWinnerCheck.data.winner});
+            console.log(responseWinnerCheck.data);
+            console.log(responseWinnerCheck.data.winner);
+            console.log(this.state.winner);
+            console.log(this.state.winner.vorname);
             const response = await api.get(`/tournaments/${tournamentCode}/bracket`);
             console.log(response.data);
             this.correctArray(response.data);
@@ -197,6 +201,7 @@ class Bracket extends React.Component {
                     </Row>
                 ) : (
                 <Row>
+                    <Col/>
                     <Col>
                         <div className = "custom-container">
                             <Tree
@@ -208,6 +213,7 @@ class Bracket extends React.Component {
                                 }}/>
                         </div>
                     </Col>
+                    <Col/>
                 </Row>
                 )}
                 {!this.state.games ? (
@@ -219,12 +225,9 @@ class Bracket extends React.Component {
                 ) : (
                 <Row>
                     <Col>
-                        {!this.state.manager ? (
-                            !this.state.winner ? (
+                        {!this.state.winner ? (
+                            !this.state.manager ? (
                             <ScoreReport gameFromBracket={this.getGameOfParticipant()}/>
-                            ) :(
-                                <Winner winnerFrom Bracket ={this.state.winner}/>
-                            )
                         ) : (
                             <ListGroup variant="flush">
                                 {this.state.games.map(gameData => {
@@ -243,19 +246,21 @@ class Bracket extends React.Component {
                                                 </Form.Group>
                                             </Form>
                                             <Button
-                                                    disabled={!gameData.participant1 ||!gameData.participant2}
-                                                    style={{marginLeft:"50px"}}
-                                                    type="button"
-                                                    width="auto"
-                                                    onClick={() => {
-                                                      this.changeScore(gameData.gameId,gameData.tournamentCode)
-                                                    }}
-                                                  >{"Edit Game of " + gameData["participant1"].vorname + " vs. " +  gameData["participant2"].vorname}
-                                                  </Button>
+                                                disabled={!gameData.participant1 ||!gameData.participant2}
+                                                style={{marginLeft:"50px"}}
+                                                type="button"
+                                                width="auto"
+                                                onClick={() => {
+                                                    this.changeScore(gameData.gameId,gameData.tournamentCode)
+                                                }}
+                                            >{"Edit Game of " + gameData["participant1"].vorname + " vs. " +  gameData["participant2"].vorname}
+                                            </Button>
                                         </ListGroup.Item>
                                     )})}
-                                </ListGroup>
-                         )}
+                            </ListGroup>
+                        )):(
+                            <Winner winnerFromBracket ={this.state.winner}/>
+                        )}
                     </Col>
                 </Row>
                 )}
@@ -264,6 +269,7 @@ class Bracket extends React.Component {
                     <Col>
                         <ButtonContainer>
                             <Button
+                                style={{marginTop: "25px"}}
                                 width="100%"
                                 onClick={() => {
                                     this.props.history.goBack();

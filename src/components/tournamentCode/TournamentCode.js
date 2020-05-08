@@ -27,13 +27,13 @@ class TournamentCode extends React.Component {
     this.handleInputChange = this.handleInputChange.bind(this);
   }
 
-  async logout() {
+ logout() {
     try{
       const requestBodyStatus = JSON.stringify(({
         userStatus: UserStatusEnum.OFFLINE,
         token: localStorage.getItem("token")
       }));
-      await api.put(`/managers/${localStorage.getItem("ParticipantID")}`, requestBodyStatus);
+      api.put(`/participants/${localStorage.getItem("ParticipantID")}`, requestBodyStatus);
 
       localStorage.removeItem("token");
       localStorage.removeItem("ParticipantID");
