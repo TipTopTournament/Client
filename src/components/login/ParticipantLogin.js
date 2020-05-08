@@ -3,11 +3,10 @@ import { api, handleError } from "../../helpers/api";
 import User from "../shared/models/User";
 import {withRouter} from "react-router-dom";
 import { Button } from "../../views/design/Button";
-
+import UserStatusEnum from "../shared/UserStatusEnum";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-
 import Form from "react-bootstrap/Form";
 
 
@@ -22,10 +21,6 @@ class ParticipantLogin extends React.Component {
       participantID: null,
     };
   }
-    UserStatusEnum = {
-        ONLINE: 1,
-        OFFLINE: 2,
-    };
   /**
    * HTTP PUT request is sent to the backend.
    * If the request is successful, a user is returned to the front-end
@@ -53,7 +48,7 @@ class ParticipantLogin extends React.Component {
         localStorage.setItem("ParticipantID", user.participantID);
 
         const requestBodyStatus = JSON.stringify(({
-            userStatus: this.UserStatusEnum.ONLINE,
+            userStatus: UserStatusEnum.ONLINE,
             token: localStorage.getItem("token")
         }));
         await api.put(`/participants/${localStorage.getItem("ParticipantID")}`, requestBodyStatus);

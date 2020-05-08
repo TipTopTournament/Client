@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { api, handleError } from '../../helpers/api';
 import {withRouter} from 'react-router-dom';
 import Container from "react-bootstrap/Container";
+import UserStatusEnum from "../shared/UserStatusEnum";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
@@ -28,11 +29,22 @@ class ManagerMenu extends React.Component {
             tournaments: null,
         };
     }
-    logout(){
-        localStorage.removeItem('token');
-        localStorage.removeItem('ManagerID');
-        localStorage.removeItem('address');
-        this.props.history.push("/login/manager");
+
+    async logout(){
+        try{
+            const requestBodyStatus = JSON.stringify(({
+                userStatus: UserStatusEnum.OFFLINE,
+                token: localStorage.getItem("token")
+            }));
+            await api.put(`/managers/${localStorage.getItem("ManagerID")}`, requestBodyStatus);
+
+            localStorage.removeItem('token');
+            localStorage.removeItem('ManagerID');
+            localStorage.removeItem('address');
+            this.props.history.push("/home");
+        }catch(error) {
+            alert(`Something went wrong during the logout: \n${handleError(error)}`);
+        }
     }
 
     handleClick(tournamentCode){
@@ -50,6 +62,7 @@ class ManagerMenu extends React.Component {
             // Get the returned users and update the state.
             console.log(response.data);
             this.setState({ tournaments: response.data });
+
         } catch (error) {
             alert(`Something went wrong while fetching the users: \n${handleError(error)}`);
         }
