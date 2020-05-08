@@ -30,13 +30,13 @@ class ManagerMenu extends React.Component {
         };
     }
 
-    async logout(){
+    logout(){
         try{
             const requestBodyStatus = JSON.stringify(({
                 userStatus: UserStatusEnum.OFFLINE,
                 token: localStorage.getItem("token")
             }));
-            await api.put(`/managers/${localStorage.getItem("ManagerID")}`, requestBodyStatus);
+            api.put(`/managers/${localStorage.getItem("ManagerID")}`, requestBodyStatus);
 
             localStorage.removeItem('token');
             localStorage.removeItem('ManagerID');
