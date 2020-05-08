@@ -1,48 +1,61 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
-import Table from 'react-bootstrap/Table'
+import Table from "react-bootstrap/Table";
 import { api } from "../../helpers/api";
+
+import Game from "../../views/Game";
 
 class PlayerProfile extends React.Component {
   constructor() {
     super();
     this.state = {
-      stats : {
+      stats: {
         wins: 0,
         losses: 0,
-        history: 0
+        history: 0,
       },
-      personalInfo : {
-        vorname : null,
+      personalInfo: {
+        vorname: null,
         nachname: null,
-      }
+      },
     };
   }
 
-  async componentDidMount(){
+  renderEachMatchInHistory() {
+    this.state.stats.history.map((gameData) => {
+      return (
+        <tr>
+          <Game gameData={gameData} />
+        </tr>
+      );
+    });
+  }
+
+  async componentDidMount() {
     const participantID = this.props.match.params.participantID;
-    try{
-      const response = await api.get(`/participants/${participantID}/statistics`);
+    try {
+      const response = await api.get(
+        `/participants/${participantID}/statistics`
+      );
       const response2 = await api.get(`/participants/${participantID}`);
-      this.setState({stats: response.data});
-      this.setState({personalInfo: response2.data});
-    }catch(error){
-      console.log('something bad happened while fetching player stats', error)
+      this.setState({ stats: response.data });
+      this.setState({ personalInfo: response2.data });
+    } catch (error) {
+      console.log("something bad happened while fetching player stats", error);
     }
   }
 
   render() {
-  return (
-    <Container className= "custom-container2">
-      <Row>
-        <Col/>
-        <Col>
-          <div>
+    return (
+      <Container className="custom-container2">
+        <Row>
+          <Col />
+          <Col>
             <Table bordered hover size="sm">
               <thead>
                 <tr>
@@ -50,7 +63,6 @@ class PlayerProfile extends React.Component {
                   <th>Nachname</th>
                   <th>Wins</th>
                   <th>Losses</th>
-                  <th>History</th>
                 </tr>
               </thead>
               <tbody>
@@ -59,16 +71,22 @@ class PlayerProfile extends React.Component {
                   <td>{this.state.personalInfo.nachname}</td>
                   <td>{this.state.stats.wins}</td>
                   <td>{this.state.stats.losses}</td>
-                  <td>{this.state.stats.history}</td>
                 </tr>
               </tbody>
             </Table>
-          </div>
-        </Col>
-        <Col/>
-      </Row>
-    </Container>
-  );
+          </Col>
+          <Col />
+        </Row>
+        <Row>
+          <Col />
+          <Col>
+            <h5>Game history</h5>
+            <div>{this.renderEachMatchInHistory}</div>
+          </Col>
+          <Col />
+        </Row>
+      </Container>
+    );
   }
 }
 

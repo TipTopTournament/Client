@@ -2,7 +2,7 @@ import React from "react";
 import { api, handleError } from "../../helpers/api";
 import {withRouter} from "react-router-dom";
 import { Button } from "../../views/design/Button";
-
+import UserStatusEnum from "../shared/UserStatusEnum";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -20,10 +20,6 @@ class ManagerLogin extends React.Component {
         };
     }
 
-    UserStatusEnum = {
-        ONLINE: 1,
-        OFFLINE: 2,
-    };
     /**
      * HTTP PUT request is sent to the backend.
      * If the request is successful, a user is returned to the front-end
@@ -43,10 +39,10 @@ class ManagerLogin extends React.Component {
             localStorage.setItem("ManagerID", manager.managerID);
 
             const requestBodyStatus = JSON.stringify(({
-                userStatus: this.UserStatusEnum.ONLINE,
+                userStatus: UserStatusEnum.ONLINE,
                 token: localStorage.getItem("token")
             }));
-            console.log(this.UserStatusEnum.ONLINE);
+            console.log(UserStatusEnum.ONLINE);
             await api.put(`/managers/${localStorage.getItem("ManagerID")}`, requestBodyStatus);
 
             const {managerID} = manager;

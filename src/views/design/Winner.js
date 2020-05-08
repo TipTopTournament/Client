@@ -1,17 +1,14 @@
 import React from "react";
 import styled from "styled-components";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/Container";
 
-const Container = styled.div`
-  margin: 6px 0;
-  width: 280px;
-  padding: 10px;
-  display: flex;
-  align-items: center;
-`;
 
 
 const Name = styled.div`
   font-weight: bold;
+  font-size 24px;
   color: #06c4ff;
 `;
 
@@ -24,10 +21,16 @@ const Name = styled.div`
  * https://reactjs.org/docs/components-and-props.html
  * @FunctionalComponent
  */
-const Winner = ({ user }) => {
+const Winner = ({ winnerFromBracket }) => {
     return (
         <Container>
-            <Name>{"Congrats " + user.vorname + " " + user.nachname + " you've won!"}</Name>
+            <Row>
+                <Col />
+                <Col>
+            <Name>{"Congrats to " + winnerFromBracket.vorname + " " + winnerFromBracket.nachname + " for winning the tournament!"}</Name>
+                </Col>
+                <Col />
+            </Row>
         </Container>
     );
 };

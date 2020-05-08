@@ -11,6 +11,7 @@ import { ButtonContainer } from "../../views/design/ButtonContainer";
 import Navbar from "react-bootstrap/Navbar";
 import {api, handleError} from "../../helpers/api";
 import Nav from "react-bootstrap/Nav";
+import UserStatusEnum from "../shared/UserStatusEnum";
 
 class TournamentCode extends React.Component {
   constructor() {
@@ -26,11 +27,22 @@ class TournamentCode extends React.Component {
     this.handleInputChange = this.handleInputChange.bind(this);
   }
 
-  logout() {
-    localStorage.removeItem("token");
-    localStorage.removeItem("ParticipantID");
-    localStorage.removeItem("TournamentCode");
-    this.props.history.push("/home");
+ logout() {
+    try{
+      const requestBodyStatus = JSON.stringify(({
+        userStatus: UserStatusEnum.OFFLINE,
+        token: localStorage.getItem("token")
+      }));
+      api.put(`/participants/${localStorage.getItem("ParticipantID")}`, requestBodyStatus);
+
+      localStorage.removeItem("token");
+      localStorage.removeItem("ParticipantID");
+      localStorage.removeItem("TournamentCode");
+      this.props.history.push("/home");
+    }catch(error) {
+      alert(`Something went wrong during the logout: \n${handleError(error)}`);
+    }
+
   }
 
   async join() {

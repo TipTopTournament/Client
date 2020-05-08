@@ -4,10 +4,10 @@ import { api, handleError } from '../../helpers/api';
 import { NoData } from '../../views/design/NoData';
 import { Button } from '../../views/design/Button';
 import { withRouter } from 'react-router-dom';
-import LeaderBoardPlayer from "../../views/LeaderBoardPlayer";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
+import Table from "react-bootstrap/Table";
 
 const PlayerContainer = styled.li`
   display: flex;
@@ -23,17 +23,33 @@ class LeaderBoard extends React.Component {
             leaderBoardUsers: null,
         };
     }
+    counter = 0;
     handleClick(playerID){
         const {tournamentCode} = this.props.match.params;
         this.props.history.push (`/${tournamentCode}/participants/${playerID}`)
     }
+    renderLeaderBoard(leaderBoardUser) {
+        this.counter ++;
+        return (
+            <tr key={leaderBoardUser["participant"].participantID} onClick={() => this.handleClick(leaderBoardUser["participant"].participantID)}>
+                <td>{this.counter}</td>
+                <td>{leaderBoardUser["participant"].vorname}</td>
+                <td>{leaderBoardUser["participant"].nachname}</td>
+                <td>{leaderBoardUser.wins}</td>
+                <td>{leaderBoardUser.losses}</td>
+                <td>{leaderBoardUser.pointsConceded}</td>
+                <td>{leaderBoardUser.pointsScored}</td>
+            </tr>
+        );
+    }
+
 
     async componentDidMount() {
         try {
             const {tournamentCode} = this.props.match.params;
             const response = await api.get(`/tournaments/${tournamentCode}/leaderboard`);
             console.log("response", response.data);
-
+            this.counter = 0;
             this.setState({ leaderBoardUsers: response.data });
 
         } catch (error) {
@@ -45,19 +61,34 @@ class LeaderBoard extends React.Component {
         return (
             <Container className= "custom-container2">
                 <Row>
+                    <Col/>
                     <Col>
                 {!this.state.leaderBoardUsers ? (
                     <NoData />
                 ) : (
                     <div>
-                            {this.state.leaderBoardUsers.map(leaderBoardUser => {
-                                return (
-                                    <PlayerContainer key={leaderBoardUser["participant"].participantID} onClick={()=> this.handleClick(leaderBoardUser["participant"].participantID)}>
-                                        <LeaderBoardPlayer leaderBoardUser={leaderBoardUser} />
-                                    </PlayerContainer>
-                                );
-                            })}
+                        <Table responsive="sm" style={{marginTop: "100px"}}>
+                            <thead>
+                            <tr>
+                                <th>Rank</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Wins</th>
+                                <th>Losses</th>
+                                <th>Sets conceded</th>
+                                <th>Sets scored</th>
+                            </tr>
+                            </thead>
+                                <tbody>
+                                {this.state.leaderBoardUsers.map(leaderBoardUser => {
+                                    return (
+                                        this.renderLeaderBoard(leaderBoardUser)
+                                    );
+                                })}
+                                </tbody>
+                        </Table>
                         <Button
+                            style={{marginTop: "25px"}}
                             width="100%"
                             onClick={() => {
                                 this.props.history.goBack();
@@ -68,6 +99,7 @@ class LeaderBoard extends React.Component {
                     </div>
                 )}
                     </Col>
+                    <Col/>
                 </Row>
             </Container>
         );
