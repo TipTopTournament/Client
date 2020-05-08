@@ -1,4 +1,4 @@
-UserStatusEnum = {
-    ONLINE: "ONLINE",
-    OFFLINE: "OFFLINE",
+const UserStatusEnum = {
+  ONLINE: "ONLINE",
+  OFFLINE: "OFFLINE",
 };
