@@ -9,13 +9,6 @@ import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Table from "react-bootstrap/Table";
 
-const PlayerContainer = styled.li`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`;
-
 class LeaderBoard extends React.Component {
     constructor() {
         super();
@@ -24,10 +17,16 @@ class LeaderBoard extends React.Component {
         };
     }
     counter = 0;
-    handleClick(playerID){
-        const {tournamentCode} = this.props.match.params;
-        this.props.history.push (`/${tournamentCode}/participants/${playerID}`)
+    handleClick(id){
+        if (id === "Menu"){
+            const {tournamentCode} = this.props.match.params;
+            this.props.history.push(`/tournaments/${tournamentCode}/`);
+        }else{
+            const {tournamentCode} = this.props.match.params;
+            this.props.history.push (`/${tournamentCode}/participants/${id}`);
+        }
     }
+
     renderLeaderBoard(leaderBoardUser) {
         this.counter ++;
         return (
@@ -91,7 +90,7 @@ class LeaderBoard extends React.Component {
                             style={{marginTop: "25px"}}
                             width="100%"
                             onClick={() => {
-                                this.props.history.goBack();
+                                this.handleClick("Menu");
                             }}
                         >
                             Back to Tournament Overview

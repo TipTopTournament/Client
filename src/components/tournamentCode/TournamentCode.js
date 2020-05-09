@@ -128,6 +128,7 @@ class TournamentCode extends React.Component {
                 <Nav.Link href="#bracket">Bracket</Nav.Link>
                 <Nav.Link href="#leaderboard">Leaderboard</Nav.Link>
                 <Nav.Link href="#playerlist">Playerlist</Nav.Link>
+                <Nav.Link href="#myProfile">MyStats</Nav.Link>
               </Nav>
           <Navbar.Toggle />
             <Navbar.Text>

@@ -94,22 +94,6 @@ class Tournament extends React.Component {
                     <Card.Subtitle style={{color:"red"}}>No players have joined yet!</Card.Subtitle>
                   </Card.Body>
                 </Card>
-                <ButtonContainer style ={{marginTop:'100px'}}>
-                  <Button
-                      width="100%"
-                      onClick={()=> this.handleClick('bracket')}
-                  >
-                    Bracket
-                  </Button>
-                </ButtonContainer>
-                <Button style ={{marginTop:'30px'}}
-                        type="button"
-                        onClick={() => {
-                          this.goBackToMenu();
-                        }}
-                >
-                  Back to Menu
-                </Button>
               </Col>
               <Col>
                 <Card  style={{background:  "#F3F3FF"}}>
@@ -119,6 +103,22 @@ class Tournament extends React.Component {
                   </Card.Body>
                 </Card>
               </Col>
+                <Button style ={{marginTop:'100px'}}
+                    type="button"
+                    width="100%"
+                    onClick={()=> this.handleClick('bracket')}
+                >
+                  Bracket
+                </Button>
+              <Button style ={{marginTop:'30px'}}
+                      type="button"
+                      width="100%"
+                      onClick={() => {
+                        this.goBackToMenu();
+                      }}
+              >
+                Back to Menu
+              </Button>
             </Row>
         ):(
         <Row>
