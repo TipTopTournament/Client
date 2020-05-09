@@ -75,6 +75,10 @@ class Tournament extends React.Component {
       });
       this.setState({ users: onlyParticipantArray});
       this.counter = 0;
+      const responseBracket = await api.get(`/tournaments/${tournamentCode}/bracket`);
+      console.log(responseBracket.data);
+      this.setState({ games : responseBracket.data });
+
 
     } catch (error) {
       alert(`Something went wrong while fetching the users: \n${handleError(error)}`);
@@ -85,7 +89,7 @@ class Tournament extends React.Component {
   render() {
     return (
       <Container className= "custom-container2">
-        {!this.state.users ||! this.state.leaderBoardUsers || this.state.leaderBoardUsers.length === 0? (
+        {!this.state.users ||!this.state.games ||! this.state.leaderBoardUsers || this.state.leaderBoardUsers.length === 0? (
             <Row>
               <Col>
                 <Card style={{background:  "#F3F3FF"}}>
@@ -104,6 +108,7 @@ class Tournament extends React.Component {
                 </Card>
               </Col>
                 <Button style ={{marginTop:'100px'}}
+                    disabled={this.state.users}
                     type="button"
                     width="100%"
                     onClick={()=> this.handleClick('bracket')}
