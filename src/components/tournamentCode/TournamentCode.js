@@ -8,9 +8,7 @@ import Form from "react-bootstrap/Form";
 import { Label } from "../../views/design/Label";
 import { InputField } from "../../views/design/InputField";
 import { ButtonContainer } from "../../views/design/ButtonContainer";
-import Navbar from "react-bootstrap/Navbar";
 import {api, handleError} from "../../helpers/api";
-import Nav from "react-bootstrap/Nav";
 import UserStatusEnum from "../shared/UserStatusEnum";
 
 class TournamentCode extends React.Component {
@@ -119,23 +117,6 @@ class TournamentCode extends React.Component {
   render() {
     return (
       <Container className= "custom-container2">
-          <Navbar bg="light" expand="lg">
-            <Navbar.Brand href="#home">TipTopTournament</Navbar.Brand>
-            <Navbar.Toggle aria-controls="basic-navbar-nav" />
-            <Navbar.Collapse id="basic-navbar-nav">
-              <Nav className="mr-auto">
-                <Nav.Link href="#home">Home</Nav.Link>
-                <Nav.Link href="#bracket">Bracket</Nav.Link>
-                <Nav.Link href="#leaderboard">Leaderboard</Nav.Link>
-                <Nav.Link href="#playerlist">Playerlist</Nav.Link>
-                <Nav.Link href="#myProfile">MyStats</Nav.Link>
-              </Nav>
-          <Navbar.Toggle />
-            <Navbar.Text>
-              Signed in as: <a>{this.state.personalInfo.vorname + " "+ this.state.personalInfo.nachname}</a>
-            </Navbar.Text>
-            </Navbar.Collapse>
-        </Navbar>
         <Row className="justify-content-md-center">
           <Col md="auto" />
           <Col xs={12} sm={12} md={8}>

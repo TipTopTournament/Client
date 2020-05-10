@@ -25,6 +25,7 @@ import {PlayerListGuard} from "../routeProtectors/PlayerListGuard";
 import {ParticipantMenuGuard} from "../routeProtectors/ParticipantMenuGuard";
 import ManagerLogin from "../../login/ManagerLogin";
 import {ManagerLoginGuard} from "../routeProtectors/ManagerLoginGuard";
+import ManagerNavBar from "../ManagerNavBar";
 
 /**
  * Main router of your application.
@@ -35,12 +36,38 @@ import {ManagerLoginGuard} from "../routeProtectors/ManagerLoginGuard";
  * /tournament renders a Router that contains other sub-routes that render in turn other react components
  * Documentation about routing in React: https://reacttraining.com/react-router/web/guides/quick-start
  */
+const ManagerView = () => {
+  return(
+    <>
+    <ManagerNavBar />
+    <Switch>
+      <Route
+        path={`/manager/menu/:managerID`}
+        render={() => (
+          <ManagerMenuGuard>
+            <ManagerMenu />
+          </ManagerMenuGuard>
+        )}
+      />
+      <Route
+        path="/manager/createTournament/:managerID"
+        render={() =>(
+          <CreateTournamentGuard>
+            <CreateTournament/>
+          </CreateTournamentGuard>
+        )}
+          />
+    </Switch>
+    </>
+  )
+}
+
+
 class AppRouter extends React.Component {
   render() {
     return (
       <BrowserRouter>
         <Switch>
-          <div>
             <Route path="/home" render={() => <HomeScreen />} />
             <Route
               path="/createTournament"
@@ -80,22 +107,9 @@ class AppRouter extends React.Component {
                       </ManagerLoginGuard>
                   )}
               />
-            <Route
-              path="/manager/menu/:managerID"
-              render={() => (
-                <ManagerMenuGuard>
-                  <ManagerMenu />
-                </ManagerMenuGuard>
-              )}
-            />
-            <Route
-              path="/manager/createTournament/:managerID"
-              render={() =>(
-                <CreateTournamentGuard>
-                  <CreateTournament/>
-                </CreateTournamentGuard>
-              )}
-                />
+            <Route path="/manager" component={ManagerView} />
+            
+            
             <Route path="/" exact render={() => <Redirect to={"/home"} />} />
 
             <Route path="/tournamentCode" render={() => (
@@ -153,7 +167,6 @@ class AppRouter extends React.Component {
                 </ParticipantMenuGuard>
               )}
             />
-          </div>
         </Switch>
       </BrowserRouter>
     );

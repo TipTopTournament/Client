@@ -7,6 +7,8 @@ import { Redirect } from "react-router-dom";
  */
 export const ParticipantLoginGuard = props => {
   if (!localStorage.getItem("token")) {
+    console.log("eyoo")
     return props.children;
   }
+  return null;
 };
