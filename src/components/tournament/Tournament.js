@@ -7,10 +7,8 @@ import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import {Button} from "../../views/design/Button";
-import {ButtonContainer} from "../../views/design/ButtonContainer";
 import Card from "react-bootstrap/Card";
 import Table from "react-bootstrap/Table";
-
 
 const PlayerContainer = styled.li`
   display: flex;
@@ -26,16 +24,20 @@ class Tournament extends React.Component {
       users: null,
       games: null,
       leaderBoardUsers: null,
+      tournament: {
+        tournamentState: "ACTIVE",
+      }
     };
   }
+  tournamentCode = null;
   counter = 0;
-  handleClick(id){
-    const tournamentCode = this.props.match.params.tournamentCode;
-    if (this.isNumeric(id)){
+  managerID = localStorage.getItem("ManagerID");
 
-      this.props.history.push (`/${tournamentCode}/participants/${id}`)
+  handleClick(id){
+    if (this.isNumeric(id)){
+      this.props.history.push (`/${this.tournamentCode}/participants/${id}`)
     } else {
-      this.props.history.push(`/${tournamentCode}/${id}`);
+      this.props.history.push(`/${this.tournamentCode}/${id}`);
     }
   }
   isNumeric(value) {
@@ -43,8 +45,18 @@ class Tournament extends React.Component {
   }
 
   goBackToMenu(){
-    const managerID = localStorage.getItem("ManagerID");
-    this.props.history.push(`/manager/menu/${managerID}`);
+    this.props.history.push(`/manager/menu/${this.managerID}`);
+  }
+
+  async endTournament(){
+    alert("The tournament has now ended! You can still look at the statistics");
+    try {
+      await api.put(`/tournaments/${this.tournamentCode}/${this.managerID}/cancel`);
+    }catch (error) {
+        alert(`Something went wrong while ending the tournament: \n${handleError(error)}`);
+    }
+    this.setState({tournament : {tournamentState: "ENDED"}});
+    this.counter = 0;
   }
 
   renderLeaderBoard(leaderBoardUser) {
@@ -64,18 +76,22 @@ class Tournament extends React.Component {
 
   async componentDidMount() {
     try {
-      const {tournamentCode} = this.props.match.params;
-      const response = await api.get(`/tournaments/${tournamentCode}/leaderboard`);
-      console.log(response.data);
+      this.tournamentCode = this.props.match.params.tournamentCode;
+
+      const responseTournamentStatus = await api.get(`/tournaments/${this.tournamentCode}`);
+      this.setState({tournament: responseTournamentStatus.data});
+
+      const response = await api.get(`/tournaments/${this.tournamentCode}/leaderboard`);
       //response returns participants, with their wins e.g. {{participantObj1, wins1}, {participantObj2, wins2}}
       this.setState({ leaderBoardUsers : response.data });
+
       //I split it for the playerList since wins not relevant there
       const onlyParticipantArray = response.data.map(function (responseArray) {
         return responseArray["participant"];
       });
       this.setState({ users: onlyParticipantArray});
       this.counter = 0;
-      const responseBracket = await api.get(`/tournaments/${tournamentCode}/bracket`);
+      const responseBracket = await api.get(`/tournaments/${this.tournamentCode}/bracket`);
       console.log(responseBracket.data);
       this.setState({ games : responseBracket.data });
 
@@ -108,7 +124,7 @@ class Tournament extends React.Component {
                 </Card>
               </Col>
                 <Button style ={{marginTop:'100px'}}
-                    disabled={this.state.users}
+                    disabled={this.state.users ||! (this.state.tournament.tournamentState === "ACTIVE")}
                     type="button"
                     width="100%"
                     onClick={()=> this.handleClick('bracket')}
@@ -123,6 +139,15 @@ class Tournament extends React.Component {
                       }}
               >
                 Back to Menu
+              </Button>
+              <Button style ={{marginTop:'30px'}}
+                      width="100%"
+                      type="button"
+                      onClick={() => {
+                        this.endTournament();
+                      }}
+              >
+                End Tournament
               </Button>
             </Row>
         ):(
@@ -185,6 +210,15 @@ class Tournament extends React.Component {
                   }}
           >
             Back to Menu
+          </Button>
+          <Button style ={{marginTop:'30px'}}
+                  width="100%"
+                  type="button"
+                  onClick={() => {
+                    this.endTournament();
+                  }}
+          >
+            End Tournament
           </Button>
         </Row>
             )}

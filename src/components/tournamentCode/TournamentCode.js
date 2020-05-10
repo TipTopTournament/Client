@@ -9,7 +9,7 @@ import { Label } from "../../views/design/Label";
 import { InputField } from "../../views/design/InputField";
 import { ButtonContainer } from "../../views/design/ButtonContainer";
 import {api, handleError} from "../../helpers/api";
-import UserStatusEnum from "../shared/UserStatusEnum";
+import UserStatusEnum from "../shared/constants/UserStatusEnum";
 
 class TournamentCode extends React.Component {
   constructor() {

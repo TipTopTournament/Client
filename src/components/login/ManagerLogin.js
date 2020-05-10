@@ -2,7 +2,7 @@ import React from "react";
 import { api, handleError } from "../../helpers/api";
 import {withRouter} from "react-router-dom";
 import { Button } from "../../views/design/Button";
-import UserStatusEnum from "../shared/UserStatusEnum";
+import UserStatusEnum from "../shared/constants/UserStatusEnum";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";

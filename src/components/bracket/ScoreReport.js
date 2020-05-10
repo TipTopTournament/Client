@@ -21,6 +21,7 @@ class ScoreReport extends React.Component {
             game: null,
             gameState: null,
             startTime: null,
+            tournamentState: null,
         }
     }
 
@@ -53,6 +54,9 @@ class ScoreReport extends React.Component {
                 score2: this.state.score2,
             });
                 await api.put(`/tournaments/${this.state.tournamentCode}/bracket/${this.state.gameId}`, requestBody);
+                const response = await api.get(`/tournaments/${this.state.tournamentCode}`);
+                this.setState({tournamentState : response.data.tournamentState});
+
                 this.props.history.goBack(); // after submitting automatically redirect to bracket?
         }catch(error){
             console.log('there is something wrong with sending the scores', error);
@@ -74,50 +78,48 @@ class ScoreReport extends React.Component {
         }
         return (
             <Container>
-                <Row>
-                    <Col />
-                    <Col>
-                        {this.state.participant1} vs {this.state.participant2}
-                    </Col>
-                    <Col />
-                </Row>
-                <Row>
-                    <Col />
-                    <Col>
-                    <Form>
-                        <Form.Group>
-                            <Form.Label>
-                                Enter score of {this.state.participant1}
-                            </Form.Label>
-                            <Form.Control
-                                placeholder="1-3"
-                                onChange={e => {
-                                    this.handleEnterScore("score1", e.target.value);
-                                }} />
-                        </Form.Group>
-                        <Form.Group>
-                            <Form.Label>
-                                Enter score of {this.state.participant2}
-                            </Form.Label>
-                            <Form.Control
-                                placeholder="1-3"
-                                onChange={e => {
-                                    this.handleEnterScore("score2", e.target.value);
-                                }} />
-                        </Form.Group>
+                {!(this.state.tournamentState == "ACTIVE") ? (
+                    <Row>
+                        <Col />
+                        <Col>
+                            <h4>The Tournament has been ended by the manager</h4>
+                        </Col>
+                        <Col />
+                    </Row>
+                ):(
+                    <Row>
+                        <Col />
+                        <Col>
+                            <Form>
+                                <Form.Group>
+                                    <Form.Label>Enter score of {this.state.participant1}</Form.Label>
+                                    <Form.Control
+                                        placeholder="1-3"
+                                        onChange={e => {
+                                        this.handleEnterScore("score1", e.target.value);
+                                    }} />
+                                </Form.Group>
+                                <Form.Group>
+                                    <Form.Label>Enter score of {this.state.participant2}</Form.Label>
+                                    <Form.Control
+                                        placeholder="1-3"
+                                        onChange={e => {
+                                        this.handleEnterScore("score2", e.target.value);
+                                    }} />
+                                </Form.Group>
+                            </Form>
+                            <Button
+                                type="button"
+                                disabled={!this.state.score1 || !this.state.score2}
+                                onClick={() => {
+                                this.submitScore();
+                            }}>Submit
+                            </Button>
+                        </Col>
+                        <Col />
+                    </Row>
+                )};
 
-                    </Form>
-
-                    <Button type="button"
-                        disabled={!this.state.score1 || !this.state.score2}
-                        onClick={() => {
-                            this.submitScore();
-                        }}>
-                            Submit
-                    </Button>
-                    </Col>
-                    <Col />
-                </Row>
             </Container>
         );
     }
