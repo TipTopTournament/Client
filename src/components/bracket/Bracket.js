@@ -14,6 +14,7 @@ import Game from "../../views/Game";
 import Form from 'react-bootstrap/Form'
 import ListGroup from "react-bootstrap/ListGroup";
 import Winner from "../../views/design/Winner";
+import {TipTopTournamentLogo} from "../../views/design/TipTopTournamentLogo";
 
 class Bracket extends React.Component {
     constructor() {
@@ -27,6 +28,11 @@ class Bracket extends React.Component {
             score1: null,
             score2: null,
             winner: null,
+            tournament: {
+                tournamentName: null,
+                winner: null,
+                tournamentState: null,
+            }
 
         };
     }
@@ -139,52 +145,51 @@ class Bracket extends React.Component {
 
     correctArray(response){
         response.map(game => {
-
-
             if(!game["participant1"]){
                 game["participant1"] = "Not yet determined!"
             }
             if(!game["participant2"]){
                 game["participant2"] = "Not yet determined!"
             }
-
         });
 
     }
-    async changeScore(gameId,tournamentCode){
+    checkScores(gameData) {
+        if (gameData.participant1 || gameData.participant2) {
+            if (this.state.score1 === null || this.state.score2 === null) {
+                return false;
+            }
+            return this.state.score1 !== this.state.score2;
 
+        } else {
+            return false;
+        }
+    }
+
+    async changeScore(gameId,tournamentCode){
         try {
             const requestBody = JSON.stringify({
                 score1: this.state.score1,
                 score2: this.state.score2,
             });
-
             await api.put(`/tournaments/${tournamentCode}/bracket/${gameId}/${this.state.manager}`, requestBody);
             alert("Successfully updated score ");
             this.render();
-
-
         } catch (error) {
             alert(`Something went wrong during changing the score     : \n${handleError(error)}`);
         }
-
     }
     
     async componentDidMount() {
         try {
             const {tournamentCode} = this.props.match.params;
-            const responseWinnerCheck = await api.get(`/tournaments/${tournamentCode}`);
-            this.setState({winner : responseWinnerCheck.data.winner});
-            console.log(responseWinnerCheck.data);
-            console.log(responseWinnerCheck.data.winner);
-            console.log(this.state.winner);
-            console.log(this.state.winner.vorname);
+            const responseTournament = await api.get(`/tournaments/${tournamentCode}`);
+            this.setState({tournament : responseTournament.data});
+
             const response = await api.get(`/tournaments/${tournamentCode}/bracket`);
-            console.log(response.data);
             this.correctArray(response.data);
             this.setState({ games : response.data });
             this.setupBracket(response.data);
-
         } catch (error) {
             alert(`Something went wrong while fetching the users: \n${handleError(error)}`);
         }
@@ -204,6 +209,8 @@ class Bracket extends React.Component {
                     <Col/>
                     <Col>
                         <div className = "custom-container">
+                            <TipTopTournamentLogo style={{marginLeft: "50px", marginTop:"50px", preserveAspectRatio: "xMinYMin slice", height: "40%", width: "40%"}}/>
+                            <h2 className="custom1" style={{color: "#2F80ED", marginLeft:"50px"}}>{this.state.tournament.tournamentName} - {this.state.tournament.tournamentState}</h2>
                             <Tree
                                 data={this.state.data}
                                 height={600}
@@ -225,7 +232,7 @@ class Bracket extends React.Component {
                 ) : (
                 <Row>
                     <Col>
-                        {!this.state.winner ? (
+                        {!this.state.tournament.winner ? (
                             !this.state.manager ? (
                             <ScoreReport gameFromBracket={this.getGameOfParticipant()}/>
                         ) : (
@@ -246,7 +253,7 @@ class Bracket extends React.Component {
                                                 </Form.Group>
                                             </Form>
                                             <Button
-                                                disabled={!gameData.participant1 ||!gameData.participant2}
+                                                disabled={!this.checkScores(gameData) || !(this.state.tournament.tournamentState == "ACTIVE")}
                                                 style={{marginLeft:"50px"}}
                                                 type="button"
                                                 width="auto"
@@ -259,7 +266,7 @@ class Bracket extends React.Component {
                                     )})}
                             </ListGroup>
                         )):(
-                            <Winner winnerFromBracket ={this.state.winner}/>
+                            <Winner winnerFromBracket ={this.state.tournament.winner}/>
                         )}
                     </Col>
                 </Row>
@@ -269,7 +276,7 @@ class Bracket extends React.Component {
                     <Col>
                         <ButtonContainer>
                             <Button
-                                style={{marginTop: "25px"}}
+                                style={{marginTop: "25px", marginBottom: "25px"}}
                                 width="100%"
                                 onClick={() => {
                                     this.props.history.goBack();

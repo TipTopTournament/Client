@@ -11,7 +11,7 @@ import { ButtonContainer } from "../../views/design/ButtonContainer";
 import Navbar from "react-bootstrap/Navbar";
 import {api, handleError} from "../../helpers/api";
 import Nav from "react-bootstrap/Nav";
-import UserStatusEnum from "../shared/UserStatusEnum";
+import UserStatusEnum from "../shared/constants/UserStatusEnum";
 
 class TournamentCode extends React.Component {
   constructor() {

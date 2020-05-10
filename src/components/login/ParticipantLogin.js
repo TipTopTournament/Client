@@ -3,7 +3,7 @@ import { api, handleError } from "../../helpers/api";
 import User from "../shared/models/User";
 import {withRouter} from "react-router-dom";
 import { Button } from "../../views/design/Button";
-import UserStatusEnum from "../shared/UserStatusEnum";
+import UserStatusEnum from "../shared/constants/UserStatusEnum";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";

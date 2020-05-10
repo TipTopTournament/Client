@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { api, handleError } from '../../helpers/api';
 import {withRouter} from 'react-router-dom';
 import Container from "react-bootstrap/Container";
-import UserStatusEnum from "../shared/UserStatusEnum";
+import UserStatusEnum from "../shared/constants/UserStatusEnum";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
