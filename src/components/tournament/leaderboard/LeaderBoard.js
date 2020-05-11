@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { api, handleError } from '../../helpers/api';
-import { NoData } from '../../views/design/NoData';
-import { Button } from '../../views/design/Button';
+import { api, handleError } from '../../../helpers/api';
+import { NoData } from '../../../views/design/NoData';
+import { Button } from '../../../views/design/Button';
 import { withRouter } from 'react-router-dom';
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";

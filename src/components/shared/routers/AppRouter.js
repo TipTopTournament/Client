@@ -8,8 +8,8 @@ import HomeScreen from "../../homescreen/HomeScreen";
 import Registration from "../../register/Registration";
 import TournamentCode from "../../tournamentCode/TournamentCode";
 import Tournament from "../../tournament/Tournament";
-import LeaderBoard from "../../leaderboard/LeaderBoard";
-import Bracket from "../../bracket/Bracket";
+import LeaderBoard from "../../tournament/leaderboard/LeaderBoard";
+import Bracket from "../../tournament/bracket/Bracket";
 import PlayerProfile from "../../playerProfile/PlayerProfile";
 import CreateTournament from "../../tournament/CreateTournament";
 import { BracketGuard } from "../routeProtectors/BracketGuard";
@@ -25,6 +25,7 @@ import {PlayerListGuard} from "../routeProtectors/PlayerListGuard";
 import {ParticipantMenuGuard} from "../routeProtectors/ParticipantMenuGuard";
 import ManagerLogin from "../../login/ManagerLogin";
 import {ManagerLoginGuard} from "../routeProtectors/ManagerLoginGuard";
+import Info from "../../homescreen/Info";
 
 /**
  * Main router of your application.
@@ -42,6 +43,7 @@ class AppRouter extends React.Component {
         <Switch>
           <div>
             <Route path="/home" render={() => <HomeScreen />} />
+            <Route path="/info" render={() => <Info/>} />
             <Route
               path="/createTournament"
               render={() => (

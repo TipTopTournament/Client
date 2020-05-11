@@ -1,19 +1,19 @@
 import React from 'react';
-import { api, handleError } from '../../helpers/api';
-import { NoData } from '../../views/design/NoData';
-import { Button } from '../../views/design/Button';
+import { api, handleError } from '../../../helpers/api';
+import { NoData } from '../../../views/design/NoData';
+import { Button } from '../../../views/design/Button';
 import { withRouter } from 'react-router-dom';
 import Tree from "react-tree-graph";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import '../../views/design/custom-container.css';
-import {ButtonContainer} from "../../views/design/ButtonContainer";
+import '../../../views/design/custom-container.css';
+import {ButtonContainer} from "../../../views/design/ButtonContainer";
 import ScoreReport from './ScoreReport';
-import Game from "../../views/Game";
+import Game from "../../../views/Game";
 import Form from 'react-bootstrap/Form'
 import ListGroup from "react-bootstrap/ListGroup";
-import Winner from "../../views/design/Winner";
+import Winner from "../../../views/design/Winner";
 
 class Bracket extends React.Component {
     constructor() {

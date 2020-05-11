@@ -4,8 +4,8 @@ import {Button} from "../../views/design/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
-import {Title} from "../../views/design/Title";
 import {TipTopTournamentLogo} from "../../views/design/TipTopTournamentLogo";
+import {Title} from "../../views/design/Title";
 
 
 class HomeScreen extends React.Component{
@@ -19,7 +19,10 @@ class HomeScreen extends React.Component{
         }
     }
     goRegister() {
-    this.props.history.push('/register')
+        this.props.history.push('/register')
+    }
+    goInfo(){
+        this.props.history.push('/info')
     }
     componentDidMount() {
         localStorage.removeItem("token");
@@ -35,6 +38,14 @@ class HomeScreen extends React.Component{
                             <Col>
                                 <TipTopTournamentLogo style={{marginTop:"50px"}}/>
                                 <h4 className="custom1" style={{color: "#2F80ED", marginLeft:"50px"}}>TIPTOPTournament</h4>
+                                <Button
+                                    width="100%"
+                                    variant="info"
+                                    onClick={() => {
+                                        this.goInfo();
+                                    }}
+                                >Info
+                                </Button>
                             </Col>
                             <Col>
                                 <Title   style={{marginTop: '250px'}}>TIPTOPTournament</Title>
