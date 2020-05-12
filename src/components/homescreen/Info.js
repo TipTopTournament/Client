@@ -19,7 +19,7 @@ render(){
                 <Col sm={8}>
                     <h1 style={{marginTop:"110px", color:"#2F80ED"}}> TIPTOPTournament FAQ</h1>
                     <h5 style={{marginTop:"20px"}}> What is TipTopTournament?</h5>
-                    <h6 style={{color:"#2F80ED"}}> TIPTOPTournament is an organisation tool for real-time table tennis tournaments</h6>
+                    <h6 style={{color:"#2F80ED"}}> TIPTOPTournament is an organisation tool for real-time table tennis tournaments.</h6>
                     <h5> What is a licensenumber? And why do I need one?</h5>
                     <h6 style={{color:"#2F80ED"}}> We use license numbers as a result of working together with Swiss Table Tennis.
                         They require all registered players to have a license. So if you are already licensed by them,
