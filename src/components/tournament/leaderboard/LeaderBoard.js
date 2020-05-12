@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
 import { api, handleError } from '../../../helpers/api';
 import { NoData } from '../../../views/design/NoData';
 import { Button } from '../../../views/design/Button';
@@ -8,13 +7,6 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Table from "react-bootstrap/Table";
-
-const PlayerContainer = styled.li`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`;
 
 class LeaderBoard extends React.Component {
     constructor() {
@@ -28,6 +20,16 @@ class LeaderBoard extends React.Component {
         const {tournamentCode} = this.props.match.params;
         this.props.history.push (`/${tournamentCode}/participants/${playerID}`)
     }
+
+    goBack(){
+        const {tournamentCode} = this.props.match.params;
+        if(localStorage.getItem("ParticipantID")){
+            this.props.history.push(`/${tournamentCode}/participantMenu`)
+        }else{
+            this.props.history.push(`/tournaments/${tournamentCode}`)
+        }
+    }
+
     renderLeaderBoard(leaderBoardUser) {
         this.counter ++;
         return (
@@ -91,7 +93,7 @@ class LeaderBoard extends React.Component {
                             style={{marginTop: "25px"}}
                             width="100%"
                             onClick={() => {
-                                this.props.history.goBack();
+                                this.goBack();
                             }}
                         >
                             Back to Tournament Overview

@@ -14,7 +14,7 @@ render(){
             <Row>
                 <Col>
                     <TipTopTournamentLogo style={{marginTop:"50px"}}/>
-                    <h4 className="custom1" style={{color: "#2F80ED", marginLeft:"50px"}}>TIPTOPTournament</h4>
+                    <h4 className="custom1" style={{color: "#2F80ED", marginLeft:"100px"}}>TIPTOPTournament</h4>
                 </Col>
                 <Col sm={8}>
                     <h1 style={{marginTop:"110px", color:"#2F80ED"}}> TIPTOPTournament FAQ</h1>

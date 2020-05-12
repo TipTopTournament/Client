@@ -3,12 +3,12 @@ import {withRouter} from "react-router-dom";
 import "react-tabs/style/react-tabs.css";
 import Form from 'react-bootstrap/Form'
 import Map from './Map'
-import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { api, handleError } from "../../helpers/api";
 import Card from 'react-bootstrap/Card'
+import {Button} from "../../views/design/Button";
 
 class CreateTournament extends React.Component {
   constructor() {
@@ -23,6 +23,8 @@ class CreateTournament extends React.Component {
       gameDuration: 20,
       numberTables: 2,
   };
+    //default starting location
+    localStorage.setItem("address","Schanzengasse 12B, 8001 Zürich, Switzerland");
   }
 
 handleInputChange(key, value) {
@@ -46,7 +48,6 @@ handleInputChange(key, value) {
       });
 
         const response = await api.post("/tournaments", requestBody);
-        console.log(response);
         alert("Your Tournamentcode is: " + response.data);
       
 
@@ -71,11 +72,11 @@ handleInputChange(key, value) {
                 <Form.Control type="TournamentName" placeholder="Tournament Name" onChange={e => {this.handleInputChange("tournamentName", e.target.value);}}/>
               </Form.Group>
               <Form.Group controlId="ControlInput1">
-                <Form.Label>Startzeit</Form.Label>
+                <Form.Label>Start time</Form.Label>
                 <Form.Control type="startTime" placeholder="Startzeit e.g(08:00)" onChange={e => {this.handleInputChange("startTime", e.target.value);}}/>
               </Form.Group>
               <Form.Group controlId="ControlSelect1">
-                <Form.Label>Spielzeit</Form.Label>
+                <Form.Label>Game duration</Form.Label>
                 <Form.Control as="select" onChange={e => {this.handleInputChange("gameDuration", e.target.value);}}>
                   <option>20</option>
                   <option>30</option>
@@ -83,7 +84,7 @@ handleInputChange(key, value) {
                 </Form.Control>
               </Form.Group>
               <Form.Group controlId="ControlSelect1">
-                <Form.Label>Pausenzeit</Form.Label>
+                <Form.Label>Break duration</Form.Label>
                 <Form.Control as="select" onChange={e => {this.handleInputChange("breakDuration", e.target.value);}}>
                   <option>10</option>
                   <option>20</option>
@@ -91,7 +92,7 @@ handleInputChange(key, value) {
                 </Form.Control>
               </Form.Group>
               <Form.Group controlId="ControlSelect1">
-                <Form.Label>Anzahl Spieler</Form.Label>
+                <Form.Label>Amount of players</Form.Label>
                 <Form.Control as="select" onChange={e => {this.handleInputChange("amountOfPlayers", e.target.value);}}>
                   <option>2</option>
                   <option>4</option>
@@ -100,7 +101,7 @@ handleInputChange(key, value) {
                 </Form.Control>
               </Form.Group>
               <Form.Group controlId="ControlSelect1">
-                <Form.Label>Anzahl Spieltische</Form.Label>
+                <Form.Label>Amount of tables</Form.Label>
                 <Form.Control as="select" onChange={e => {this.handleInputChange("numberTables", e.target.value);}}>
                   <option>2</option>
                   <option>4</option>
@@ -109,14 +110,14 @@ handleInputChange(key, value) {
                 </Form.Control>
               </Form.Group>
               <Form.Group controlId="ControlTextarea1">
-                <Form.Label>Tournamentbeschreibung</Form.Label>
+                <Form.Label>Tournament description</Form.Label>
                 <Form.Control as="textarea" rows="3" onChange={e => {this.handleInputChange("informationBox", e.target.value);}}/>
               </Form.Group>
               <Card border= "primary" >
-                <Card.Title>  Setze einen Standort fest</Card.Title>
+                <Card.Title style={{marginLeft:"20px", marginTop:"15px"}}>Set a destination</Card.Title>
                 <Card.Body> 
                   <Card.Text>
-                    Suche die gewünschte Ortschaft auf der Karte mit der Suchleiste und verschiebe dann denn Marker bis die gewünschte Adresse angezeigt wird.
+                    Search the desired location on the map with the search bar and afterwards move the map marker to the desired destination.
                   </Card.Text>
                 </Card.Body>
               </Card>
@@ -128,19 +129,26 @@ handleInputChange(key, value) {
                   zoom={15}
                 />
               </div>
-              <Row>
-                <Col/>
+              <Row className="align-self-center">
                 <Col>
                   <Button
-                      style={{marginLeft: '60px', color: "#F3F3FF"}}
+                      width="50%"
+                      style={{color: "#F3F3FF"}}
+                      type="submit" onClick={() => {
+                    this.props.history.push(`/manager/menu/${localStorage.getItem("ManagerID")}`); }}
+                  >Back
+                  </Button>
+                  <Button
+                      width="50%"
+                      style={{color: "#F3F3FF"}}
                       disabled={!this.state.startTime||!this.state.tournamentName
                       ||!localStorage.getItem("address")}
                       type="submit" onClick={() => {
                     this.sendTournamentDetails();
                     this.props.history.push(`/manager/menu/${localStorage.getItem("ManagerID")}`); }}
-                  >Tournament erstellen</Button>
+                  >Tournament erstellen
+                  </Button>
                 </Col>
-                <Col/>
               </Row>
             </Form>
           </Col>

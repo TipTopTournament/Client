@@ -10,6 +10,7 @@ import Form from "react-bootstrap/Form";
 import SingleTournament from "../../views/SingleTournament";
 import {Button} from "../../views/design/Button";
 import {ButtonContainer} from "../../views/design/ButtonContainer";
+import {TipTopTournamentLogo} from "../../views/design/TipTopTournamentLogo";
 
 const TournamentContainer = styled.li`
   display: flex;
@@ -59,10 +60,7 @@ class ManagerMenu extends React.Component {
         try {
             const managerID = this.props.match.params.managerID;
             const response = await api.get(`/managers/${managerID}/tournaments`);
-            // Get the returned users and update the state.
-            console.log(response.data);
             this.setState({ tournaments: response.data });
-
         } catch (error) {
             alert(`Something went wrong while fetching the users: \n${handleError(error)}`);
         }
@@ -72,9 +70,12 @@ class ManagerMenu extends React.Component {
         return (
             <Container className= "custom-container2">
                 <Row>
+                    <Col/>
                     <Col>
-                        <h1 style={{textAlign: "center",color: "#2F80ED", marginTop: '200px'}}>TipTopTournament</h1>
+                        <TipTopTournamentLogo  style={{marginLeft: "50px", marginTop:"50px"}}/>
+                        <h1 style={{textAlign: "center",color: "#2F80ED"}}>TipTopTournament</h1>
                     </Col>
+                    <Col/>
                 </Row>
                 <Row className="justify-content-md-center">
                     <Col md="auto" />

@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const Container = styled.div`
   margin: 6px 0;
-  width: 280px;
+  width: 350px;
   padding: 10px;
   border-radius: 6px;
   display: flex;
@@ -40,7 +40,7 @@ const Player = ({ user }) => {
   return (
     <Container>
       <Name>{user.vorname}</Name> <UserName>{user.nachname}</UserName>
-      <Id>Id: {user.licenseNumber}</Id>
+      <Id>Lz.-Nr.: {user.licenseNumber}</Id>
     </Container>
   );
 };

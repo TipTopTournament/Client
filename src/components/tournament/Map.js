@@ -253,7 +253,7 @@ let map;
      <div>
      
       <div className="form-group">
-       <label htmlFor="">Addresse</label>
+       <label htmlFor="">Address</label>
        <input type="text" name="address" className="form-control" onChange={ this.onChange } readOnly="readOnly" value={ this.state.address }/>
       </div>
      </div>

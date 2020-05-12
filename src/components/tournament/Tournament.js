@@ -7,7 +7,6 @@ import Container from "react-bootstrap/Container";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import {Button} from "../../views/design/Button";
-import {ButtonContainer} from "../../views/design/ButtonContainer";
 import Card from "react-bootstrap/Card";
 import Table from "react-bootstrap/Table";
 
@@ -88,42 +87,42 @@ class Tournament extends React.Component {
         {!this.state.users ||! this.state.leaderBoardUsers || this.state.leaderBoardUsers.length === 0? (
             <Row>
               <Col>
-                <Card style={{background:  "#F3F3FF"}}>
+                <Card style={{background:  "#F3F3FF", marginTop:"100px"}}>
                   <Card.Body>
                   <Card.Title> Playerlist </Card.Title>
                     <Card.Subtitle style={{color:"red"}}>No players have joined yet!</Card.Subtitle>
                   </Card.Body>
                 </Card>
-                <ButtonContainer style ={{marginTop:'100px'}}>
-                  <Button
-                      width="100%"
-                      onClick={()=> this.handleClick('bracket')}
-                  >
-                    Bracket
-                  </Button>
-                </ButtonContainer>
-                <Button style ={{marginTop:'30px'}}
-                        type="button"
-                        onClick={() => {
-                          this.goBackToMenu();
-                        }}
-                >
-                  Back to Menu
-                </Button>
               </Col>
               <Col>
-                <Card  style={{background:  "#F3F3FF"}}>
+                <Card  style={{background:  "#F3F3FF", marginTop:"100px"}}>
                   <Card.Body>
                   <Card.Title> Leaderboard </Card.Title>
                   <Card.Subtitle style={{color:"red"}}>No players have joined yet!</Card.Subtitle>
                   </Card.Body>
                 </Card>
               </Col>
+              <Button
+                  width="100%"
+                  style ={{marginTop:'100px'}}
+                  onClick={()=> this.handleClick('bracket')}
+              >
+                Bracket
+              </Button>
+              <Button style ={{marginTop:'30px'}}
+                      width="100%"
+                      type="button"
+                      onClick={() => {
+                        this.goBackToMenu();
+                      }}
+              >
+                Back to Menu
+              </Button>
             </Row>
         ):(
         <Row>
           <Col>
-            <Card style={{background:  "#F3F3FF"}}>
+            <Card style={{background:  "#F3F3FF", marginTop:"100px"}}>
               <Card.Body >
               <Card.Title style={{marginBottom: "100px"}}> Playerlist </Card.Title>
                 {this.state.users.map(user => {
@@ -137,7 +136,7 @@ class Tournament extends React.Component {
             </Card>
           </Col>
           <Col>
-            <Card style={{background:  "#F3F3FF"}} onClick={()=> this.handleClick('leaderBoard')}>
+            <Card style={{background:  "#F3F3FF", marginTop:"100px"}} onClick={()=> this.handleClick('leaderBoard')}>
               <Card.Body>
               <Card.Title> Leaderboard </Card.Title>
                 <div>
@@ -153,7 +152,7 @@ class Tournament extends React.Component {
                       <th>Sets scored</th>
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody style={{hover:{cursor: "pointer"}}}>
                     {this.state.leaderBoardUsers.map(leaderBoardUser => {
                       return (
                           this.renderLeaderBoard(leaderBoardUser)

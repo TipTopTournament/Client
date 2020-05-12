@@ -56,11 +56,11 @@ class PlayerProfile extends React.Component {
         <Row>
           <Col />
           <Col>
-            <Table bordered hover size="sm">
+            <Table style={{marginTop:"200px"}} bordered hover size="sm">
               <thead>
                 <tr>
-                  <th>Vorname</th>
-                  <th>Nachname</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
                   <th>Wins</th>
                   <th>Losses</th>
                 </tr>

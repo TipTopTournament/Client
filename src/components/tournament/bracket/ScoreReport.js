@@ -46,6 +46,14 @@ class ScoreReport extends React.Component {
         this.setState({ [key]: value });
       }
 
+    displayName(name){
+        if(!name){
+            return "TBD"
+        }else{
+            return name;
+        }
+    }
+
     async submitScore(){
         console.log(this.state);
         try {
@@ -78,7 +86,7 @@ class ScoreReport extends React.Component {
                 <Row>
                     <Col />
                     <Col>
-                        {this.state.participant1} vs {this.state.participant2}
+                        {this.displayName(this.state.participant1)} vs {this.displayName(this.state.participant2)}
                     </Col>
                     <Col />
                 </Row>
@@ -88,7 +96,7 @@ class ScoreReport extends React.Component {
                     <Form>
                         <Form.Group>
                             <Form.Label>
-                                Enter score of {this.state.participant1}
+                                Enter score of {this.displayName(this.state.participant1)}
                             </Form.Label>
                             <Form.Control
                                 placeholder="1-3"
@@ -98,7 +106,8 @@ class ScoreReport extends React.Component {
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>
-                                Enter score of {this.state.participant2}
+
+                                Enter score of {this.displayName(this.state.participant2)}
                             </Form.Label>
                             <Form.Control
                                 placeholder="1-3"
@@ -106,10 +115,10 @@ class ScoreReport extends React.Component {
                                     this.handleEnterScore("score2", e.target.value);
                                 }} />
                         </Form.Group>
-
                     </Form>
-
-                    <Button type="button"
+                    <Button
+                        style={{marginLeft:"135px", marginTop:"15px"}}
+                        type="button"
                         disabled={!this.state.score1 || !this.state.score2}
                         onClick={() => {
                             this.submitScore();

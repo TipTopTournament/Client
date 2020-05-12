@@ -48,7 +48,7 @@ class PlayerList extends React.Component {
           <Col />
           <Col xs={12} sm={12} md={8}>
             <div>
-              <Table bordered hover size="sm">
+              <Table style={{marginTop:"100px"}} bordered hover size="sm">
                 <thead>
                   <tr>
                     <th>ID</th>

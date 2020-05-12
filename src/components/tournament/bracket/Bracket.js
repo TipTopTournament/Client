@@ -1,6 +1,5 @@
 import React from 'react';
 import { api, handleError } from '../../../helpers/api';
-import { NoData } from '../../../views/design/NoData';
 import { Button } from '../../../views/design/Button';
 import { withRouter } from 'react-router-dom';
 import Tree from "react-tree-graph";
@@ -14,6 +13,7 @@ import Game from "../../../views/Game";
 import Form from 'react-bootstrap/Form'
 import ListGroup from "react-bootstrap/ListGroup";
 import Winner from "../../../views/design/Winner";
+import Spinner from "react-bootstrap/Spinner";
 
 class Bracket extends React.Component {
     constructor() {
@@ -173,14 +173,10 @@ class Bracket extends React.Component {
     async componentDidMount() {
         try {
             const {tournamentCode} = this.props.match.params;
+            await new Promise(resolve => setTimeout(resolve, 1500));
             const responseWinnerCheck = await api.get(`/tournaments/${tournamentCode}`);
             this.setState({winner : responseWinnerCheck.data.winner});
-            console.log(responseWinnerCheck.data);
-            console.log(responseWinnerCheck.data.winner);
-            console.log(this.state.winner);
-            console.log(this.state.winner.vorname);
             const response = await api.get(`/tournaments/${tournamentCode}/bracket`);
-            console.log(response.data);
             this.correctArray(response.data);
             this.setState({ games : response.data });
             this.setupBracket(response.data);
@@ -195,9 +191,12 @@ class Bracket extends React.Component {
             <Container className= "custom-container2">
                 {!this.state.games ? (
                     <Row>
+                        <Col/>
                         <Col>
-                             <NoData />
+                             <h4 style={{marginTop:"350px", marginLeft:"25px", color:"#2F80ED"}}>Your tournament is being loaded </h4>
+                            <Spinner style={{marginTop:"30px", marginLeft:"190px"}} animation="border" variant="primary" />
                         </Col>
+                        <Col/>
                     </Row>
                 ) : (
                 <Row>
@@ -219,7 +218,6 @@ class Bracket extends React.Component {
                 {!this.state.games ? (
                     <Row>
                         <Col>
-                            <NoData />
                         </Col>
                     </Row>
                 ) : (
@@ -269,7 +267,7 @@ class Bracket extends React.Component {
                     <Col>
                         <ButtonContainer>
                             <Button
-                                style={{marginTop: "25px"}}
+                                style={{marginTop: "25px", marginBottom: "25px"}}
                                 width="100%"
                                 onClick={() => {
                                     this.props.history.goBack();

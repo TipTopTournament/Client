@@ -4,11 +4,11 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { withRouter } from "react-router-dom";
-import Button from "react-bootstrap/Button";
 import { api } from "../../helpers/api";
 import TournamentData from "../shared/models/TournamentData";
 import Table from "react-bootstrap/Table";
-import {ButtonContainer} from "../../views/design/ButtonContainer";
+import {Button} from "../../views/design/Button";
+
 
 class ParticipantMenu extends React.Component {
   constructor() {
@@ -79,7 +79,7 @@ class ParticipantMenu extends React.Component {
         <Row>
           <Col />
           <Col>
-            <h2>{this.state.tournament.tournamentName}</h2>
+            <h2 style={{marginTop:"200px"}}>{this.state.tournament.tournamentName}</h2>
           </Col>
           <Col />
         </Row>
@@ -94,40 +94,36 @@ class ParticipantMenu extends React.Component {
                   <td>{this.state.tournament.location}</td>
                 </tr>
                 <tr>
-                  <td>Starttime</td>
-                  <td>{this.state.tournament.startTime} Uhr</td>
+                  <td>Start time</td>
+                  <td>{this.state.tournament.startTime}</td>
+                </tr>
+                <tr>
+                  <td>Tournament description:</td>
+                  <td>{this.state.tournament.informationBox}</td>
                 </tr>
               </tbody>
             </Table>
-
-            <ButtonContainer>
-              <Button type="button" onClick={() => this.handleClick("playerList")}>
-                Participants
+              <Button
+                  width="100%"
+                  type="button" onClick={() => this.handleClick("playerList")}>
+                  Participants
               </Button>
-            </ButtonContainer>
-
-            <ButtonContainer>
-              <Button type="button" onClick={() => this.handleClick("bracket")}>
-                Bracket
+              <Button
+                  width="100%"
+                  style={{marginTop:"15px"}} type="button" onClick={() => this.handleClick("bracket")}>
+                  Bracket
               </Button>
-            </ButtonContainer>
-
-            <ButtonContainer>
-              <Button type="button" onClick={() => this.handleClick("leaderBoard")}>
-              Leaderboard
-            </Button>
-            </ButtonContainer>
-
-            <ButtonContainer>
-              <Button type="button" onClick={() => this.handleClick("leave")}>
-                Leave Tournament
+              <Button
+                  width="100%"
+                  style={{marginTop:"15px"}} type="button" onClick={() => this.handleClick("leaderBoard")}>
+                  Leaderboard
               </Button>
-            </ButtonContainer>
-            <ButtonContainer>
-            <Button type="button" onClick={() => this.ready()}>
-              Ready button
-            </Button>
-            </ButtonContainer>
+              <Button
+                  width="100%"
+                  style={{marginTop:"15px"}} type="button" onClick={() => this.handleClick("leave")}>
+                  Leave Tournament
+              </Button>
+
           </Col>
           <Col />
         </Row>
