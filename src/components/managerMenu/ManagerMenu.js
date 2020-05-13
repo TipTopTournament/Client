@@ -49,7 +49,7 @@ class ManagerMenu extends React.Component {
     }
 
     handleClick(tournamentCode){
-        this.props.history.push(`/tournaments/${tournamentCode}/`);
+        this.props.history.push(`/manager/tournaments/${tournamentCode}/`);
     }
     goToCreate(){
         this.props.history.push(`/manager/createTournament/${localStorage.getItem("ManagerID")}`);
@@ -119,7 +119,9 @@ class ManagerMenu extends React.Component {
                                 {this.state.tournaments.map(tournamentData => {
                                     return (
                                         <TournamentContainer key={tournamentData.tournamentId}
-                                                             onClick={() => this.handleClick(tournamentData.tournamentCode)}>
+                                                             onClick={() => this.handleClick(tournamentData.tournamentCode)}
+                                                             onMouseOver={this.onToggleOpen}
+                                                             onMouseOut={this.onToggleOpen}>
                                         <SingleTournament tournamentData={tournamentData} />
                                         </TournamentContainer>
                                     );
