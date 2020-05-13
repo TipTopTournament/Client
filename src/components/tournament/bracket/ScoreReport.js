@@ -22,6 +22,7 @@ class ScoreReport extends React.Component {
             game: null,
             gameState: null,
             startTime: null,
+            tournamentState: null,
         }
     }
 
@@ -62,6 +63,8 @@ class ScoreReport extends React.Component {
                 score2: this.state.score2,
             });
                 await api.put(`/tournaments/${this.state.tournamentCode}/bracket/report/${this.state.gameId}/${localStorage.getItem("ParticipantID")}`, requestBody);
+                const response = await api.get(`/tournaments/${this.state.tournamentCode}`);
+                this.setState({tournamentState : response.data.tournamentState});
                 this.props.history.goBack(); // after submitting automatically redirect to bracket?
         }catch(error) {
             alert(`you have already entered the score: \n${handleError(error)}`);
@@ -83,6 +86,7 @@ class ScoreReport extends React.Component {
         }
         return (
             <Container>
+                {!(this.state.tournamentState == "ACTIVE") ? (
                 <Row>
                     <Col />
                     <Col>
@@ -90,6 +94,7 @@ class ScoreReport extends React.Component {
                     </Col>
                     <Col />
                 </Row>
+                ):(
                 <Row>
                     <Col />
                     <Col>
@@ -128,6 +133,7 @@ class ScoreReport extends React.Component {
                     </Col>
                     <Col />
                 </Row>
+                    )};
             </Container>
         );
     }

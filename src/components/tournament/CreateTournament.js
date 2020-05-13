@@ -146,7 +146,7 @@ handleInputChange(key, value) {
                       type="submit" onClick={() => {
                     this.sendTournamentDetails();
                     this.props.history.push(`/manager/menu/${localStorage.getItem("ManagerID")}`); }}
-                  >Tournament erstellen
+                  >Create Tournament
                   </Button>
                 </Col>
               </Row>
