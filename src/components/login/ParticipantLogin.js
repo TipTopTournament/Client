@@ -28,12 +28,12 @@ class ParticipantLogin extends React.Component {
    */
   async login() {
     try {
-        const requestBody1 = JSON.stringify({
+        const requestBody = JSON.stringify({
           licenseNumber: this.state.licenseNumber,
           password: this.state.password
         });
 
-        let response = await api.put("/participants/login", requestBody1);
+        let response = await api.put("/participants/login", requestBody);
 
         // Get the returned user and update a new object.
         const user = new User(response.data);

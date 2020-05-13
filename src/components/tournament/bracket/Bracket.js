@@ -208,16 +208,16 @@ class Bracket extends React.Component {
                         <Col/>
                         <Col>
                              <h4 style={{marginTop:"350px", marginLeft:"25px", color:"#2F80ED"}}>Your tournament is being loaded </h4>
-                            <Spinner style={{marginTop:"30px", marginLeft:"190px"}} animation="border" variant="primary" />
+                            <Spinner style={{marginTop:"30px", marginLeft:"200px"}} animation="border" variant="primary" />
                         </Col>
-                        <Col/>
+                        <Col />
                     </Row>
                 ) : (
                 <Row>
                     <Col/>
                     <Col>
                         <div className = "custom-container">
-                            <TipTopTournamentLogo style={{marginLeft: "100px", marginTop:"50px", preserveAspectRatio: "xMinYMin slice", height: "60%", width: "60%"}}/>
+                            <TipTopTournamentLogo style={{marginLeft: "50px", marginTop:"50px", preserveAspectRatio: "xMinYMin slice", height: "60%", width: "60%"}}/>
                             <h2 className="custom1" style={{color: "#2F80ED", marginLeft:"25px"}}>{this.state.tournament.tournamentName} - {this.state.tournament.tournamentState}</h2>
                             <Tree
                                 data={this.state.data}
@@ -279,11 +279,11 @@ class Bracket extends React.Component {
                 </Row>
                 )}
                 <Row>
-                    <Col />
+                    <Col/>
                     <Col>
                         <ButtonContainer>
                             <Button
-                                style={{marginTop: "25px", marginBottom: "25px"}}
+                                style={{marginTop: "15px", marginBottom: "25px"}}
                                 width="100%"
                                 onClick={() => {
                                     this.props.history.goBack();
@@ -293,7 +293,7 @@ class Bracket extends React.Component {
                             </Button>
                         </ButtonContainer>
                     </Col>
-                    <Col />
+                    <Col/>
                 </Row>
             </Container>
         );

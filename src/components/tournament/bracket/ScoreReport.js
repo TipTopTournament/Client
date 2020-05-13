@@ -26,7 +26,10 @@ class ScoreReport extends React.Component {
         }
     }
 
-    componentDidMount(){
+    async componentDidMount(){
+        const tournamentCode = this.props.match.params.tournamentCode;
+        const response = await api.get(`/tournaments/${tournamentCode}`);
+        this.setState({tournamentState : response.data.tournamentState});
         this.setGame( this.props.gameFromBracket);
     }
 
@@ -63,8 +66,6 @@ class ScoreReport extends React.Component {
                 score2: this.state.score2,
             });
                 await api.put(`/tournaments/${this.state.tournamentCode}/bracket/report/${this.state.gameId}/${localStorage.getItem("ParticipantID")}`, requestBody);
-                const response = await api.get(`/tournaments/${this.state.tournamentCode}`);
-                this.setState({tournamentState : response.data.tournamentState});
                 this.props.history.goBack(); // after submitting automatically redirect to bracket?
         }catch(error) {
             alert(`you have already entered the score: \n${handleError(error)}`);
@@ -90,7 +91,7 @@ class ScoreReport extends React.Component {
                 <Row>
                     <Col />
                     <Col>
-                        {this.displayName(this.state.participant1)} vs {this.displayName(this.state.participant2)}
+                        <h4>The Tournament has been ended by the manager</h4>
                     </Col>
                     <Col />
                 </Row>
@@ -99,7 +100,8 @@ class ScoreReport extends React.Component {
                     <Col />
                     <Col>
                     <Form>
-                        <Form.Group>
+                        <h4>Start time {this.state.startTime}</h4>
+                        <Form.Group style={{marginTop:"15px"}}>
                             <Form.Label>
                                 Enter score of {this.displayName(this.state.participant1)}
                             </Form.Label>
@@ -122,7 +124,7 @@ class ScoreReport extends React.Component {
                         </Form.Group>
                     </Form>
                     <Button
-                        style={{marginLeft:"135px", marginTop:"15px"}}
+                        style={{marginLeft:"135px", marginTop:"25px"}}
                         type="button"
                         disabled={!this.state.score1 || !this.state.score2}
                         onClick={() => {
