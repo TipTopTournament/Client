@@ -9,6 +9,7 @@ import Col from "react-bootstrap/Col";
 import { api, handleError } from "../../helpers/api";
 import Card from 'react-bootstrap/Card'
 import {Button} from "../../views/design/Button";
+import {InputField} from "../../views/design/InputField";
 
 class CreateTournament extends React.Component {
   constructor() {
@@ -25,6 +26,56 @@ class CreateTournament extends React.Component {
   };
     //default starting location
     localStorage.setItem("address","Schanzengasse 12B, 8001 Zürich, Switzerland");
+  }
+
+  mask(e) {
+    let tmpCode = "";
+    tmpCode += e.target.value.toString();
+    if (e.target.value.toString() === "2:" || e.target.value.toString() === "1:" ){
+      alert("Make sure to use 2 digits before the colon :");
+      return ""
+    }
+    console.log(tmpCode.length);
+    console.log(e.target.value.toString());
+    if (this.checkInputOnlyDigits(tmpCode)) {
+      switch (tmpCode.length) {
+        case 1:
+          if (parseInt(tmpCode)> 2){
+            alert("Make sure that the time is set correctly");
+            return ""
+          }
+          console.log(tmpCode);
+          return tmpCode.replace(/^(\d).*/, "$1");
+        case 2:
+          if (parseInt(tmpCode)> 24){
+            alert("Make sure that the time is set correctly");
+            return ""
+          }
+          return tmpCode.replace(/^(\d{2}).*/, "$1");
+        case 3:
+          return tmpCode.replace(/^(\d{2}).*/, "$1:");
+        case 4:
+          return  tmpCode.replace(/^(\d{2})(\d}).*/, "$1:$2");
+        case 5:
+          return tmpCode.replace(/^(\d{2})(\d{2}).*/, "$1:$2");
+
+        default:
+          alert("The time must be 4 digits!");
+          return tmpCode.substring(0, tmpCode.length - 1);
+      }
+    } else {
+      return "";
+    }
+  }
+
+  checkInputOnlyDigits(input) {
+    let digits = new RegExp("^[0-9]+$");
+    if (digits.test(input) || input.includes(":")) {
+      return true;
+    } else {
+      alert("The Start time can only contain digits");
+      return false;
+    }
   }
 
 handleInputChange(key, value) {
@@ -48,12 +99,15 @@ handleInputChange(key, value) {
       });
 
         const response = await api.post("/tournaments", requestBody);
-        alert("Your Tournamentcode is: " + response.data);
+        alert("Your tournament has been created and the code is: " + response.data);
       
 
     } catch (error) {
       alert(`Something went wrong during the creation of the tournament: \n${handleError(error)}`);
     }
+  }
+  componentDidMount() {
+    window.scrollTo(0, 0);
   }
 
   render() {
@@ -61,7 +115,7 @@ handleInputChange(key, value) {
       <Container className= "custom-container2">
         <Row>
             <Col>
-              <h1 style={{ textAlign: "center", color: "#2F80ED"}}>Neues Tournament erstellen</h1>
+              <h2 style={{ textAlign: "center"}}>Create a new tournament</h2>
             </Col>
         </Row>
         <Row>
@@ -73,7 +127,9 @@ handleInputChange(key, value) {
               </Form.Group>
               <Form.Group controlId="ControlInput1">
                 <Form.Label>Start time</Form.Label>
-                <Form.Control type="startTime" placeholder="Startzeit e.g(08:00)" onChange={e => {this.handleInputChange("startTime", e.target.value);}}/>
+                <Form.Control type="startTime" placeholder="Startzeit e.g(08:00)"
+                              value={this.state.startTime || ""}
+                              onChange={e => {this.handleInputChange("startTime", this.mask(e));}}/>
               </Form.Group>
               <Form.Group controlId="ControlSelect1">
                 <Form.Label>Game duration</Form.Label>

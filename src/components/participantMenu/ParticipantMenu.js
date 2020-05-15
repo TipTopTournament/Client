@@ -3,7 +3,7 @@ import React from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import {Redirect, withRouter} from "react-router-dom";
+import {withRouter} from "react-router-dom";
 import { api } from "../../helpers/api";
 import TournamentData from "../shared/models/TournamentData";
 import Table from "react-bootstrap/Table";

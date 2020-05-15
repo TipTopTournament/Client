@@ -9,6 +9,8 @@ import Table from "react-bootstrap/Table";
 import { api } from "../../helpers/api";
 
 import Game from "../../views/Game";
+import {Button} from "../../views/design/Button";
+import ListGroup from "react-bootstrap/ListGroup";
 
 class PlayerProfile extends React.Component {
   constructor() {
@@ -17,7 +19,9 @@ class PlayerProfile extends React.Component {
       stats: {
         wins: 0,
         losses: 0,
-        history: 0,
+        history: null,
+        pointsConceded: 0,
+        pointsScored: 0,
       },
       personalInfo: {
         vorname: null,
@@ -25,15 +29,18 @@ class PlayerProfile extends React.Component {
       },
     };
   }
+  handleClick(){
+    const {tournamentCode} = this.props.match.params;
+    this.props.history.push(`/${tournamentCode}/leaderBoard`);
+  }
 
-  renderEachMatchInHistory() {
-    this.state.stats.history.map((gameData) => {
-      return (
-        <tr>
-          <Game gameData={gameData} />
-        </tr>
-      );
-    });
+  goBack(){
+    const {tournamentCode} = this.props.match.params;
+    if(localStorage.getItem("ParticipantID")){
+      this.props.history.push(`/${tournamentCode}/participantMenu`)
+    }else{
+      this.props.history.push(`/manager/tournaments/${tournamentCode}`)
+    }
   }
 
   async componentDidMount() {
@@ -45,6 +52,10 @@ class PlayerProfile extends React.Component {
       const response2 = await api.get(`/participants/${participantID}`);
       this.setState({ stats: response.data });
       this.setState({ personalInfo: response2.data });
+      console.log("response.data", response.data);
+      console.log("history", this.state.stats.history);
+
+
     } catch (error) {
       console.log("something bad happened while fetching player stats", error);
     }
@@ -53,38 +64,79 @@ class PlayerProfile extends React.Component {
   render() {
     return (
       <Container className="custom-container2">
-        <Row>
-          <Col />
-          <Col>
-            <Table style={{marginTop:"200px"}} bordered hover size="sm">
-              <thead>
+        {!this.state.stats.history ? (
+            <Row>
+              <Col />
+              <Col />
+              <Col />
+            </Row>
+        ):(
+        <Container className="custom-container2">
+          <Row>
+            <Col />
+            <Col>
+              <Table style={{marginTop:"100px"}} bordered hover size="sm">
+                <thead>
                 <tr>
                   <th>First Name</th>
                   <th>Last Name</th>
                   <th>Wins</th>
                   <th>Losses</th>
+                  <th>Sets won</th>
+                  <th>Sets lost</th>
                 </tr>
-              </thead>
-              <tbody>
+                </thead>
+                <tbody>
                 <tr>
                   <td>{this.state.personalInfo.vorname}</td>
                   <td>{this.state.personalInfo.nachname}</td>
                   <td>{this.state.stats.wins}</td>
                   <td>{this.state.stats.losses}</td>
+                  <td>{this.state.stats.pointsScored}</td>
+                  <td>{this.state.stats.pointsConceded}</td>
                 </tr>
-              </tbody>
-            </Table>
-          </Col>
-          <Col />
-        </Row>
-        <Row>
-          <Col />
-          <Col>
-            <h5>Game history</h5>
-            <div>{this.renderEachMatchInHistory}</div>
-          </Col>
-          <Col />
-        </Row>
+                </tbody>
+              </Table>
+            </Col>
+            <Col />
+          </Row>
+          <Row>
+            <Col />
+            <Col>
+              <h5 style={{marginTop:"15px"}}>Game history</h5>
+              <ListGroup variant="flush">
+                {this.state.stats.history.map(gameData => {
+                  return (
+                      <ListGroup.Item style={{background:  "#F3F3FF",   display: "flex", alignItems: "center", justifyContent: "center"}} key={gameData.gameId}
+                      >
+                        <Game gameData={gameData} />
+                      </ListGroup.Item>
+                  )})}
+              </ListGroup>
+              <Button
+                  style={{marginTop: "25px"}}
+                  width="100%"
+                  onClick={() => {
+                    this.handleClick();
+                  }}
+              >
+                Back to Leaderboard
+              </Button>
+              <Button
+                  style={{marginTop: "25px"}}
+                  width="100%"
+                  onClick={() => {
+                    this.goBack();
+                  }}
+              >
+                Back to Tournament Overview
+              </Button>
+
+            </Col>
+            <Col />
+          </Row>
+        </Container>
+        )}
       </Container>
     );
   }

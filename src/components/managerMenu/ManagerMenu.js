@@ -61,6 +61,7 @@ class ManagerMenu extends React.Component {
             const managerID = this.props.match.params.managerID;
             const response = await api.get(`/managers/${managerID}/tournaments`);
             this.setState({ tournaments: response.data });
+
         } catch (error) {
             alert(`Something went wrong while fetching the users: \n${handleError(error)}`);
         }

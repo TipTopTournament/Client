@@ -4,7 +4,7 @@ import { Link } from "react-router-dom"
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import NavItem from "react-bootstrap/NavItem";
-import {api, handleError} from "../../helpers/api";
+import {api} from "../../helpers/api";
 
 class ManagerNavBar extends React.Component{
 
@@ -27,7 +27,7 @@ class ManagerNavBar extends React.Component{
 
     render(){
         return(
-        <Navbar bg="light" expand="lg">
+        <Navbar bg="#cfcfd9" expand="lg">
         <Navbar.Brand>TipTopTournament</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
@@ -39,7 +39,7 @@ class ManagerNavBar extends React.Component{
               --
               use as={Link} bc otherwise it will not push on the history stack
               */}
-              <Nav.Link as={Link} to="/home">Logout</Nav.Link> 
+            <Nav.Link as={Link} to="/home">Logout</Nav.Link>
             </NavItem>
             <NavItem>
               <Nav.Link as={Link} to={`/manager/menu/${localStorage.getItem("ManagerID")}`}>

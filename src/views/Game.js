@@ -31,7 +31,7 @@ const Game = ({ gameData }) => {
   if(gameData.gameState=="CONFLICT")
     return (
         <Container>
-              <Alert variant='danger'>
+              <Alert variant='danger' >
                           Zwei Spieler haben unterschiedliche Scores eingetragen! Geben sie den richtigen Score ein
                         </Alert>}
             <Time> {gameData.startTime}</Time>

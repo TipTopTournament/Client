@@ -6,7 +6,7 @@ import { ParticipantLoginGuard } from "../routeProtectors/ParticipantLoginGuard"
 import ParticipantLogin from "../../login/ParticipantLogin";
 import HomeScreen from "../../homescreen/HomeScreen";
 import Registration from "../../register/Registration";
-import TournamentCode from "../../tournamentCode/TournamentCode";
+import TournamentCode from "../../tournament/TournamentCode";
 import Tournament from "../../tournament/Tournament";
 import LeaderBoard from "../../tournament/leaderboard/LeaderBoard";
 import Bracket from "../../tournament/bracket/Bracket";

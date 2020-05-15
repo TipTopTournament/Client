@@ -28,6 +28,7 @@ class Bracket extends React.Component {
             score1: null,
             score2: null,
             winner: null,
+            rerender: false,
             tournament: {
                 tournamentName: null,
                 winner: null,
@@ -58,86 +59,51 @@ class Bracket extends React.Component {
         return myGame;
     }
 
+    setupSingleGame(Game){
+        return  {name: Game['participant1'].vorname + " " + Game.score1 + " vs. " + Game.score2 + " " + Game['participant2'].vorname}
+    }
+    setup3Games(Game,Child1,Child2) {
+        return {name: Game['participant1'].vorname + " " + Game.score1 + " vs. " + Game.score2 + " " + Game['participant2'].vorname,
+                children:[{
+                        name: Child1['participant1'].vorname + " " + Child1.score1 + " vs. " + Child1.score2 + " " + Child1['participant2'].vorname
+                }, {
+                        name: Child2['participant1'].vorname + " " + Child2.score1 + " vs. " + Child2.score2 + " " + Child2['participant2'].vorname}]}
+    }
+    mergeSubtree(Parent, LftChild,RgtChild){
+        return {name: Parent['participant1'].vorname + " " + Parent.score1 + " vs. " + Parent.score2 + " " + Parent['participant2'].vorname,
+            children:[LftChild,RgtChild]}
+    }
 
     setupBracket(Games){
         switch (Games.length) {
             case 1:
-                let setup0 = {name: Games['0']['participant1'].vorname + " " + Games['0'].score1 + " vs. " + Games['0'].score2 + " " + Games['0']['participant2'].vorname};
+                let setup0 = this.setupSingleGame(Games['0']);
                 this.setState({data: setup0});
                 break;
 
             case 3:
-                let setup1 = {name: Games['2']['participant1'].vorname + " " + Games['2'].score1 + " vs. " + Games['2'].score2 + " " + Games['2']['participant2'].vorname,
-                              children: [{
-                                        name: Games['0']['participant1'].vorname + " " + Games['0'].score1 + " vs. " + Games['0'].score2 + " " + Games['0']['participant2'].vorname
-                              }, {
-                                        name: Games['1']['participant1'].vorname + " " + Games['1'].score1 + " vs. " + Games['1'].score2 + " " + Games['1']['participant2'].vorname
-                              }]
-                };
+                let setup1 = this.setup3Games(Games["2"],Games["0"], Games["1"]);
                 this.setState({data: setup1});
                 break;
 
             case 7:
-                let setup2 = {name: Games['6']['participant1'].vorname + " " + Games['6'].score1 + " vs. " + Games['6'].score2 + " " + Games['6']['participant2'].vorname,
-                              children: [{
-                                        name: Games['4']['participant1'].vorname + " " + Games['4'].score1 + " vs. " + Games['4'].score2 + " " + Games['4']['participant2'].vorname,
-                                        children: [{
-                                                name: Games['0']['participant1'].vorname + " " + Games['0'].score1 + " vs. " + Games['0'].score2 + " " + Games['0']['participant2'].vorname
-                                        }, {
-                                                name: Games['1']['participant1'].vorname + " " + Games['1'].score1 + " vs. " + Games['1'].score2 + " " + Games['1']['participant2'].vorname
-                                        }]
-                              }, {
-                                        name: Games['5']['participant1'].vorname + " " + Games['5'].score1 + " vs. " + Games['5'].score2 + " " + Games['5']['participant2'].vorname,
-                                        children:[{
-                                                name: Games['2']['participant1'].vorname + " " + Games['2'].score1 + " vs. " + Games['2'].score2 + " " + Games['2']['participant2'].vorname
-                                        }, {
-                                                name: Games['3']['participant1'].vorname + " " + Games['3'].score1 + " vs. " + Games['3'].score2 + " " + Games['3']['participant2'].vorname
-                                        }]
-                              }]
-                };
+                let lftChild = this.setup3Games(Games["4"],Games["0"], Games["1"]);
+                let rgtChild = this.setup3Games(Games["5"],Games["2"], Games["3"]);
+                let setup2 = this.mergeSubtree(Games["6"],lftChild,rgtChild);
                 this.setState({data: setup2});
                 break;
 
             case 15:
-                let setup3 = {name: Games['14']['participant1'].vorname + " " + Games['14'].score1 + " vs. " + Games['14'].score2 + " " + Games['14']['participant2'].vorname,
-                              children: [{
-                                        name: Games['12']['participant1'].vorname + " " + Games['12'].score1 + " vs. " + Games['12'].score2 + " " + Games['12']['participant2'].vorname,
-                                        children: [{
-                                                name: Games['8']['participant1'].vorname + " " + Games['8'].score1 + " vs. " + Games['8'].score2 + " " + Games['8']['participant2'].vorname,
-                                                children:[{
-                                                        name: Games['0']['participant1'].vorname + " " + Games['0'].score1 + " vs. " + Games['0'].score2 + " " + Games['0']['participant2'].vorname
-                                                }, {
-                                                        name: Games['1']['participant1'].vorname + " " + Games['1'].score1 + " vs. " + Games['1'].score2 + " " + Games['1']['participant2'].vorname
-                                                }]
-                                        }, {
-                                                name: Games['9']['participant1'].vorname + " " + Games['9'].score1 + " vs. " + Games['9'].score2 + " " + Games['9']['participant2'].vorname,
-                                                children:[{
-                                                        name: Games['2']['participant1'].vorname + " " + Games['2'].score1 + " vs. " + Games['2'].score2 + " " + Games['2']['participant2'].vorname
-                                                }, {
-                                                        name: Games['3']['participant1'].vorname + " " + Games['3'].score1 + " vs. " + Games['3'].score2 + " " + Games['3']['participant2'].vorname
-                                                }]
-                                        }]
-                              }, {
-                                        name: Games['13']['participant1'].vorname + " " + Games['13'].score1 + " vs. " + Games['13'].score2 + " " + Games['13']['participant2'].vorname,
-                                        children:[{
-                                                name: Games['10']['participant1'].vorname + " " + Games['10'].score1 + " vs. " + Games['10'].score2 + " " + Games['10']['participant2'].vorname,
-                                                                       children:[{
-                                                                                name: Games['4']['participant1'].vorname + " " + Games['4'].score1 + " vs. " + Games['4'].score2 + " " + Games['4']['participant2'].vorname
-                                                                       }, {
-                                                                                name: Games['5']['participant1'].vorname + " " + Games['5'].score1 + " vs. " + Games['5'].score2 + " " + Games['5']['participant2'].vorname
-                                                                        }]
-                                        }, {
-                                                name: Games['11']['participant1'].vorname + " " + Games['11'].score1 + " vs. " + Games['11'].score2 + " " + Games['11']['participant2'].vorname,
-                                                                        children:[{
-                                                                                name: Games['6']['participant1'].vorname + " " + Games['6'].score1 + " vs. " + Games['6'].score2 + " " + Games['6']['participant2'].vorname
-                                                                        }, {
-                                                                                name: Games['7']['participant1'].vorname + " " + Games['7'].score1 + " vs. " + Games['7'].score2 + " " + Games['7']['participant2'].vorname
-                                                                        }]
-                                        }]
-                              }]
-                };
+                let lftChild1 = this.setup3Games(Games["8"],Games["0"], Games["1"]);
+                let rgtChild1 = this.setup3Games(Games["9"],Games["2"], Games["3"]);
+                let lftChild2 = this.setup3Games(Games["10"],Games["4"], Games["5"]);
+                let rgtChild2 = this.setup3Games(Games["11"],Games["6"], Games["7"]);
+                let lftChild3 = this.mergeSubtree(Games["12"], lftChild1, rgtChild1);
+                let rgtChild3 = this.mergeSubtree(Games["13"], lftChild2, rgtChild2);
+                let setup3 = this.mergeSubtree(Games["14"], lftChild3, rgtChild3);
                 this.setState({data: setup3});
                 break;
+
             default:
                 break;
         }
@@ -178,12 +144,12 @@ class Bracket extends React.Component {
             });
             await api.put(`/tournaments/${tournamentCode}/bracket/${gameId}/${this.state.manager}`, requestBody);
             alert("Successfully updated score ");
-            this.render();
+            window.location.reload();
         } catch (error) {
             alert(`Something went wrong during changing the score     : \n${handleError(error)}`);
         }
     }
-    
+
     async componentDidMount() {
         try {
             const {tournamentCode} = this.props.match.params;
@@ -208,7 +174,7 @@ class Bracket extends React.Component {
                         <Col/>
                         <Col>
                              <h4 style={{marginTop:"350px", marginLeft:"25px", color:"#2F80ED"}}>Your tournament is being loaded </h4>
-                            <Spinner style={{marginTop:"30px", marginLeft:"200px"}} animation="border" variant="primary" />
+                            <Spinner style={{marginTop:"30px", marginLeft:"180px"}} animation="border" variant="primary" />
                         </Col>
                         <Col />
                     </Row>
