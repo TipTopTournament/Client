@@ -33,7 +33,7 @@ const Game = ({ gameData }) => {
         <Container>
               <Alert variant='danger' >
                           Zwei Spieler haben unterschiedliche Scores eingetragen! Geben sie den richtigen Score ein
-                        </Alert>}
+              </Alert>
             <Time> {gameData.startTime}</Time>
            <Name>{gameData["participant1"]["vorname"]}</Name>
             <Score>{gameData["score1"]} </Score> :

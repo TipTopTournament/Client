@@ -37,6 +37,7 @@ class Bracket extends React.Component {
 
         };
     }
+    intervalID;
     handleInputChange(key, value) {
         // Example: if the key is username, this statement is the equivalent to the following one:
         // this.setState({'username': value});
@@ -150,20 +151,32 @@ class Bracket extends React.Component {
         }
     }
 
-    async componentDidMount() {
+    async getData() {
         try {
             const {tournamentCode} = this.props.match.params;
-            await new Promise(resolve => setTimeout(resolve, 1500));
+            new Promise(resolve => setTimeout(resolve, 1500));
             const responseTournament = await api.get(`/tournaments/${tournamentCode}`);
             this.setState({tournament : responseTournament.data});
             const response = await api.get(`/tournaments/${tournamentCode}/bracket`);
             this.correctArray(response.data);
             this.setState({ games : response.data });
             this.setupBracket(response.data);
-
+            this.intervalID = setTimeout(this.getData.bind(this), 5000);
         } catch (error) {
-            alert(`Something went wrong while fetching the users: \n${handleError(error)}`);
+            alert(`Something went wrong while fetching the bracket: \n${handleError(error)}`);
         }
+    }
+
+    componentDidMount() {
+        this.getData();
+
+    }
+    componentWillUnmount() {
+        /*
+         --> unmounting this component
+         so it does not interfere with other components
+        */
+        clearTimeout(this.intervalID);
     }
 
     render() {

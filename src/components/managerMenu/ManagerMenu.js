@@ -31,6 +31,8 @@ class ManagerMenu extends React.Component {
         };
     }
 
+intervalID;
+
     logout(){
         try{
             const requestBodyStatus = JSON.stringify(({
@@ -56,15 +58,26 @@ class ManagerMenu extends React.Component {
         }
 
 
-    async componentDidMount() {
+    componentWillUnmount() {
+        /*
+         --> unmounting this component
+         so it does not interfere with other components
+        */
+        clearTimeout(this.intervalID);
+    }
+
+    async getTournaments() {
         try {
             const managerID = this.props.match.params.managerID;
             const response = await api.get(`/managers/${managerID}/tournaments`);
             this.setState({ tournaments: response.data });
-
+            this.intervalID = setTimeout(this.getTournaments.bind(this), 5000);
         } catch (error) {
             alert(`Something went wrong while fetching the users: \n${handleError(error)}`);
         }
+    }
+    componentDidMount() {
+    this.getTournaments();
     }
 
     render() {
@@ -86,7 +99,6 @@ class ManagerMenu extends React.Component {
                         <Form.Group>
                             <h3>My Tournaments: </h3>
                             <h3 style={{marginTop: '50px'}}>Hey, it looks empty! What about creating a new tournament?</h3>
-                            <p> If you created a tournament and it did not show up, try to refresh the page (F5) </p>
                             <ButtonContainer style={{marginTop: '100px'}}>
                                 <Button
                                     width="100%"

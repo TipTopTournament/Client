@@ -22,7 +22,7 @@ class Tournament extends React.Component {
   tournamentCode = null;
   counter = 0;
   managerID = localStorage.getItem("ManagerID");
-
+  intervalID;
   handleClick(id){
     if (this.isNumeric(id)){
 
@@ -79,10 +79,8 @@ class Tournament extends React.Component {
     this.setState({tournament : {tournamentState: "ENDED"}});
     this.counter = 0;
   }
-
-  async componentDidMount() {
+  async getTournamentData() {
     try {
-      window.scrollTo(0, 0);
       this.tournamentCode = this.props.match.params.tournamentCode;
 
       const responseTournamentStatus = await api.get(`/tournaments/${this.tournamentCode}`);
@@ -97,9 +95,23 @@ class Tournament extends React.Component {
       console.log(responseBracket.data);
       this.setState({ games : responseBracket.data });
 
+      this.intervalID = setTimeout(this.getTournamentData.bind(this), 5000);
     } catch (error) {
-      alert(`Something went wrong while fetching the users: \n${handleError(error)}`);
+      alert(`Something went wrong while fetching the tournament: \n${handleError(error)}`);
     }
+  }
+  componentWillUnmount() {
+    /*
+     --> unmounting this component
+     so it does not interfere with other components
+    */
+    clearTimeout(this.intervalID);
+  }
+
+  async componentDidMount() {
+    window.scrollTo(0, 0);
+    this.getTournamentData();
+
   }
 
 
@@ -206,7 +218,7 @@ class Tournament extends React.Component {
               </Card.Body>
             </Card>
             </Col>
-          <Button style ={{marginLeft: "140px"}}
+          <Button style ={{marginLeft: "160px"}}
                   width="25%"
                   type="button"
                   onClick={() => {
