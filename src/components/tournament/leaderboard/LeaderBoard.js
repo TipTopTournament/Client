@@ -7,12 +7,17 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Table from "react-bootstrap/Table";
+import {TipTopTournamentLogo} from "../../../views/design/TipTopTournamentLogo";
 
 class LeaderBoard extends React.Component {
     constructor() {
         super();
         this.state = {
             leaderBoardUsers: null,
+            tournament: {
+                tournamentName: null,
+                tournamentState: null,
+            }
         };
     }
     counter = 0;
@@ -53,6 +58,8 @@ class LeaderBoard extends React.Component {
             console.log("response", response.data);
             this.counter = 0;
             this.setState({ leaderBoardUsers: response.data });
+            const responseTournament = await api.get(`/tournaments/${tournamentCode}`);
+            this.setState({tournament : responseTournament.data});
 
         } catch (error) {
             alert(`Something went wrong while fetching the users: \n${handleError(error)}`);
@@ -65,11 +72,13 @@ class LeaderBoard extends React.Component {
                 <Row>
                     <Col/>
                     <Col>
-                {!this.state.leaderBoardUsers ? (
+                {!this.state.leaderBoardUsers || ! this.state.tournament ? (
                     <NoData />
                 ) : (
                     <div>
-                        <Table responsive="sm" style={{marginTop: "100px"}}>
+                        <TipTopTournamentLogo style={{display: "block",margin:"auto", marginTop:"15px", preserveAspectRatio: "xMinYMin slice", height: "50%", width: "50%"}}/>
+                        <h2 className="custom1" style={{color: "#2F80ED", textAlign: "center"}}>{this.state.tournament.tournamentName} - {this.state.tournament.tournamentState}</h2>
+                        <Table responsive="sm" style={{marginTop: "15px"}}>
                             <thead>
                             <tr>
                                 <th>Rank</th>

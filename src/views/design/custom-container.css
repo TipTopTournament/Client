@@ -37,6 +37,10 @@ div.custom-container2 {
     width: 100vw;
 }
 
-h4.custom1{
+h4.custom1 {
     font-family: "Roboto", sans-serif;
+}
+
+tbody,li {
+    cursor: pointer;
 }

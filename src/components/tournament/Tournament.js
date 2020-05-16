@@ -218,7 +218,7 @@ class Tournament extends React.Component {
               </Card.Body>
             </Card>
             </Col>
-          <Button style ={{marginLeft: "160px"}}
+          <Button style ={{marginLeft: "180px", marginTop:"15px"}}
                   width="25%"
                   type="button"
                   onClick={() => {
@@ -229,12 +229,12 @@ class Tournament extends React.Component {
           </Button>
             <Button
                 width="25%"
-                style ={{marginLeft: "30px"}}
+                style ={{marginLeft: "30px", marginTop:"15px"}}
                 onClick={()=> this.handleClick('bracket')}
             >
               Bracket
             </Button>
-          <Button style ={{marginLeft: "30px"}}
+          <Button style ={{marginLeft: "30px", marginTop:"15px"}}
                   width="25%"
                   type="button"
                   onClick={() => {

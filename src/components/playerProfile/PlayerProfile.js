@@ -29,10 +29,6 @@ class PlayerProfile extends React.Component {
       },
     };
   }
-  handleClick(){
-    const {tournamentCode} = this.props.match.params;
-    this.props.history.push(`/${tournamentCode}/leaderBoard`);
-  }
 
   goBack(){
     const {tournamentCode} = this.props.match.params;
@@ -113,15 +109,6 @@ class PlayerProfile extends React.Component {
                       </ListGroup.Item>
                   )})}
               </ListGroup>
-              <Button
-                  style={{marginTop: "25px"}}
-                  width="100%"
-                  onClick={() => {
-                    this.handleClick();
-                  }}
-              >
-                Back to Leaderboard
-              </Button>
               <Button
                   style={{marginTop: "25px"}}
                   width="100%"

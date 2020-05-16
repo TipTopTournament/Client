@@ -196,11 +196,11 @@ class Bracket extends React.Component {
                     <Col/>
                     <Col>
                         <div className = "custom-container">
-                            <TipTopTournamentLogo style={{marginLeft: "50px", marginTop:"50px", preserveAspectRatio: "xMinYMin slice", height: "60%", width: "60%"}}/>
-                            <h2 className="custom1" style={{color: "#2F80ED", marginLeft:"25px"}}>{this.state.tournament.tournamentName} - {this.state.tournament.tournamentState}</h2>
+                            <TipTopTournamentLogo style={{display: "block",margin:"auto", marginTop:"15px", preserveAspectRatio: "xMinYMin slice", height: "60%", width: "60%"}}/>
+                            <h2 className="custom1" style={{color: "#2F80ED", textAlign: "center"}}>{this.state.tournament.tournamentName} - {this.state.tournament.tournamentState}</h2>
                             <Tree
                                 data={this.state.data}
-                                height={600}
+                                height={500}
                                 width={400}
                                 svgProps={{
                                     className: 'custom',
