@@ -15,9 +15,18 @@ render(){
                 <Col  className= "col-info-background">
                     <TipTopTournamentLogo style={{marginTop:"300px"}}/>
                     <h4 className="custom1" style={{color: "#2F80ED",textAlign: "center"}}>TIPTOPTournament</h4>
+                        <Button
+                            style={{display: "block", margin: "auto"}}
+                            type="button"
+                            width="50%"
+                            onClick={() => {
+                                this.props.history.goBack();
+                            }}
+                        >Back
+                        </Button>
                 </Col>
                 <Col sm={8}>
-                    <h1 style={{marginTop:"110px", color:"#2F80ED"}}> TIPTOPTournament FAQ</h1>
+                    <h1 style={{marginTop:"20px", color:"#2F80ED"}}> TIPTOPTournament FAQ</h1>
                     <h5 style={{marginTop:"20px"}}> What is TipTopTournament?</h5>
                     <h6 style={{color:"#2F80ED"}}> TIPTOPTournament is an organisation tool for real-time table tennis tournaments.</h6>
                     <h5> How to use this application?</h5>
@@ -46,17 +55,6 @@ render(){
                         That's why we cannot send the results of the tournament to them yet,
                         but in case this might change later we insist on using the license numbers.
                     </h6>
-                    <div style={{display:"flex", marginTop:"25px"}}>
-                        <Button
-                            style={{margin:"auto", alignSelf:"center"}}
-                            type="button"
-                            width="50%"
-                            onClick={() => {
-                                this.props.history.goBack();
-                            }}
-                        >Back
-                        </Button>
-                    </div>
                 </Col>
             </Row>
         </Container>

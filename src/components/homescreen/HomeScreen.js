@@ -49,8 +49,11 @@ class HomeScreen extends React.Component{
                                 </Button>
                             </Col>
                             <Col xs={12} md={8}>
-                                <Title   style={{margin:"auto", marginTop: "100px"}}>TIPTOPTournament</Title>
+                                <p className="text-center">
+                                <TipTopTournamentLogo style={{width:"40%", marginTop:"95px"}}/>
+                                <Title   style={{margin:"auto"}}>TIPTOPTournament</Title>
                                 <p style={{color:"#2F80ED",  margin: "auto", textAlign: "center", marginBottom: "150px"}}>"Easy organisation of your table tennis tournament"</p>
+                                </p>
                                 <div style={{display:"flex"}}>
                                     <Button
                                         style={{margin:"auto"}}
