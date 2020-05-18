@@ -8,6 +8,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Manager from "../shared/models/Manager";
+import {TipTopTournamentLogo} from "../../views/design/TipTopTournamentLogo";
 
 
 class ManagerLogin extends React.Component {
@@ -64,11 +65,14 @@ class ManagerLogin extends React.Component {
     render() {
         return (
             <Container className= "custom-container2">
-                <Row>
-                    <Col>
-                        <h1 style={{textAlign: "center",color: "#2F80ED", marginTop: '200px'}}>TipTopTournament</h1>
-                    </Col>
-                </Row>
+                <p className="text-center">
+                    <Row>
+                        <Col>
+                            <TipTopTournamentLogo style={{marginTop:"50px", width:"40%"}}/>
+                            <h1 style={{textAlign: "center",color: "#2F80ED"}}>TipTopTournament</h1>
+                        </Col>
+                    </Row>
+                </p>
                 <Row className="justify-content-md-center">
                     <Col md="auto" />
                     <Col xs={12} sm={12} md={8}>
@@ -93,10 +97,6 @@ class ManagerLogin extends React.Component {
                                             }}
                                         />
                                     </Form.Group>
-                                    <Form.Group controlId="formBasicCheckbox">
-                                        <Form.Check type="checkbox" label="eingeloggt bleiben" />
-                                        {/*TODO: eingeloggt bleiben feature*/}
-                                    </Form.Group>
                                 </Form>
                         <Row>
                             <Col/>
@@ -110,7 +110,7 @@ class ManagerLogin extends React.Component {
                                         this.login();
                                     }}
                                 >
-                                    Als Manager einloggen
+                                    Login
                                 </Button>
                                 <Button
                                     style={{marginTop:"15px"}}

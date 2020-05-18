@@ -9,6 +9,7 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
+import {TipTopTournamentLogo} from "../../views/design/TipTopTournamentLogo";
 
 class Registration extends React.Component {
   constructor() {
@@ -20,7 +21,6 @@ class Registration extends React.Component {
       username: null,
       password: null,
       licenseNumber: null,
-      is_manager: false,
       user : null,
     };
   }
@@ -71,10 +71,6 @@ class Registration extends React.Component {
     this.setState({ [key]: value });
   }
 
-  handleCheckClick = () => {
-    this.setState({ is_manager: !this.state.is_manager });
-  };
-
   componentDidMount() {
     localStorage.removeItem("token");
   }
@@ -85,18 +81,19 @@ class Registration extends React.Component {
         <p className="text-center">
           <Row>
             <Col>
-              <h1 style={{textAlign: "center",color: "#2F80ED", marginTop: '200px'}}>TipTopTournament</h1>
+              <TipTopTournamentLogo style={{marginTop:"50px", width:"40%"}}/>
+              <h1 style={{textAlign: "center",color: "#2F80ED"}}>TipTopTournament</h1>
             </Col>
           </Row>
         </p>
-        <Row className="justify-content-sm-center">
+        <Row className="justify-content-md-center">
           <Col md="auto" />
-          <Col xs={12} sm={12}>
+          <Col xs={12} sm={12} md={8}>
             <Tabs defaultActiveKey="Manager" style={{ margin: "0 auto" }}>
               <Tab eventKey="Manager" title="Manager">
                 <Form style={{ align: "center" }}>
                   <Form.Group>
-                    <Form.Label>Vorname</Form.Label>
+                    <Form.Label>First name</Form.Label>
                     <Form.Control
                         type="vorname"
                         placeholder="Enter here ..."
@@ -106,7 +103,7 @@ class Registration extends React.Component {
                     />
                   </Form.Group>
                   <Form.Group>
-                    <Form.Label>Nachname</Form.Label>
+                    <Form.Label>Last name</Form.Label>
                     <Form.Control
                         type="nachname"
                         placeholder="Enter here ..."
@@ -166,7 +163,7 @@ class Registration extends React.Component {
               <Tab eventKey="PlayerNoLicense" title="PlayerNoLicense">
                 <Form style={{ align: "center" }}>
                   <Form.Group>
-                    <Form.Label>Vorname</Form.Label>
+                    <Form.Label>First name</Form.Label>
                     <Form.Control
                         type="vorname"
                         placeholder="Enter here ..."
@@ -176,7 +173,7 @@ class Registration extends React.Component {
                     />
                   </Form.Group>
                   <Form.Group>
-                    <Form.Label>Nachname</Form.Label>
+                    <Form.Label>Last name</Form.Label>
                     <Form.Control
                         type="nachname"
                         placeholder="Enter here ..."
@@ -225,7 +222,7 @@ class Registration extends React.Component {
               <Tab eventKey="PlayerWithLicense" title="PlayerWithLicense">
                 <Form style={{ align: "center" }}>
                   <Form.Group>
-                    <Form.Label>Vorname</Form.Label>
+                    <Form.Label>First name</Form.Label>
                     <Form.Control
                         type="vorname"
                         placeholder="Enter here ..."
@@ -235,7 +232,7 @@ class Registration extends React.Component {
                     />
                   </Form.Group>
                   <Form.Group>
-                    <Form.Label>Nachname</Form.Label>
+                    <Form.Label>Last name</Form.Label>
                     <Form.Control
                         type="nachname"
                         placeholder="Enter here ..."
@@ -266,6 +263,12 @@ class Registration extends React.Component {
                   </Form.Group>
                   <ButtonContainer>
                     <Button
+                        disabled={
+                          !this.state.vorname ||
+                          !this.state.nachname ||
+                          !this.state.password ||
+                          !this.state.licenseNumber
+                        }
                       type="button"
                       width="50%"
                       onClick={() => {

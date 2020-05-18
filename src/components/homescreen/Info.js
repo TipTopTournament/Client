@@ -12,15 +12,29 @@ render(){
     return (
         <Container className= "custom-container2">
             <Row>
-                <Col>
-                    <TipTopTournamentLogo style={{marginTop:"50px"}}/>
-                    <h4 className="custom1" style={{color: "#2F80ED", marginLeft:"100px"}}>TIPTOPTournament</h4>
+                <Col  className= "col-info-background">
+                    <TipTopTournamentLogo style={{marginTop:"300px"}}/>
+                    <h4 className="custom1" style={{color: "#2F80ED",textAlign: "center"}}>TIPTOPTournament</h4>
                 </Col>
                 <Col sm={8}>
                     <h1 style={{marginTop:"110px", color:"#2F80ED"}}> TIPTOPTournament FAQ</h1>
                     <h5 style={{marginTop:"20px"}}> What is TipTopTournament?</h5>
                     <h6 style={{color:"#2F80ED"}}> TIPTOPTournament is an organisation tool for real-time table tennis tournaments.</h6>
-                    <h5> What is a licensenumber? And why do I need one?</h5>
+                    <h5> How to use this application?</h5>
+                    <h6 style={{color:"#2F80ED"}}> There are two parts to this application a manager who controls and overviews a table tennis tournament and participants who play against each other</h6>
+                    <h5> What is a manager?</h5>
+                    <h6 style={{color:"#2F80ED"}}> A manager is an organizer of a tournament and he can invite participants to join his tournament via a unique tournament-code
+                        and he can setup a tournament according to these settings the application will then calculate a time plan for the organizer and a bracket for the players to compete </h6>
+                        <ul style={{listStyleType:"circle"}}>
+                        <li style={{cursor:"text"}}> Define the location via Google Maps</li>
+                            <li style={{cursor:"text"}}> Select the Start time</li>
+                            <li style={{cursor:"text"}}> Select the amount of available tables</li>
+                            <li style={{cursor:"text"}}> Select the expected amount of players</li>
+                            <li style={{cursor:"text"}}> How long each game and break in between should take</li>
+                        </ul>
+                    <h5> What is a participant?</h5>
+                    <h6 style={{color:"#2F80ED"}}>  A participant is a player with a license number that joins a tournament and competes against others to come out on top and win the tournament!</h6>
+                    <h5> What is a license number? And why do I need one?</h5>
                     <h6 style={{color:"#2F80ED"}}> We use license numbers as a result of working together with Swiss Table Tennis.
                         They require all registered players to have a license. So if you are already licensed by them,
                         you can just sign up for an account and login with your license number and your stats will already be available.
@@ -32,21 +46,17 @@ render(){
                         That's why we cannot send the results of the tournament to them yet,
                         but in case this might change later we insist on using the license numbers.
                     </h6>
-                    <h5> What is a manager?</h5>
-                    <h6 style={{color:"#2F80ED"}}>
-                        A manager is an organizer of a tournament, he can setup a tournament and invite participants to join the tournament via a unique tournament-code.
-                    </h6>
-                    <h5> What is a participant?</h5>
-                    <h6 style={{color:"#2F80ED"}}>  A participant is a player that joins a tournament and plays against others to come out on top and win the tournament!</h6>
-                    <Button
-                        style={{marginTop:"50px"}}
-                        type="button"
-                        width="50%"
-                        onClick={() => {
-                            this.props.history.goBack();
-                        }}
-                    >Back
-                    </Button>
+                    <div style={{display:"flex", marginTop:"25px"}}>
+                        <Button
+                            style={{margin:"auto", alignSelf:"center"}}
+                            type="button"
+                            width="50%"
+                            onClick={() => {
+                                this.props.history.goBack();
+                            }}
+                        >Back
+                        </Button>
+                    </div>
                 </Col>
             </Row>
         </Container>

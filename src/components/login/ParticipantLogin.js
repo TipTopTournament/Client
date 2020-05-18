@@ -8,6 +8,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
+import {TipTopTournamentLogo} from "../../views/design/TipTopTournamentLogo";
 
 
 class ParticipantLogin extends React.Component {
@@ -73,17 +74,20 @@ class ParticipantLogin extends React.Component {
   render() {
     return (
       <Container className= "custom-container2">
-        <Row>
-          <Col>
-            <h1 style={{textAlign: "center",color: "#2F80ED", marginTop: '200px'}}>TipTopTournament</h1>
-          </Col>
-        </Row>
+          <p className="text-center">
+            <Row>
+              <Col>
+                  <TipTopTournamentLogo style={{marginTop:"50px", width:"40%"}}/>
+                  <h1 style={{textAlign: "center",color: "#2F80ED"}}>TipTopTournament</h1>
+              </Col>
+            </Row>
+          </p>
         <Row className="justify-content-md-center">
           <Col md="auto" />
           <Col xs={12} sm={12} md={8}>
                 <Form>
                   <Form.Group>
-                    <Form.Label>Lizenznummer</Form.Label>
+                    <Form.Label>License number</Form.Label>
                     <Form.Control
                       placeholder="z.B.: 908147"
                       onChange={e => {
@@ -114,7 +118,7 @@ class ParticipantLogin extends React.Component {
                           onClick={() => {
                               this.login();
                           }}
-                      >Als Spieler einloggen
+                      >Login
                       </Button>
                     <Button
                         style={{marginTop:"15px"}}
