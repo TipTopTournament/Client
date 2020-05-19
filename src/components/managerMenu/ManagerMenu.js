@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
 import { api, handleError } from '../../helpers/api';
 import {withRouter} from 'react-router-dom';
 import Container from "react-bootstrap/Container";
@@ -11,18 +10,8 @@ import SingleTournament from "../../views/SingleTournament";
 import {Button} from "../../views/design/Button";
 import {ButtonContainer} from "../../views/design/ButtonContainer";
 import {TipTopTournamentLogo} from "../../views/design/TipTopTournamentLogo";
+import {TournamentContainer} from "../../views/design/TournamentContainer";
 
-const TournamentContainer = styled.li`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`;
-
-const Tournaments = styled.ul`
-  list-style: none;
-  padding-left: 0;
-`;
 class ManagerMenu extends React.Component {
     constructor() {
         super();
@@ -30,6 +19,8 @@ class ManagerMenu extends React.Component {
             tournaments: null,
         };
     }
+
+intervalID;
 
     logout(){
         try{
@@ -56,14 +47,26 @@ class ManagerMenu extends React.Component {
         }
 
 
-    async componentDidMount() {
+    componentWillUnmount() {
+        /*
+         --> unmounting this component
+         so it does not interfere with other components
+        */
+        clearTimeout(this.intervalID);
+    }
+
+    async getTournaments() {
         try {
             const managerID = this.props.match.params.managerID;
             const response = await api.get(`/managers/${managerID}/tournaments`);
             this.setState({ tournaments: response.data });
+            this.intervalID = setTimeout(this.getTournaments.bind(this), 5000);
         } catch (error) {
             alert(`Something went wrong while fetching the users: \n${handleError(error)}`);
         }
+    }
+    componentDidMount() {
+    this.getTournaments();
     }
 
     render() {
@@ -81,11 +84,10 @@ class ManagerMenu extends React.Component {
                     <Col md="auto" />
                     <Col xs={12} sm={12} md={8}>
                 {!this.state.tournaments || this.state.tournaments.length === 0 ? (
-                    <Form style={{marginTop: '50px'}}>
+                    <Form>
                         <Form.Group>
                             <h3>My Tournaments: </h3>
                             <h3 style={{marginTop: '50px'}}>Hey, it looks empty! What about creating a new tournament?</h3>
-                            <p> If you created a tournament and it did not show up, try to refresh the page (F5) </p>
                             <ButtonContainer style={{marginTop: '100px'}}>
                                 <Button
                                     width="100%"
@@ -113,21 +115,16 @@ class ManagerMenu extends React.Component {
 
                         <Form>
                             <Form.Group>
-                                <h3 style={{marginTop: '50px'}}>My Tournaments: </h3>
-                                <p>If you created a tournament and it did not show up, try to refresh the page (F5) </p>
-                                <Tournaments>
+                                <h3>My Tournaments: </h3>
                                 {this.state.tournaments.map(tournamentData => {
                                     return (
-                                        <TournamentContainer key={tournamentData.tournamentId}
-                                                             onClick={() => this.handleClick(tournamentData.tournamentCode)}
-                                                             onMouseOver={this.onToggleOpen}
-                                                             onMouseOut={this.onToggleOpen}>
-                                        <SingleTournament tournamentData={tournamentData} />
+                                        <TournamentContainer
+                                            onClick={() => this.handleClick(tournamentData.tournamentCode)}>
+                                            <SingleTournament tournamentData={tournamentData} />
                                         </TournamentContainer>
                                     );
                                 })}
-                                </Tournaments>
-                                <ButtonContainer style={{marginTop: '100px'}}>
+                                <ButtonContainer style={{marginTop: '30px'}}>
                                     <Button
                                         width="100%"
                                         onClick={() => {

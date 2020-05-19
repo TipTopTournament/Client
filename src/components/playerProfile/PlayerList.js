@@ -7,15 +7,23 @@ import Col from "react-bootstrap/Col";
 import Table from "react-bootstrap/Table";
 import { withRouter } from "react-router-dom";
 import { api } from "../../helpers/api";
+import {TipTopTournamentLogo} from "../../views/design/TipTopTournamentLogo";
+import {Button} from "../../views/design/Button";
 
 class PlayerList extends React.Component {
   constructor() {
     super();
     this.state = {
-      playerList: []
+      playerList: [],
+      tournament: {
+        tournamentName: null,
+        tournamentState: null,
+      }
     };
   }
-
+  handleClick(){
+    this.props.history.push (`/${this.props.match.params.tournamentCode}/participantMenu`)
+  }
 
 
   handleClickOnPlayer = (participantID) => {
@@ -34,11 +42,13 @@ class PlayerList extends React.Component {
   }
 
   async componentDidMount() {
-    const tournamentsCode = this.props.match.params.tournamentCode;
-    const response = await api.get(`/tournaments/${tournamentsCode}/leaderboard`);
+    const tournamentCode = this.props.match.params.tournamentCode;
+    const response = await api.get(`/tournaments/${tournamentCode}/leaderboard`);
     this.setState({ playerList: response.data });
+    const responseTournament = await api.get(`/tournaments/${tournamentCode}`);
+    this.setState({tournament : responseTournament.data});
     console.log("response", response.data);
-    console.log('the tournamentcode is :', tournamentsCode);
+    console.log('the tournamentcode is :', tournamentCode);
   }
 
   render() {
@@ -48,7 +58,9 @@ class PlayerList extends React.Component {
           <Col />
           <Col xs={12} sm={12} md={8}>
             <div>
-              <Table style={{marginTop:"100px"}} bordered hover size="sm">
+              <TipTopTournamentLogo style={{display: "block",margin:"auto", marginTop:"15px", preserveAspectRatio: "xMinYMin slice", height: "30%", width: "30%"}}/>
+              <h2 className="custom1" style={{color: "#2F80ED", textAlign: "center"}}>{this.state.tournament.tournamentName} - {this.state.tournament.tournamentState}</h2>
+              <Table style={{marginTop: "15px"}} bordered hover size="sm">
                 <thead>
                   <tr>
                     <th>ID</th>
@@ -63,6 +75,15 @@ class PlayerList extends React.Component {
                   )}
                 </tbody>
               </Table>
+              <Button
+                  style={{marginTop: "25px"}}
+                  width="100%"
+                  onClick={() => {
+                    this.handleClick();
+                  }}
+              >
+                Back
+              </Button>
             </div>
           </Col>
           <Col />

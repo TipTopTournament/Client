@@ -3,7 +3,7 @@ import React from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { withRouter } from "react-router-dom";
+import {withRouter} from "react-router-dom";
 import { api } from "../../helpers/api";
 import TournamentData from "../shared/models/TournamentData";
 import Table from "react-bootstrap/Table";
@@ -19,38 +19,21 @@ class ParticipantMenu extends React.Component {
     };
   }
 
-  handleClick(id){
-    if (id === "leave"){
+  leaveTournament(leave) {
+    if(leave === true) {
       api.put(`/tournaments/${this.state.tournamentCode}/${localStorage.getItem("ParticipantID")}/leave`);
       this.props.history.push(`/tournamentCode`);
-      localStorage.removeItem("token");
-      localStorage.removeItem("ParticipantID");
-      localStorage.removeItem("TournamentCode");
-    } else{
-      this.props.history.push(`/${this.state.tournamentCode}/${id}`);
-    }
-  }
-  async ready() {
-    //define new state
-    const state = JSON.stringify({userState: "READY"});
-    // send new state to backend
-    try {
-      await api.put(`/participants/${this.state.player.participantID}`, state);
-    } catch (error) {
-      console.log("could not update player state", error);
-    }
-    try {
-      // get new state
-      const playerUpdated = await api.get(
-          `/participants/${this.state.player.participantID}`
-      );
-      // set updated player to the state
-      this.setState({ player: playerUpdated });
-    } catch (error) {
-      console.log("could not set updated player", error);
-    }
-  }
 
+    } else {
+      this.props.history.push(`/home`);
+    }
+    localStorage.removeItem("token");
+    localStorage.removeItem("ParticipantID");
+    localStorage.removeItem("TournamentCode");
+  }
+  handleClick(id){
+    this.props.history.push(`/${this.state.tournamentCode}/${id}`);
+  }
 
   async componentDidMount() {
     const tournamentCode = this.props.match.params.tournamentCode;
@@ -120,10 +103,14 @@ class ParticipantMenu extends React.Component {
               </Button>
               <Button
                   width="100%"
-                  style={{marginTop:"15px"}} type="button" onClick={() => this.handleClick("leave")}>
+                  style={{marginTop:"15px"}} type="button" onClick={() => this.leaveTournament(true)}>
                   Leave Tournament
               </Button>
-
+            <Button
+                width="100%"
+                style={{marginTop:"15px"}} type="button" onClick={() => this.leaveTournament(false)}>
+              Logout
+            </Button>
           </Col>
           <Col />
         </Row>

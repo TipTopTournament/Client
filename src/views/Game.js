@@ -31,9 +31,9 @@ const Game = ({ gameData }) => {
   if(gameData.gameState=="CONFLICT")
     return (
         <Container>
-              <Alert variant='danger'>
+              <Alert variant='danger' >
                           Zwei Spieler haben unterschiedliche Scores eingetragen! Geben sie den richtigen Score ein
-                        </Alert>}
+              </Alert>
             <Time> {gameData.startTime}</Time>
            <Name>{gameData["participant1"]["vorname"]}</Name>
             <Score>{gameData["score1"]} </Score> :

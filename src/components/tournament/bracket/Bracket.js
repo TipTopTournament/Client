@@ -14,6 +14,7 @@ import Form from 'react-bootstrap/Form'
 import ListGroup from "react-bootstrap/ListGroup";
 import Winner from "../../../views/design/Winner";
 import Spinner from "react-bootstrap/Spinner";
+import {TipTopTournamentLogo} from "../../../views/design/TipTopTournamentLogo";
 
 class Bracket extends React.Component {
     constructor() {
@@ -27,9 +28,16 @@ class Bracket extends React.Component {
             score1: null,
             score2: null,
             winner: null,
+            rerender: false,
+            tournament: {
+                tournamentName: null,
+                winner: null,
+                tournamentState: null,
+            }
 
         };
     }
+    intervalID;
     handleInputChange(key, value) {
         // Example: if the key is username, this statement is the equivalent to the following one:
         // this.setState({'username': value});
@@ -52,86 +60,51 @@ class Bracket extends React.Component {
         return myGame;
     }
 
+    setupSingleGame(Game){
+        return  {name: Game['participant1'].vorname + " " + Game.score1 + " vs. " + Game.score2 + " " + Game['participant2'].vorname}
+    }
+    setup3Games(Game,Child1,Child2) {
+        return {name: Game['participant1'].vorname + " " + Game.score1 + " vs. " + Game.score2 + " " + Game['participant2'].vorname,
+                children:[{
+                        name: Child1['participant1'].vorname + " " + Child1.score1 + " vs. " + Child1.score2 + " " + Child1['participant2'].vorname
+                }, {
+                        name: Child2['participant1'].vorname + " " + Child2.score1 + " vs. " + Child2.score2 + " " + Child2['participant2'].vorname}]}
+    }
+    mergeSubtree(Parent, LftChild,RgtChild){
+        return {name: Parent['participant1'].vorname + " " + Parent.score1 + " vs. " + Parent.score2 + " " + Parent['participant2'].vorname,
+            children:[LftChild,RgtChild]}
+    }
 
     setupBracket(Games){
         switch (Games.length) {
             case 1:
-                let setup0 = {name: Games['0']['participant1'].vorname + " " + Games['0'].score1 + " vs. " + Games['0'].score2 + " " + Games['0']['participant2'].vorname};
+                let setup0 = this.setupSingleGame(Games['0']);
                 this.setState({data: setup0});
                 break;
 
             case 3:
-                let setup1 = {name: Games['2']['participant1'].vorname + " " + Games['2'].score1 + " vs. " + Games['2'].score2 + " " + Games['2']['participant2'].vorname,
-                              children: [{
-                                        name: Games['0']['participant1'].vorname + " " + Games['0'].score1 + " vs. " + Games['0'].score2 + " " + Games['0']['participant2'].vorname
-                              }, {
-                                        name: Games['1']['participant1'].vorname + " " + Games['1'].score1 + " vs. " + Games['1'].score2 + " " + Games['1']['participant2'].vorname
-                              }]
-                };
+                let setup1 = this.setup3Games(Games["2"],Games["0"], Games["1"]);
                 this.setState({data: setup1});
                 break;
 
             case 7:
-                let setup2 = {name: Games['6']['participant1'].vorname + " " + Games['6'].score1 + " vs. " + Games['6'].score2 + " " + Games['6']['participant2'].vorname,
-                              children: [{
-                                        name: Games['4']['participant1'].vorname + " " + Games['4'].score1 + " vs. " + Games['0'].score2 + " " + Games['4']['participant2'].vorname,
-                                        children: [{
-                                                name: Games['0']['participant1'].vorname + " " + Games['0'].score1 + " vs. " + Games['0'].score2 + " " + Games['0']['participant2'].vorname
-                                        }, {
-                                                name: Games['1']['participant1'].vorname + " " + Games['1'].score1 + " vs. " + Games['1'].score2 + " " + Games['1']['participant2'].vorname
-                                        }]
-                              }, {
-                                        name: Games['5']['participant1'].vorname + " " + Games['5'].score1 + " vs. " + Games['5'].score2 + " " + Games['5']['participant2'].vorname,
-                                        children:[{
-                                                name: Games['2']['participant1'].vorname + " " + Games['2'].score1 + " vs. " + Games['2'].score2 + " " + Games['2']['participant2'].vorname
-                                        }, {
-                                                name: Games['3']['participant1'].vorname + " " + Games['3'].score1 + " vs. " + Games['3'].score2 + " " + Games['3']['participant2'].vorname
-                                        }]
-                              }]
-                };
+                let lftChild = this.setup3Games(Games["4"],Games["0"], Games["1"]);
+                let rgtChild = this.setup3Games(Games["5"],Games["2"], Games["3"]);
+                let setup2 = this.mergeSubtree(Games["6"],lftChild,rgtChild);
                 this.setState({data: setup2});
                 break;
 
             case 15:
-                let setup3 = {name: Games['14']['participant1'].vorname + " " + Games['14'].score1 + " vs. " + Games['14'].score2 + " " + Games['14']['participant2'].vorname,
-                              children: [{
-                                        name: Games['12']['participant1'].vorname + " " + Games['12'].score1 + " vs. " + Games['12'].score2 + " " + Games['12']['participant2'].vorname,
-                                        children: [{
-                                                name: Games['8']['participant1'].vorname + " " + Games['8'].score1 + " vs. " + Games['8'].score2 + " " + Games['8']['participant2'].vorname,
-                                                children:[{
-                                                        name: Games['0']['participant1'].vorname + " " + Games['0'].score1 + " vs. " + Games['0'].score2 + " " + Games['0']['participant2'].vorname
-                                                }, {
-                                                        name: Games['1']['participant1'].vorname + " " + Games['1'].score1 + " vs. " + Games['1'].score2 + " " + Games['1']['participant2'].vorname
-                                                }]
-                                        }, {
-                                                name: Games['9']['participant1'].vorname + " " + Games['9'].score1 + " vs. " + Games['9'].score2 + " " + Games['9']['participant2'].vorname,
-                                                children:[{
-                                                        name: Games['2']['participant1'].vorname + " " + Games['2'].score1 + " vs. " + Games['2'].score2 + " " + Games['2']['participant2'].vorname
-                                                }, {
-                                                        name: Games['3']['participant1'].vorname + " " + Games['3'].score1 + " vs. " + Games['3'].score2 + " " + Games['3']['participant2'].vorname
-                                                }]
-                                        }]
-                              }, {
-                                        name: Games['13']['participant1'].vorname + " " + Games['13'].score1 + " vs. " + Games['13'].score2 + " " + Games['13']['participant2'].vorname,
-                                        children:[{
-                                                name: Games['10']['participant1'].vorname + " " + Games['10'].score1 + " vs. " + Games['10'].score2 + " " + Games['10']['participant2'].vorname,
-                                                                       children:[{
-                                                                                name: Games['4']['participant1'].vorname + " " + Games['4'].score1 + " vs. " + Games['4'].score2 + " " + Games['4']['participant2'].vorname
-                                                                       }, {
-                                                                                name: Games['5']['participant1'].vorname + " " + Games['5'].score1 + " vs. " + Games['5'].score2 + " " + Games['5']['participant2'].vorname
-                                                                        }]
-                                        }, {
-                                                name: Games['11']['participant1'].vorname + " " + Games['11'].score1 + " vs. " + Games['11'].score2 + " " + Games['11']['participant2'].vorname,
-                                                                        children:[{
-                                                                                name: Games['6']['participant1'].vorname + " " + Games['6'].score1 + " vs. " + Games['6'].score2 + " " + Games['6']['participant2'].vorname
-                                                                        }, {
-                                                                                name: Games['7']['participant1'].vorname + " " + Games['7'].score1 + " vs. " + Games['7'].score2 + " " + Games['7']['participant2'].vorname
-                                                                        }]
-                                        }]
-                              }]
-                };
+                let lftChild1 = this.setup3Games(Games["8"],Games["0"], Games["1"]);
+                let rgtChild1 = this.setup3Games(Games["9"],Games["2"], Games["3"]);
+                let lftChild2 = this.setup3Games(Games["10"],Games["4"], Games["5"]);
+                let rgtChild2 = this.setup3Games(Games["11"],Games["6"], Games["7"]);
+                let lftChild3 = this.mergeSubtree(Games["12"], lftChild1, rgtChild1);
+                let rgtChild3 = this.mergeSubtree(Games["13"], lftChild2, rgtChild2);
+                let setup3 = this.mergeSubtree(Games["14"], lftChild3, rgtChild3);
                 this.setState({data: setup3});
                 break;
+
             default:
                 break;
         }
@@ -151,6 +124,18 @@ class Bracket extends React.Component {
         });
 
     }
+
+    checkScores(gameData) {
+        if (gameData.participant1 || gameData.participant2) {
+            if (this.state.score1 === null || this.state.score2 === null) {
+                return false;
+            }
+            return this.state.score1 !== this.state.score2;
+        } else {
+            return false;
+        }
+    }
+
     async changeScore(gameId,tournamentCode){
 
         try {
@@ -158,32 +143,40 @@ class Bracket extends React.Component {
                 score1: this.state.score1,
                 score2: this.state.score2,
             });
-
             await api.put(`/tournaments/${tournamentCode}/bracket/${gameId}/${this.state.manager}`, requestBody);
             alert("Successfully updated score ");
-            this.render();
-
-
+            window.location.reload();
         } catch (error) {
             alert(`Something went wrong during changing the score     : \n${handleError(error)}`);
         }
-
     }
-    
-    async componentDidMount() {
+
+    async getData() {
         try {
             const {tournamentCode} = this.props.match.params;
-            await new Promise(resolve => setTimeout(resolve, 1500));
-            const responseWinnerCheck = await api.get(`/tournaments/${tournamentCode}`);
-            this.setState({winner : responseWinnerCheck.data.winner});
+            new Promise(resolve => setTimeout(resolve, 1500));
+            const responseTournament = await api.get(`/tournaments/${tournamentCode}`);
+            this.setState({tournament : responseTournament.data});
             const response = await api.get(`/tournaments/${tournamentCode}/bracket`);
             this.correctArray(response.data);
             this.setState({ games : response.data });
             this.setupBracket(response.data);
-
+            this.intervalID = setTimeout(this.getData.bind(this), 5000);
         } catch (error) {
-            alert(`Something went wrong while fetching the users: \n${handleError(error)}`);
+            alert(`Something went wrong while fetching the bracket: \n${handleError(error)}`);
         }
+    }
+
+    componentDidMount() {
+        this.getData();
+
+    }
+    componentWillUnmount() {
+        /*
+         --> unmounting this component
+         so it does not interfere with other components
+        */
+        clearTimeout(this.intervalID);
     }
 
     render() {
@@ -194,18 +187,20 @@ class Bracket extends React.Component {
                         <Col/>
                         <Col>
                              <h4 style={{marginTop:"350px", marginLeft:"25px", color:"#2F80ED"}}>Your tournament is being loaded </h4>
-                            <Spinner style={{marginTop:"30px", marginLeft:"190px"}} animation="border" variant="primary" />
+                            <Spinner style={{marginTop:"30px", marginLeft:"180px"}} animation="border" variant="primary" />
                         </Col>
-                        <Col/>
+                        <Col />
                     </Row>
                 ) : (
                 <Row>
                     <Col/>
                     <Col>
                         <div className = "custom-container">
+                            <TipTopTournamentLogo style={{display: "block",margin:"auto", marginTop:"15px", preserveAspectRatio: "xMinYMin slice", height: "60%", width: "60%"}}/>
+                            <h2 className="custom1" style={{color: "#2F80ED", textAlign: "center"}}>{this.state.tournament.tournamentName} - {this.state.tournament.tournamentState}</h2>
                             <Tree
                                 data={this.state.data}
-                                height={600}
+                                height={500}
                                 width={400}
                                 svgProps={{
                                     className: 'custom',
@@ -223,7 +218,7 @@ class Bracket extends React.Component {
                 ) : (
                 <Row>
                     <Col>
-                        {!this.state.winner ? (
+                        {!this.state.tournament.winner ? (
                             !this.state.manager ? (
                             <ScoreReport gameFromBracket={this.getGameOfParticipant()}/>
                         ) : (
@@ -244,7 +239,7 @@ class Bracket extends React.Component {
                                                 </Form.Group>
                                             </Form>
                                             <Button
-                                                disabled={!gameData.participant1 ||!gameData.participant2}
+                                                disabled={!this.checkScores(gameData) || !(this.state.tournament.tournamentState == "ACTIVE")}
                                                 style={{marginLeft:"50px"}}
                                                 type="button"
                                                 width="auto"
@@ -257,17 +252,17 @@ class Bracket extends React.Component {
                                     )})}
                             </ListGroup>
                         )):(
-                            <Winner winnerFromBracket ={this.state.winner}/>
+                            <Winner winnerFromBracket ={this.state.tournament.winner}/>
                         )}
                     </Col>
                 </Row>
                 )}
                 <Row>
-                    <Col />
+                    <Col/>
                     <Col>
                         <ButtonContainer>
                             <Button
-                                style={{marginTop: "25px", marginBottom: "25px"}}
+                                style={{marginTop: "15px", marginBottom: "25px"}}
                                 width="100%"
                                 onClick={() => {
                                     this.props.history.goBack();
@@ -277,7 +272,7 @@ class Bracket extends React.Component {
                             </Button>
                         </ButtonContainer>
                     </Col>
-                    <Col />
+                    <Col/>
                 </Row>
             </Container>
         );

@@ -22,10 +22,14 @@ class ScoreReport extends React.Component {
             game: null,
             gameState: null,
             startTime: null,
+            tournamentState: null,
         }
     }
 
-    componentDidMount(){
+    async componentDidMount(){
+        const tournamentCode = this.props.match.params.tournamentCode;
+        const response = await api.get(`/tournaments/${tournamentCode}`);
+        this.setState({tournamentState : response.data.tournamentState});
         this.setGame( this.props.gameFromBracket);
     }
 
@@ -83,18 +87,21 @@ class ScoreReport extends React.Component {
         }
         return (
             <Container>
+                {!(this.state.tournamentState == "ACTIVE") ? (
                 <Row>
                     <Col />
                     <Col>
-                        {this.displayName(this.state.participant1)} vs {this.displayName(this.state.participant2)}
+                        <h4>The Tournament has been ended by the manager</h4>
                     </Col>
                     <Col />
                 </Row>
+                ):(
                 <Row>
                     <Col />
                     <Col>
                     <Form>
-                        <Form.Group>
+                        <h4>Start time {this.state.startTime}</h4>
+                        <Form.Group style={{marginTop:"15px"}}>
                             <Form.Label>
                                 Enter score of {this.displayName(this.state.participant1)}
                             </Form.Label>
@@ -117,7 +124,7 @@ class ScoreReport extends React.Component {
                         </Form.Group>
                     </Form>
                     <Button
-                        style={{marginLeft:"135px", marginTop:"15px"}}
+                        style={{marginLeft:"135px", marginTop:"25px"}}
                         type="button"
                         disabled={!this.state.score1 || !this.state.score2}
                         onClick={() => {
@@ -128,6 +135,7 @@ class ScoreReport extends React.Component {
                     </Col>
                     <Col />
                 </Row>
+                    )};
             </Container>
         );
     }

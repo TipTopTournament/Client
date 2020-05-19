@@ -35,11 +35,12 @@ class HomeScreen extends React.Component{
         return (
                 <Container className= "custom-container2">
                         <Row>
-                            <Col>
-                                <TipTopTournamentLogo style={{marginTop:"50px"}}/>
-                                <h4 className="custom1" style={{color: "#2F80ED", marginLeft:"50px"}}>TIPTOPTournament</h4>
+                            <Col xs={12} md={4} className= "col-info-background">
+                                <TipTopTournamentLogo style={{marginTop:"300px"}}/>
+                                <h4 className="custom1" style={{color: "#2F80ED",textAlign: "center"}}>TIPTOPTournament</h4>
                                 <Button
-                                    width="100%"
+                                    style={{display: "block", margin: "auto"}}
+                                    width="50%"
                                     variant="info"
                                     onClick={() => {
                                         this.goInfo();
@@ -47,49 +48,42 @@ class HomeScreen extends React.Component{
                                 >Info
                                 </Button>
                             </Col>
-                            <Col>
-                                <Title   style={{marginTop: '250px'}}>TIPTOPTournament</Title>
-                                <Col>
-                                    <Row>
-                                        <p style={{color:"#2F80ED", marginLeft:'80px'}}>"Easy organisation of your table tennis tournament"</p>
-                                    </Row>
-                                </Col>
-                            </Col>
-                            <Col />
-                        </Row>
-                        <Row className="align-self-center">
-                             <Col>
-                                 <Button
-                                     style={{marginTop: '100px'}}
-                                     type="button"
-                                     width="50%"
-                                     onClick={() => {
-                                         this.goLogin("participant");
-                                     }}
-                                 >Login as Participant
-                                 </Button>
-                                 <Button
-                                     style={{marginTop: '100px'}}
-                                     type="button"
-                                     width="50%"
-                                     onClick={() => {
-                                         this.goLogin("manager");
-                                     }}
-                                 >Login as Manager
-                                 </Button>
-                             </Col>
-                            <Col/>
-                            <Col>
-                                <p style={{color: "#2F80ED", marginTop:'60px', marginLeft:'40px'}}>Not registered yet?</p>
-                                <Button
-
-                                type="button"
-                                width="50%"
-                                onClick={() => {
-                                    this.goRegister();
-                                }}
-                            >Register
-                            </Button>
+                            <Col xs={12} md={8}>
+                                <p className="text-center">
+                                <TipTopTournamentLogo style={{width:"40%", marginTop:"95px"}}/>
+                                <Title   style={{margin:"auto"}}>TIPTOPTournament</Title>
+                                <p style={{color:"#2F80ED",  margin: "auto", textAlign: "center", marginBottom: "150px"}}>"Easy organisation of your table tennis tournament"</p>
+                                </p>
+                                <div style={{display:"flex"}}>
+                                    <Button
+                                        style={{margin:"auto"}}
+                                        type="button"
+                                        width="40%"
+                                        onClick={() => {
+                                            this.goLogin("participant");
+                                        }}
+                                    >Login as Participant
+                                    </Button>
+                                    <Button
+                                        style={{margin: "auto"}}
+                                        type="button"
+                                        width="40%"
+                                        onClick={() => {
+                                            this.goLogin("manager");
+                                        }}
+                                    >Login as Manager
+                                    </Button>
+                                </div>
+                                    <p style={{color: "#2F80ED",  marginTop: "100px", textAlign: "center"}}>Not registered yet?</p>
+                                    <Button
+                                        style={{margin: "auto", display: "block"}}
+                                        type="button"
+                                        width="40%"
+                                        onClick={() => {
+                                            this.goRegister();
+                                        }}
+                                    >Register
+                                    </Button>
                             </Col>
                         </Row>
                 </Container>
