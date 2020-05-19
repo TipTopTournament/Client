@@ -8,7 +8,7 @@ import Form from "react-bootstrap/Form";
 import { Label } from "../../views/design/Label";
 import { InputField } from "../../views/design/InputField";
 import { ButtonContainer } from "../../views/design/ButtonContainer";
-import {api, handleError} from "../../helpers/api";
+import { api, handleError } from "../../helpers/api";
 import UserStatusEnum from "../shared/UserStatusEnum";
 import Header from "../../views/Header";
 
@@ -18,43 +18,56 @@ class TournamentCode extends React.Component {
     this.state = {
       displayCode: "",
       tournamentCode: "",
-      personalInfo : {
-        vorname : null,
+      personalInfo: {
+        vorname: null,
         nachname: null,
-      }
+      },
     };
     this.handleInputChange = this.handleInputChange.bind(this);
   }
 
- logout() {
-    try{
-      const requestBodyStatus = JSON.stringify(({
+  logout() {
+    try {
+      const requestBodyStatus = JSON.stringify({
         userStatus: UserStatusEnum.OFFLINE,
-        token: localStorage.getItem("token")
-      }));
-      api.put(`/participants/${localStorage.getItem("ParticipantID")}`, requestBodyStatus);
+        token: localStorage.getItem("token"),
+      });
+      api.put(
+        `/participants/${localStorage.getItem("ParticipantID")}`,
+        requestBodyStatus
+      );
 
       localStorage.removeItem("token");
       localStorage.removeItem("ParticipantID");
       localStorage.removeItem("TournamentCode");
       this.props.history.push("/home");
-    }catch(error) {
+    } catch (error) {
       alert(`Something went wrong during the logout: \n${handleError(error)}`);
     }
-
   }
 
   async join() {
     try {
-    const requestBody = JSON.stringify({
-      tournamentCode: this.state.tournamentCode,
-      participantID: this.state.participantID
-    });
-    console.log("tournamentCode", this.state.tournamentCode);
-    await api.put(`/tournaments/${this.state.tournamentCode}/${localStorage.getItem("ParticipantID")}`, requestBody);
-    this.props.history.push(`/${this.state.tournamentCode}/participantMenu`);
+      const requestBody = JSON.stringify({
+        tournamentCode: this.state.tournamentCode,
+        participantID: this.state.participantID,
+      });
+      console.log("tournamentCode", this.state.tournamentCode);
+      await api.put(
+        `/tournaments/${this.state.tournamentCode}/${localStorage.getItem(
+          "ParticipantID"
+        )}`,
+        requestBody
+      );
+      this.props.history.push(
+        `/participant/${this.state.tournamentCode}/participantMenu`
+      );
     } catch (error) {
-      alert(`Something went wrong during the check-in with your tournamentCode: \n${handleError(error)}`);
+      alert(
+        `Something went wrong during the check-in with your tournamentCode: \n${handleError(
+          error
+        )}`
+      );
     }
   }
 
@@ -107,18 +120,19 @@ class TournamentCode extends React.Component {
   }
 
   async componentDidMount() {
-    try{
-      const response = await api.get(`/participants/${localStorage.getItem("ParticipantID")}`);
-      this.setState({personalInfo: response.data});
+    try {
+      const response = await api.get(
+        `/participants/${localStorage.getItem("ParticipantID")}`
+      );
+      this.setState({ personalInfo: response.data });
     } catch (error) {
       alert(`Something went wrong fetching your data: \n${handleError(error)}`);
     }
-
   }
 
   render() {
     return (
-      <Container className= "custom-container2">
+      <Container className="custom-container2">
         <Row className="justify-content-md-center">
           <Col md="auto" />
           <Col xs={12} sm={12} md={8}>
@@ -131,7 +145,7 @@ class TournamentCode extends React.Component {
                   placeholder="(e.g. 1234-4567)"
                   maxlength="10"
                   value={this.state.displayCode || ""}
-                  onChange={e => {
+                  onChange={(e) => {
                     this.handleInputChange("displayCode", this.mask(e));
                   }}
                 />
