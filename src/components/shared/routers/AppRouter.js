@@ -75,7 +75,7 @@ const ManagerView = () => {
 const ParticipantView = () => {
   return (
     <>
-      <ParticipantNavBar />
+      {/*<ParticipantNavBar />*/}
       <Switch>
         <Route
           path="/:tournamentCode/participantMenu"

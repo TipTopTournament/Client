@@ -8,7 +8,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
-import {TipTopTournamentLogo} from "../../views/design/TipTopTournamentLogo";
+import Header from "../../views/Header";
 
 
 class ParticipantLogin extends React.Component {
@@ -69,43 +69,33 @@ class ParticipantLogin extends React.Component {
     this.setState({ [key]: value });
   }
 
+  formControl(labelName, stateName, type, placeholder){
+    return (
+        <Form.Group>
+            <Form.Label>{labelName}</Form.Label>
+            <Form.Control
+                type={type}
+                placeholder={placeholder}
+                onChange={e => {
+                    this.handleInputChange(`${stateName}`, e.target.value);
+                }}
+            />
+        </Form.Group>
+    )
+  }
+
   componentDidMount() {}
 
   render() {
     return (
       <Container className= "custom-container2">
-          <p className="text-center">
-            <Row>
-              <Col>
-                  <TipTopTournamentLogo style={{marginTop:"50px", width:"40%"}}/>
-                  <h1 style={{textAlign: "center",color: "#2F80ED"}}>TipTopTournament</h1>
-              </Col>
-            </Row>
-          </p>
+        <Header/>
         <Row className="justify-content-md-center">
           <Col md="auto" />
           <Col xs={12} sm={12} md={8}>
                 <Form>
-                  <Form.Group>
-                    <Form.Label>License number</Form.Label>
-                    <Form.Control
-                      placeholder="z.B.: 908147"
-                      onChange={e => {
-                        this.handleInputChange("licenseNumber", e.target.value);
-                      }}
-                    />
-                  </Form.Group>
-
-                  <Form.Group controlId="formBasicPassword">
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control
-                      type="password"
-                      placeholder="Password"
-                      onChange={e => {
-                        this.handleInputChange("password", e.target.value);
-                      }}
-                    />
-                  </Form.Group>
+                    {this.formControl("License number", "licenseNumber", "","e.g. 908147" )}
+                    {this.formControl("Password", "password", "password","Password")}
                 </Form>
               <Row>
                   <Col/>

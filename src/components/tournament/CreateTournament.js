@@ -9,7 +9,6 @@ import Col from "react-bootstrap/Col";
 import { api, handleError } from "../../helpers/api";
 import Card from 'react-bootstrap/Card'
 import {Button} from "../../views/design/Button";
-import {InputField} from "../../views/design/InputField";
 
 class CreateTournament extends React.Component {
   constructor() {
@@ -28,7 +27,7 @@ class CreateTournament extends React.Component {
     localStorage.setItem("address","Schanzengasse 12B, 8001 Zürich, Switzerland");
   }
 
-  mask(e) {
+  check(e) {
     let tmpCode = "";
     tmpCode += e.target.value.toString();
     if (e.target.value.toString() === "2:" || e.target.value.toString() === "1:" ){
@@ -47,7 +46,7 @@ class CreateTournament extends React.Component {
           console.log(tmpCode);
           return tmpCode.replace(/^(\d).*/, "$1");
         case 2:
-          if (parseInt(tmpCode)> 24){
+          if (parseInt(tmpCode)> 23){
             alert("Make sure that the time is set correctly");
             return ""
           }
@@ -55,8 +54,16 @@ class CreateTournament extends React.Component {
         case 3:
           return tmpCode.replace(/^(\d{2}).*/, "$1:");
         case 4:
+          if (tmpCode.substring(3,4) > 5) {
+            alert("Make sure that the time is set correctly");
+            return ""
+          }
           return  tmpCode.replace(/^(\d{2})(\d}).*/, "$1:$2");
         case 5:
+          if (tmpCode.substring(4,5) > 9) {
+            alert("Make sure that the time is set correctly");
+            return ""
+          }
           return tmpCode.replace(/^(\d{2})(\d{2}).*/, "$1:$2");
 
         default:
@@ -77,8 +84,20 @@ class CreateTournament extends React.Component {
       return false;
     }
   }
-
-handleInputChange(key, value) {
+  formSelect(labelName,stateName, optionA, optionB, optionC, optionD){
+    return (
+        <Form.Group controlId="ControlSelect1">
+          <Form.Label>{labelName}</Form.Label>
+          <Form.Control as="select" onChange={e => {this.handleInputChange(`${stateName}`, e.target.value);}}>
+            <option>{optionA}</option>
+            <option>{optionB}</option>
+            <option>{optionC}</option>
+            <option>{optionD}</option>
+          </Form.Control>
+        </Form.Group>
+        )
+  }
+  handleInputChange(key, value) {
   // Example: if the key is username, this statement is the equivalent to the following one:
   // this.setState({'username': value});
   this.setState({ [key]: value });
@@ -129,42 +148,12 @@ handleInputChange(key, value) {
                 <Form.Label>Start time</Form.Label>
                 <Form.Control type="startTime" placeholder="Startzeit e.g(08:00)"
                               value={this.state.startTime || ""}
-                              onChange={e => {this.handleInputChange("startTime", this.mask(e));}}/>
+                              onChange={e => {this.handleInputChange("startTime", this.check(e));}}/>
               </Form.Group>
-              <Form.Group controlId="ControlSelect1">
-                <Form.Label>Game duration</Form.Label>
-                <Form.Control as="select" onChange={e => {this.handleInputChange("gameDuration", e.target.value);}}>
-                  <option>20</option>
-                  <option>30</option>
-                  <option>40</option>
-                </Form.Control>
-              </Form.Group>
-              <Form.Group controlId="ControlSelect1">
-                <Form.Label>Break duration</Form.Label>
-                <Form.Control as="select" onChange={e => {this.handleInputChange("breakDuration", e.target.value);}}>
-                  <option>10</option>
-                  <option>20</option>
-                  <option>30</option>
-                </Form.Control>
-              </Form.Group>
-              <Form.Group controlId="ControlSelect1">
-                <Form.Label>Amount of players</Form.Label>
-                <Form.Control as="select" onChange={e => {this.handleInputChange("amountOfPlayers", e.target.value);}}>
-                  <option>2</option>
-                  <option>4</option>
-                  <option>8</option>
-                  <option>16</option>
-                </Form.Control>
-              </Form.Group>
-              <Form.Group controlId="ControlSelect1">
-                <Form.Label>Amount of tables</Form.Label>
-                <Form.Control as="select" onChange={e => {this.handleInputChange("numberTables", e.target.value);}}>
-                  <option>2</option>
-                  <option>4</option>
-                  <option>8</option>
-                  <option>16</option>
-                </Form.Control>
-              </Form.Group>
+              {this.formSelect("Game duration","gameDuration",10,20,30,40)}
+              {this.formSelect("Break duration","breakDuration", 5,10,20,30)}
+              {this.formSelect("Amount of Players","amountOfPlayers", 2,4,8,16)}
+              {this.formSelect("Amount of Tables","numberTables", 1,2,4,8)}
               <Form.Group controlId="ControlTextarea1">
                 <Form.Label>Tournament description</Form.Label>
                 <Form.Control as="textarea" rows="3" onChange={e => {this.handleInputChange("informationBox", e.target.value);}}/>

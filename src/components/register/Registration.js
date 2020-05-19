@@ -9,7 +9,7 @@ import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Tabs from "react-bootstrap/Tabs";
 import Tab from "react-bootstrap/Tab";
-import {TipTopTournamentLogo} from "../../views/design/TipTopTournamentLogo";
+import Header from "../../views/Header";
 
 class Registration extends React.Component {
   constructor() {
@@ -67,6 +67,34 @@ class Registration extends React.Component {
     }
   }
 
+  formControl(labelName, stateName, type){
+    return (
+        <Form.Group>
+          <Form.Label>{labelName}</Form.Label>
+          <Form.Control
+              type={type}
+              placeholder="Enter here ..."
+              onChange={e => {
+                this.handleInputChange(`${stateName}`, e.target.value);
+              }}
+          />
+        </Form.Group>
+    )
+  }
+
+  buttonBack(){
+    return (
+    <Button
+        width="50%"
+        type="button"
+        onClick={() => {
+          this.props.history.goBack();
+        }}
+    >
+      Back
+    </Button>)
+  }
+
   handleInputChange(key, value) {
     this.setState({ [key]: value });
   }
@@ -78,214 +106,64 @@ class Registration extends React.Component {
   render() {
     return (
       <Container className= "custom-container2">
-        <p className="text-center">
-          <Row>
-            <Col>
-              <TipTopTournamentLogo style={{marginTop:"50px", width:"40%"}}/>
-              <h1 style={{textAlign: "center",color: "#2F80ED"}}>TipTopTournament</h1>
-            </Col>
-          </Row>
-        </p>
+        <Header/>
         <Row className="justify-content-md-center">
           <Col md="auto" />
           <Col xs={12} sm={12} md={8}>
             <Tabs defaultActiveKey="Manager" style={{ margin: "0 auto" }}>
               <Tab eventKey="Manager" title="Manager">
                 <Form style={{ align: "center" }}>
-                  <Form.Group>
-                    <Form.Label>First name</Form.Label>
-                    <Form.Control
-                        type="vorname"
-                        placeholder="Enter here ..."
-                        onChange={e => {
-                          this.handleInputChange("vorname", e.target.value);
-                        }}
-                    />
-                  </Form.Group>
-                  <Form.Group>
-                    <Form.Label>Last name</Form.Label>
-                    <Form.Control
-                        type="nachname"
-                        placeholder="Enter here ..."
-                        onChange={e => {
-                          this.handleInputChange("nachname", e.target.value);
-                        }}
-                    />
-                  </Form.Group>
-                  <Form.Group>
-                    <Form.Label>Username</Form.Label>
-                    <Form.Control
-                        type="username"
-                        placeholder="Enter here ..."
-                        onChange={e => {
-                          this.handleInputChange("username", e.target.value);
-                        }}
-                    />
-                  </Form.Group>
-                  <Form.Group>
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control
-                        type="password"
-                        placeholder="Enter here ..."
-                        onChange={e => {
-                          this.handleInputChange("password", e.target.value);
-                        }}
-                    />
-                  </Form.Group>
+                  {this.formControl("First name", "vorname", "")}
+                  {this.formControl("Last name", "nachname", "")}
+                  {this.formControl("Username", "username", "")}
+                  {this.formControl("Password", "password", "password")}
                   <ButtonContainer>
                     <Button
                       type="button"
-                      disabled={
-                        !this.state.username ||
-                        !this.state.vorname ||
-                        !this.state.nachname ||
-                        !this.state.password
-                      }
+                      disabled={!this.state.username || !this.state.vorname || !this.state.nachname || !this.state.password}
                       width="50%"
                       onClick={() => {
                         this.register("Manager");
-                      }}
-                    >
-                      Register
+                      }}>Register
                     </Button>
-                    <Button
-                      width="50%"
-                      type="button"
-                      onClick={() => {
-                        this.props.history.goBack();
-                      }}
-                    >
-                      Back
-                    </Button>
+                    {this.buttonBack()}
                   </ButtonContainer>
                 </Form>
               </Tab>
               <Tab eventKey="PlayerNoLicense" title="PlayerNoLicense">
                 <Form style={{ align: "center" }}>
-                  <Form.Group>
-                    <Form.Label>First name</Form.Label>
-                    <Form.Control
-                        type="vorname"
-                        placeholder="Enter here ..."
-                        onChange={e => {
-                          this.handleInputChange("vorname", e.target.value);
-                        }}
-                    />
-                  </Form.Group>
-                  <Form.Group>
-                    <Form.Label>Last name</Form.Label>
-                    <Form.Control
-                        type="nachname"
-                        placeholder="Enter here ..."
-                        onChange={e => {
-                          this.handleInputChange("nachname", e.target.value);
-                        }}
-                    />
-                  </Form.Group>
-                  <Form.Group>
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control
-                        type="password"
-                        placeholder="Enter here ..."
-                        onChange={e => {
-                          this.handleInputChange("password", e.target.value);
-                        }}
-                    />
-                  </Form.Group>
+                  {this.formControl("First name", "vorname", "")}
+                  {this.formControl("Last name", "nachname", "")}
+                  {this.formControl("Password", "password", "password")}
                   <ButtonContainer>
                     <Button
                       type="button"
-                      disabled={
-                        !this.state.vorname ||
-                        !this.state.nachname ||
-                        !this.state.password
-                      }
+                      disabled={!this.state.vorname || !this.state.nachname || !this.state.password}
                       width="50%"
                       onClick={() => {
                         this.register("PlayerNoLicense");
-                      }}
-                    >
-                      Register
+                      }}>Register
                     </Button>
-                    <Button
-                      width="50%"
-                      type="button"
-                      onClick={() => {
-                        this.props.history.goBack();
-                      }}
-                    >
-                      Back
-                    </Button>
+                    {this.buttonBack()}
                   </ButtonContainer>
                 </Form>
               </Tab>
               <Tab eventKey="PlayerWithLicense" title="PlayerWithLicense">
                 <Form style={{ align: "center" }}>
-                  <Form.Group>
-                    <Form.Label>First name</Form.Label>
-                    <Form.Control
-                        type="vorname"
-                        placeholder="Enter here ..."
-                        onChange={e => {
-                          this.handleInputChange("vorname", e.target.value);
-                        }}
-                    />
-                  </Form.Group>
-                  <Form.Group>
-                    <Form.Label>Last name</Form.Label>
-                    <Form.Control
-                        type="nachname"
-                        placeholder="Enter here ..."
-                        onChange={e => {
-                          this.handleInputChange("nachname", e.target.value);
-                        }}
-                    />
-                  </Form.Group>
-                  <Form.Group>
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control
-                        type="password"
-                        placeholder="Enter here ..."
-                        onChange={e => {
-                          this.handleInputChange("password", e.target.value);
-                        }}
-                    />
-                  </Form.Group>
-                  <Form.Group>
-                    <Form.Label>Licensenumber</Form.Label>
-                    <Form.Control
-                        type="licensenumber"
-                        placeholder="Enter here ..."
-                        onChange={e => {
-                          this.handleInputChange("licensenumber", e.target.value);
-                        }}
-                    />
-                  </Form.Group>
+                  {this.formControl("First name", "vorname", "")}
+                  {this.formControl("Last name", "nachname", "")}
+                  {this.formControl("Licensenumber", "licenseNumber", "")}
+                  {this.formControl("Password", "password", "password")}
                   <ButtonContainer>
                     <Button
-                        disabled={
-                          !this.state.vorname ||
-                          !this.state.nachname ||
-                          !this.state.password ||
-                          !this.state.licenseNumber
-                        }
+                      disabled={!this.state.vorname || !this.state.nachname || !this.state.password || !this.state.licenseNumber}
                       type="button"
                       width="50%"
                       onClick={() => {
                         this.register("Player");
-                      }}
-                    >
-                      Register
+                      }}>Register
                     </Button>
-                    <Button
-                      width="50%"
-                      type="button"
-                      onClick={() => {
-                        this.props.history.goBack();
-                      }}
-                    >
-                      Back
-                    </Button>
+                    {this.buttonBack()}
                   </ButtonContainer>
                 </Form>
               </Tab>

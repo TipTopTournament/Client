@@ -10,6 +10,7 @@ import { InputField } from "../../views/design/InputField";
 import { ButtonContainer } from "../../views/design/ButtonContainer";
 import {api, handleError} from "../../helpers/api";
 import UserStatusEnum from "../shared/UserStatusEnum";
+import Header from "../../views/Header";
 
 class TournamentCode extends React.Component {
   constructor() {
@@ -104,6 +105,7 @@ class TournamentCode extends React.Component {
       this.setState({ tournamentCode: value.replace("-", "") || "" });
     }
   }
+
   async componentDidMount() {
     try{
       const response = await api.get(`/participants/${localStorage.getItem("ParticipantID")}`);
@@ -120,9 +122,10 @@ class TournamentCode extends React.Component {
         <Row className="justify-content-md-center">
           <Col md="auto" />
           <Col xs={12} sm={12} md={8}>
-            <Form style={{ align: "center", marginTop: '100px', marginLeft: '100px'}} >
+            <Header/>
+            <Form style={{ margin: "auto", textAlign: "center", marginTop: '50px'}} >
               <Form.Group>
-                <h6 style={{color:"#2F80ED" , marginBottom:"20px"}}>Insert the code that was given to you by the Manager</h6>
+                <h5 style={{color:"#2F80ED" , marginBottom:"50px"}}>"Insert the code that was given to you by the Manager to join a tournament"</h5>
                 <Label>TournamentCode: </Label>
                 <InputField
                   placeholder="(e.g. 1234-4567)"
