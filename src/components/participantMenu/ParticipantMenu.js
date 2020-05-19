@@ -3,36 +3,35 @@ import React from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import {withRouter} from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { api } from "../../helpers/api";
 import TournamentData from "../shared/models/TournamentData";
 import Table from "react-bootstrap/Table";
-import {Button} from "../../views/design/Button";
-
+import { Button } from "../../views/design/Button";
 
 class ParticipantMenu extends React.Component {
   constructor() {
     super();
     this.state = {
       tournament: null,
-      tournamentCode: null
+      tournamentCode: null,
     };
   }
 
   leaveTournament(leave) {
-    if(leave === true) {
-      api.put(`/tournaments/${this.state.tournamentCode}/${localStorage.getItem("ParticipantID")}/leave`);
+    if (leave === true) {
+      api.put(
+        `/tournaments/${this.state.tournamentCode}/${localStorage.getItem(
+          "ParticipantID"
+        )}/leave`
+      );
       this.props.history.push(`/tournamentCode`);
-
     } else {
       this.props.history.push(`/home`);
     }
     localStorage.removeItem("token");
     localStorage.removeItem("ParticipantID");
     localStorage.removeItem("TournamentCode");
-  }
-  handleClick(id){
-    this.props.history.push(`/${this.state.tournamentCode}/${id}`);
   }
 
   async componentDidMount() {
@@ -58,11 +57,13 @@ class ParticipantMenu extends React.Component {
       return <div>Loading...</div>;
     }
     return (
-      <Container className= "custom-container2" >
+      <Container className="custom-container2">
         <Row>
           <Col />
           <Col>
-            <h2 style={{marginTop:"200px"}}>{this.state.tournament.tournamentName}</h2>
+            <h2 style={{ marginTop: "200px" }}>
+              {this.state.tournament.tournamentName}
+            </h2>
           </Col>
           <Col />
         </Row>
@@ -86,30 +87,13 @@ class ParticipantMenu extends React.Component {
                 </tr>
               </tbody>
             </Table>
-              <Button
-                  width="100%"
-                  type="button" onClick={() => this.handleClick("playerList")}>
-                  Participants
-              </Button>
-              <Button
-                  width="100%"
-                  style={{marginTop:"15px"}} type="button" onClick={() => this.handleClick("bracket")}>
-                  Bracket
-              </Button>
-              <Button
-                  width="100%"
-                  style={{marginTop:"15px"}} type="button" onClick={() => this.handleClick("leaderBoard")}>
-                  Leaderboard
-              </Button>
-              <Button
-                  width="100%"
-                  style={{marginTop:"15px"}} type="button" onClick={() => this.leaveTournament(true)}>
-                  Leave Tournament
-              </Button>
             <Button
-                width="100%"
-                style={{marginTop:"15px"}} type="button" onClick={() => this.leaveTournament(false)}>
-              Logout
+              width="100%"
+              style={{ marginTop: "15px" }}
+              type="button"
+              onClick={() => this.leaveTournament(true)}
+            >
+              Leave Tournament
             </Button>
           </Col>
           <Col />

@@ -27,6 +27,7 @@ import ManagerLogin from "../../login/ManagerLogin";
 import { ManagerLoginGuard } from "../routeProtectors/ManagerLoginGuard";
 import Info from "../../homescreen/Info";
 import ManagerNavBar from "../ManagerNavBar";
+import ParticipantNavBar from "../ParticipantNavBar";
 
 /**
  * Main router of your application.
@@ -67,6 +68,46 @@ const ManagerView = () => {
             </TournamentGuard>
           )}
         />
+        <Route
+          path="/manager/:tournamentCode/participants/:participantID"
+          render={() => (
+            <PlayerProfileGuard>
+              <PlayerProfile />
+            </PlayerProfileGuard>
+          )}
+        />
+        <Route
+          path="/manager/:tournamentCode/participants/:participantID"
+          render={() => (
+            <PlayerProfileGuard>
+              <PlayerProfile />
+            </PlayerProfileGuard>
+          )}
+        />
+        <Route
+          path="/manager/:tournamentCode/leaderBoard"
+          render={() => (
+            <LeaderBoardGuard>
+              <LeaderBoard />
+            </LeaderBoardGuard>
+          )}
+        />
+        <Route
+          path="/manager/:tournamentCode/playerList"
+          render={() => (
+            <PlayerListGuard>
+              <PlayerList />
+            </PlayerListGuard>
+          )}
+        />
+        <Route
+          path="/manager/:tournamentCode/bracket"
+          render={() => (
+            <BracketGuard>
+              <Bracket />
+            </BracketGuard>
+          )}
+        />
       </Switch>
     </>
   );
@@ -78,7 +119,7 @@ const ParticipantView = () => {
       <ParticipantNavBar />
       <Switch>
         <Route
-          path="/:tournamentCode/participantMenu"
+          path="/participant/:tournamentCode/participantMenu"
           render={() => (
             <ParticipantMenuGuard>
               <ParticipantMenu />
@@ -86,7 +127,7 @@ const ParticipantView = () => {
           )}
         />
         <Route
-          path="/:tournamentCode/playerList"
+          path="/participant/:tournamentCode/playerList"
           render={() => (
             <PlayerListGuard>
               <PlayerList />
@@ -94,11 +135,27 @@ const ParticipantView = () => {
           )}
         />
         <Route
-          path="/:tournamentCode/participants/:participantID"
+          path="/participant/:tournamentCode/participants/:participantID"
           render={() => (
             <PlayerProfileGuard>
               <PlayerProfile />
             </PlayerProfileGuard>
+          )}
+        />
+        <Route
+          path="/participant/:tournamentCode/leaderBoard"
+          render={() => (
+            <LeaderBoardGuard>
+              <LeaderBoard />
+            </LeaderBoardGuard>
+          )}
+        />
+        <Route
+          path="/participant/:tournamentCode/bracket"
+          render={() => (
+            <BracketGuard>
+              <Bracket />
+            </BracketGuard>
           )}
         />
       </Switch>
@@ -144,6 +201,8 @@ class AppRouter extends React.Component {
 
           <Route path="/manager" component={ManagerView} />
 
+          <Route path="/participant" component={ParticipantView} />
+
           <Route path="/" exact render={() => <Redirect to={"/home"} />} />
 
           <Route
@@ -152,23 +211,6 @@ class AppRouter extends React.Component {
               <TournamentCodeGuard>
                 <TournamentCode />
               </TournamentCodeGuard>
-            )}
-          />
-
-          <Route
-            path="/:tournamentCode/leaderBoard"
-            render={() => (
-              <LeaderBoardGuard>
-                <LeaderBoard />
-              </LeaderBoardGuard>
-            )}
-          />
-          <Route
-            path="/:tournamentCode/bracket"
-            render={() => (
-              <BracketGuard>
-                <Bracket />
-              </BracketGuard>
             )}
           />
         </Switch>
