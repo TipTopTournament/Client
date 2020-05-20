@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import { TournamentGuard } from "../routeProtectors/TournamentGuard";
 import TournamentRouter from "./TournamentRouter";
@@ -28,6 +28,10 @@ import { ManagerLoginGuard } from "../routeProtectors/ManagerLoginGuard";
 import Info from "../../homescreen/Info";
 import ManagerNavBar from "../ManagerNavBar";
 import ParticipantNavBar from "../ParticipantNavBar";
+import {
+  ManagerNavBarProvider,
+  ManagerNavBarContext,
+} from "../ManagerNavBarContext";
 
 /**
  * Main router of your application.
@@ -40,14 +44,17 @@ import ParticipantNavBar from "../ParticipantNavBar";
  */
 
 const ManagerView = () => {
+  const state = useContext(ManagerNavBarContext);
+
   return (
-    <>
+    <ManagerNavBarProvider>
       <ManagerNavBar />
       <Switch>
         <Route
           path={`/manager/menu/:managerID`}
           render={() => (
             <ManagerMenuGuard>
+              {state.setSelected(false)}
               <ManagerMenu />
             </ManagerMenuGuard>
           )}
@@ -56,6 +63,7 @@ const ManagerView = () => {
           path="/manager/createTournament/:managerID"
           render={() => (
             <CreateTournamentGuard>
+              {state.setSelected(false)}
               <CreateTournament />
             </CreateTournamentGuard>
           )}
@@ -64,6 +72,8 @@ const ManagerView = () => {
           path="/manager/tournaments/:tournamentCode"
           render={() => (
             <TournamentGuard>
+              {state.setSelected(true)}
+              {console.log(state.selected)}
               <Tournament />
             </TournamentGuard>
           )}
@@ -109,7 +119,7 @@ const ManagerView = () => {
           )}
         />
       </Switch>
-    </>
+    </ManagerNavBarProvider>
   );
 };
 
