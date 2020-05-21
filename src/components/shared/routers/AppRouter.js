@@ -28,10 +28,7 @@ import { ManagerLoginGuard } from "../routeProtectors/ManagerLoginGuard";
 import Info from "../../homescreen/Info";
 import ManagerNavBar from "../ManagerNavBar";
 import ParticipantNavBar from "../ParticipantNavBar";
-import {
-  ManagerNavBarProvider,
-  ManagerNavBarContext,
-} from "../ManagerNavBarContext";
+import ManagerNavBarExtended from "../ManagerNavBarExtended";
 
 /**
  * Main router of your application.
@@ -43,18 +40,73 @@ import {
  * Documentation about routing in React: https://reacttraining.com/react-router/web/guides/quick-start
  */
 
-const ManagerView = () => {
-  const state = useContext(ManagerNavBarContext);
-
+const ManagerViewExtended = () => {
   return (
-    <ManagerNavBarProvider>
+    <>
+      <ManagerNavBarExtended />
+      <Switch>
+        <Route
+          path="/emanager/tournaments/:tournamentCode"
+          render={() => (
+            <TournamentGuard>
+              <Tournament />
+            </TournamentGuard>
+          )}
+        />
+        <Route
+          path="/emanager/:tournamentCode/participants/:participantID"
+          render={() => (
+            <PlayerProfileGuard>
+              <PlayerProfile />
+            </PlayerProfileGuard>
+          )}
+        />
+        <Route
+          path="/emanager/:tournamentCode/participants/:participantID"
+          render={() => (
+            <PlayerProfileGuard>
+              <PlayerProfile />
+            </PlayerProfileGuard>
+          )}
+        />
+        <Route
+          path="/emanager/:tournamentCode/leaderBoard"
+          render={() => (
+            <LeaderBoardGuard>
+              <LeaderBoard />
+            </LeaderBoardGuard>
+          )}
+        />
+        <Route
+          path="/emanager/:tournamentCode/playerList"
+          render={() => (
+            <PlayerListGuard>
+              <PlayerList />
+            </PlayerListGuard>
+          )}
+        />
+        <Route
+          path="/emanager/:tournamentCode/bracket"
+          render={() => (
+            <BracketGuard>
+              <Bracket />
+            </BracketGuard>
+          )}
+        />
+      </Switch>
+    </>
+  );
+};
+
+const ManagerView = () => {
+  return (
+    <>
       <ManagerNavBar />
       <Switch>
         <Route
-          path={`/manager/menu/:managerID`}
+          path="/manager/menu/:managerID"
           render={() => (
             <ManagerMenuGuard>
-              {state.setSelected(false)}
               <ManagerMenu />
             </ManagerMenuGuard>
           )}
@@ -63,63 +115,12 @@ const ManagerView = () => {
           path="/manager/createTournament/:managerID"
           render={() => (
             <CreateTournamentGuard>
-              {state.setSelected(false)}
               <CreateTournament />
             </CreateTournamentGuard>
           )}
         />
-        <Route
-          path="/manager/tournaments/:tournamentCode"
-          render={() => (
-            <TournamentGuard>
-              {state.setSelected(true)}
-              {console.log(state.selected)}
-              <Tournament />
-            </TournamentGuard>
-          )}
-        />
-        <Route
-          path="/manager/:tournamentCode/participants/:participantID"
-          render={() => (
-            <PlayerProfileGuard>
-              <PlayerProfile />
-            </PlayerProfileGuard>
-          )}
-        />
-        <Route
-          path="/manager/:tournamentCode/participants/:participantID"
-          render={() => (
-            <PlayerProfileGuard>
-              <PlayerProfile />
-            </PlayerProfileGuard>
-          )}
-        />
-        <Route
-          path="/manager/:tournamentCode/leaderBoard"
-          render={() => (
-            <LeaderBoardGuard>
-              <LeaderBoard />
-            </LeaderBoardGuard>
-          )}
-        />
-        <Route
-          path="/manager/:tournamentCode/playerList"
-          render={() => (
-            <PlayerListGuard>
-              <PlayerList />
-            </PlayerListGuard>
-          )}
-        />
-        <Route
-          path="/manager/:tournamentCode/bracket"
-          render={() => (
-            <BracketGuard>
-              <Bracket />
-            </BracketGuard>
-          )}
-        />
       </Switch>
-    </ManagerNavBarProvider>
+    </>
   );
 };
 
@@ -210,6 +211,8 @@ class AppRouter extends React.Component {
           />
 
           <Route path="/manager" component={ManagerView} />
+
+          <Route path="/emanager" component={ManagerViewExtended} />
 
           <Route path="/participant" component={ParticipantView} />
 

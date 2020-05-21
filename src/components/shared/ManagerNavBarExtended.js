@@ -6,27 +6,25 @@ import Nav from "react-bootstrap/Nav";
 import NavItem from "react-bootstrap/NavItem";
 import { api } from "../../helpers/api";
 
-class ParticipantNavBar extends React.Component {
+class ManagerNavBarExtended extends React.Component {
   constructor() {
     super();
     this.state = {
-      tournamentCode: localStorage.getItem("TournamentCode"),
-      credentials: null,
+      username: null,
     };
   }
 
   async componentDidMount() {
-    const participantID = localStorage.getItem("ParticipantID");
+    const managerID = localStorage.getItem("ManagerID");
     try {
-      const info = await api.get(`/participants/${participantID}`);
+      const info = await api.get(`/managers/${managerID}`);
       this.setState({
-        credentials: info.data.nachname + " " + info.data.vorname,
+        username: info.data.username,
       });
     } catch (error) {
-      console.log("Participants username could not be getted", error);
+      console.log("Manager username could not be getted", error);
     }
   }
-
   render() {
     return (
       <Navbar bg="#cfcfd9" expand="lg">
@@ -37,7 +35,7 @@ class ParticipantNavBar extends React.Component {
             <NavItem>
               <Nav.Link
                 as={Link}
-                to={`/participant/${this.state.tournamentCode}/participantMenu`}
+                to={`/manager/menu/${localStorage.getItem("ManagerID")}`}
               >
                 Menu
               </Nav.Link>
@@ -45,7 +43,9 @@ class ParticipantNavBar extends React.Component {
             <NavItem>
               <Nav.Link
                 as={Link}
-                to={`/participant/${this.state.tournamentCode}/playerList`}
+                to={`/emanager/${localStorage.getItem(
+                  "TournamentCode"
+                )}/playerList`}
               >
                 Participants
               </Nav.Link>
@@ -53,30 +53,34 @@ class ParticipantNavBar extends React.Component {
             <NavItem>
               <Nav.Link
                 as={Link}
-                to={`/participant/${this.state.tournamentCode}/bracket`}
+                to={`/emanager/${localStorage.getItem(
+                  "TournamentCode"
+                )}/leaderBoard`}
               >
-                Bracket
+                Leaderboard
               </Nav.Link>
             </NavItem>
             <NavItem>
               <Nav.Link
                 as={Link}
-                to={`/participant/${this.state.tournamentCode}/leaderboard`}
+                to={`/emanager/${localStorage.getItem(
+                  "TournamentCode"
+                )}/bracket`}
               >
-                Leaderboard
+                Bracket
               </Nav.Link>
             </NavItem>
           </Nav>
           <Navbar.Text>
-            Signed in as: <a>{this.state.credentials}</a>
+            Signed in as: <a>{this.state.username}</a>
           </Navbar.Text>
           <NavItem>
             {/*
-              Because the token and ManagerId will be removed when 
-              directing to /home it is actually like logout.
-              --
-              use as={Link} bc otherwise it will not push on the history stack
-              */}
+            Because the token and ManagerId will be removed when 
+            directing to /home it is actually like logout.
+            --
+            use as={Link} bc otherwise it will not push on the history stack
+            */}
             <Nav.Link as={Link} to="/home">
               Logout
             </Nav.Link>
@@ -86,4 +90,4 @@ class ParticipantNavBar extends React.Component {
     );
   }
 }
-export default withRouter(ParticipantNavBar);
+export default withRouter(ManagerNavBarExtended);

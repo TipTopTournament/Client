@@ -27,16 +27,16 @@ class Tournament extends React.Component {
   handleClick(id) {
     if (this.isNumeric(id)) {
       this.props.history.push(
-        `/manager/${this.tournamentCode}/participants/${id}`
+        `/emanager/${this.tournamentCode}/participants/${id}`
       );
     } else {
-      this.props.history.push(`/manager/${this.tournamentCode}/${id}`);
+      this.props.history.push(`/emanager/${this.tournamentCode}/${id}`);
     }
   }
 
   handleClickOnPlayer = (participantID) => {
     this.props.history.push(
-      `/manager/${this.props.match.params.tournamentCode}/participants/${participantID}`
+      `/emanager/${this.props.match.params.tournamentCode}/participants/${participantID}`
     );
   };
 
