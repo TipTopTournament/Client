@@ -202,7 +202,7 @@ class Tournament extends React.Component {
           </Row>
         ) : (
           <Row>
-            <Col>
+            <Col style={{paddingBottom:"15px" }}>
               <Card style={{ background: "#F3F3FF", marginTop: "15px" }}>
                 <Card.Body>
                   <Card.Title onClick={() => this.handleClick("playerList")}>
@@ -229,7 +229,7 @@ class Tournament extends React.Component {
                 </Card.Body>
               </Card>
             </Col>
-            <Col>
+            <Col style={{paddingBottom:"15px" }}>
               <Card style={{ background: "#F3F3FF", marginTop: "15px" }}>
                 <Card.Body>
                   <Card.Title onClick={() => this.handleClick("leaderBoard")}>

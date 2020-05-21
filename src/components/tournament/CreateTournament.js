@@ -9,6 +9,9 @@ import Col from "react-bootstrap/Col";
 import { api, handleError } from "../../helpers/api";
 import Card from 'react-bootstrap/Card'
 import {Button} from "../../views/design/Button";
+import {ButtonContainer} from "../../views/design/ButtonContainer";
+import {TipTopTournamentLogo} from "../../views/design/TipTopTournamentLogo";
+import {Title} from "../../views/design/Title";
 
 class CreateTournament extends React.Component {
   constructor() {
@@ -134,7 +137,10 @@ class CreateTournament extends React.Component {
       <Container className= "custom-container2">
         <Row>
             <Col>
-              <h2 style={{ textAlign: "center"}}>Create a new tournament</h2>
+              <p className="text-center">
+                <TipTopTournamentLogo style={{width:"25%"}}/>
+                <Title   style={{margin:"auto"}}>Create a new Tournament</Title>
+              </p>
             </Col>
         </Row>
         <Row>
@@ -174,34 +180,34 @@ class CreateTournament extends React.Component {
                   zoom={15}
                 />
               </div>
-              <Row className="align-self-center">
-                <Col>
-                  <Button
-                      width="50%"
-                      style={{color: "#F3F3FF"}}
-                      type="submit" onClick={() => {
-                    this.props.history.push(`/manager/menu/${localStorage.getItem("ManagerID")}`); }}
-                  >Back
-                  </Button>
-                  <Button
-                      width="50%"
-                      style={{color: "#F3F3FF"}}
-                      disabled={!this.state.startTime||!this.state.tournamentName
-                      ||!localStorage.getItem("address")}
-                      type="submit" onClick={() => {
-                    this.sendTournamentDetails();
-                    this.props.history.push(`/manager/menu/${localStorage.getItem("ManagerID")}`); }}
-                  >Create Tournament
-                  </Button>
-                </Col>
-              </Row>
             </Form>
           </Col>
         </Row>
-        
-        
-        
-      </Container>      
+        <Row style={{paddingBottom: "40px" ,paddingTop:"10px"}}>
+          <Col  xs={12} md={12}>
+            <div style={{display:"flex"}}>
+            <Button
+                width="40%"
+                style={{color: "#F3F3FF", margin: "auto"}}
+                type="button" onClick={() => {
+              this.props.history.push(`/manager/menu/${localStorage.getItem("ManagerID")}`); }}
+            >Back
+            </Button>
+            <Button
+                width="40%"
+                style={{color: "#F3F3FF", margin: "auto"}}
+                disabled={!this.state.startTime||!this.state.tournamentName
+                ||!localStorage.getItem("address")}
+                type="submit" onClick={() => {
+              this.sendTournamentDetails();
+              this.props.history.push(`/manager/menu/${localStorage.getItem("ManagerID")}`); }}
+            >Create Tournament
+            </Button>
+            </div>
+          </Col>
+        </Row>
+
+      </Container>
     );
   }
 
