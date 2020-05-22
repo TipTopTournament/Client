@@ -7,6 +7,7 @@ import Row from "react-bootstrap/Row";
 import { Button } from "../../views/design/Button";
 import Card from "react-bootstrap/Card";
 import Table from "react-bootstrap/Table";
+import {TipTopTournamentLogo} from "../../views/design/TipTopTournamentLogo";
 
 class Tournament extends React.Component {
   constructor() {
@@ -81,6 +82,7 @@ class Tournament extends React.Component {
       </tr>
     );
   }
+
   async endTournament() {
     alert("The tournament has now ended! You can still look at the statistics");
     try {
@@ -147,7 +149,29 @@ class Tournament extends React.Component {
         {!this.state.games ||
         !this.state.leaderBoardUsers ||
         this.state.leaderBoardUsers.length === 0 ? (
-          <Row>
+            <Row className="justify-content-md-center">
+              <Col md="auto" />
+              <Col xs={12} sm={12} md={8}>
+                <TipTopTournamentLogo
+                    style={{
+                      display: "block",
+                      margin: "auto",
+                      marginTop: "15px",
+                      preserveAspectRatio: "xMinYMin slice",
+                      height: "60%",
+                      width: "60%",
+                    }}
+                />
+                <h2
+                    className="custom1"
+                    style={{ color: "#2F80ED", textAlign: "center" }}
+                >
+                  {this.state.tournament.tournamentName} -{" "}
+                  {this.state.tournament.tournamentState}
+                </h2>
+              </Col>
+              <Col md="auto" />
+            <Row>
             <Col>
               <Card style={{ background: "#F3F3FF", marginTop: "15px" }}>
                 <Card.Body>
@@ -199,8 +223,31 @@ class Tournament extends React.Component {
             >
               End Tournament
             </Button>
+            </Row>
           </Row>
         ) : (
+            <Row className="justify-content-md-center">
+              <Col md="auto" />
+              <Col xs={12} sm={12} md={8}>
+                <TipTopTournamentLogo
+                    style={{
+                      display: "block",
+                      margin: "auto",
+                      marginTop: "15px",
+                      preserveAspectRatio: "xMinYMin slice",
+                      height: "60%",
+                      width: "60%",
+                    }}
+                />
+                <h2
+                    className="custom1"
+                    style={{ color: "#2F80ED", textAlign: "center" }}
+                >
+                  {this.state.tournament.tournamentName} -{" "}
+                  {this.state.tournament.tournamentState}
+                </h2>
+              </Col>
+              <Col md="auto" />
           <Row>
             <Col style={{paddingBottom:"15px" }}>
               <Card style={{ background: "#F3F3FF", marginTop: "15px" }}>
@@ -286,6 +333,7 @@ class Tournament extends React.Component {
             >
               End Tournament
             </Button>
+          </Row>
           </Row>
         )}
       </Container>

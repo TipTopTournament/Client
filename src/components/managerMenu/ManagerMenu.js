@@ -69,12 +69,13 @@ class ManagerMenu extends React.Component {
       this.intervalID = setTimeout(this.getTournaments.bind(this), 5000);
     } catch (error) {
       alert(
-        `Something went wrong while fetching the users: \n${handleError(error)}`
+        `Something went wrong while fetching the tournaments: \n${handleError(error)}`
       );
     }
   }
   componentDidMount() {
     this.getTournaments();
+    localStorage.removeItem("tournamentCode")
   }
 
   render() {

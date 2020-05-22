@@ -29,6 +29,7 @@ import Info from "../../homescreen/Info";
 import ManagerNavBar from "../ManagerNavBar";
 import ParticipantNavBar from "../ParticipantNavBar";
 import ManagerNavBarExtended from "../ManagerNavBarExtended";
+import TournamentConfirmation from "../../tournament/TournamentConfirmation";
 
 /**
  * Main router of your application.
@@ -119,6 +120,14 @@ const ManagerView = () => {
             </CreateTournamentGuard>
           )}
         />
+          <Route
+              path="/manager/tournamentConfirmation/:managerID"
+              render={() => (
+                  <CreateTournamentGuard>
+                      <TournamentConfirmation/>
+                  </CreateTournamentGuard>
+              )}
+          />
       </Switch>
     </>
   );

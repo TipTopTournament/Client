@@ -9,9 +9,9 @@ import Col from "react-bootstrap/Col";
 import { api, handleError } from "../../helpers/api";
 import Card from 'react-bootstrap/Card'
 import {Button} from "../../views/design/Button";
-import {ButtonContainer} from "../../views/design/ButtonContainer";
 import {TipTopTournamentLogo} from "../../views/design/TipTopTournamentLogo";
 import {Title} from "../../views/design/Title";
+import {InfoBox} from "@react-google-maps/api";
 
 class CreateTournament extends React.Component {
   constructor() {
@@ -100,11 +100,26 @@ class CreateTournament extends React.Component {
         </Form.Group>
         )
   }
+
+  checkInfoBox(e){
+    let InfoBox = e.target.value.toString();
+    if (InfoBox.length > 255){
+      let difference = InfoBox.length - 255;
+      alert("The description has a character limit of 255");
+      return InfoBox.substring(0,InfoBox.length - difference);
+    }else {
+      return InfoBox;
+    }
+  }
+
+
+
   handleInputChange(key, value) {
   // Example: if the key is username, this statement is the equivalent to the following one:
   // this.setState({'username': value});
   this.setState({ [key]: value });
 }
+
   async sendTournamentDetails() {
 
     try {
@@ -121,8 +136,7 @@ class CreateTournament extends React.Component {
       });
 
         const response = await api.post("/tournaments", requestBody);
-        alert("Your tournament has been created and the code is: " + response.data);
-      
+        localStorage.setItem("tournamentCode", response.data);
 
     } catch (error) {
       alert(`Something went wrong during the creation of the tournament: \n${handleError(error)}`);
@@ -162,7 +176,9 @@ class CreateTournament extends React.Component {
               {this.formSelect("Amount of Tables","numberTables", 1,2,4,8)}
               <Form.Group controlId="ControlTextarea1">
                 <Form.Label>Tournament description</Form.Label>
-                <Form.Control as="textarea" rows="3" onChange={e => {this.handleInputChange("informationBox", e.target.value);}}/>
+                <Form.Control
+                    value={this.state.informationBox || ""}
+                    as="textarea" rows="3" onChange={e => {this.handleInputChange("informationBox", this.checkInfoBox(e));}}/>
               </Form.Group>
               <Card border= "primary" >
                 <Card.Title style={{marginLeft:"20px", marginTop:"15px"}}>Set a destination</Card.Title>
@@ -200,7 +216,7 @@ class CreateTournament extends React.Component {
                 ||!localStorage.getItem("address")}
                 type="submit" onClick={() => {
               this.sendTournamentDetails();
-              this.props.history.push(`/manager/menu/${localStorage.getItem("ManagerID")}`); }}
+              this.props.history.push(`/manager/tournamentConfirmation/${localStorage.getItem("ManagerID")}`); }}
             >Create Tournament
             </Button>
             </div>
