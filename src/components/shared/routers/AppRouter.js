@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
 import { TournamentGuard } from "../routeProtectors/TournamentGuard";
 import TournamentRouter from "./TournamentRouter";

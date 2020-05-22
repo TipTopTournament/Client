@@ -11,7 +11,6 @@ import Card from 'react-bootstrap/Card'
 import {Button} from "../../views/design/Button";
 import {TipTopTournamentLogo} from "../../views/design/TipTopTournamentLogo";
 import {Title} from "../../views/design/Title";
-import {InfoBox} from "@react-google-maps/api";
 
 class CreateTournament extends React.Component {
   constructor() {
