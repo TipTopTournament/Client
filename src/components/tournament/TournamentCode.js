@@ -52,13 +52,13 @@ class TournamentCode extends React.Component {
         tournamentCode: this.state.tournamentCode,
         participantID: this.state.participantID,
       });
-      console.log("tournamentCode", this.state.tournamentCode);
       await api.put(
         `/tournaments/${this.state.tournamentCode}/${localStorage.getItem(
           "ParticipantID"
         )}`,
         requestBody
       );
+      localStorage.setItem("TournamentCode", this.state.TournamentCode);
       this.props.history.push(
         `/participant/${this.state.tournamentCode}/participantMenu`
       );
@@ -136,10 +136,15 @@ class TournamentCode extends React.Component {
         <Row className="justify-content-md-center">
           <Col md="auto" />
           <Col xs={12} sm={12} md={8}>
-            <Header/>
-            <Form style={{ margin: "auto", textAlign: "center", marginTop: '50px'}} >
+            <Header />
+            <Form
+              style={{ margin: "auto", textAlign: "center", marginTop: "50px" }}
+            >
               <Form.Group>
-                <h5 style={{color:"#2F80ED" , marginBottom:"50px"}}>"Insert the code that was given to you by the Manager to join a tournament"</h5>
+                <h5 style={{ color: "#2F80ED", marginBottom: "50px" }}>
+                  "Insert the code that was given to you by the Manager to join
+                  a tournament"
+                </h5>
                 <Label>TournamentCode: </Label>
                 <InputField
                   placeholder="(e.g. 1234-4567)"

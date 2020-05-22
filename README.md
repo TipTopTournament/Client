@@ -123,11 +123,23 @@ If you want to directly deploy on our heroku server you just need to push your c
 
 After succesfully register and login as a manager you can create a tournament when you click on create tournament. It will redirect you to the tournament creation page. After filling out the form you can see your tournaments in the menu. Clicking on the tournament will redirect you to the tournament overview.
 
-![tournamentOverview](![Alt text](https://github.com/sopra-fs-20-group-1/Client/blob/master/TournamentOverview.JPG)
+![tournamentOverview](TournamentOverview.JPG)
+
+You can end a tournament, seeing the leaderboard, the playerlist by clicking the buttons. Also you can inspect some players profile by clicking in the table component.
+If there is a conflict when two players enter a different score you can change that by clicking on the bracket where you will be directed to a page.
+
+![ScoreChange](Score.JPG)
+with this component of the page you can easily correct the score.
 
 ### Participant
 
-After successfully register and login with your licensenumber or your generated licensnumber you are directed to a page where you can enter the tournament code. After joining the tournament you can see the information about the tournament. Also you can see the playerlist, the bracket and the leaderboard. If a game is defined for you you can enter the score after the match.
+After successfully register and login with your licensenumber or your generated licensnumber you are directed to a page where you can enter the tournament code. After joining the tournament you can see the information about the tournament. Also you can checkout the playerlist, the bracket and the leaderboard by clicking on the navigationbar.
+
+![ParticipantOverview](ParticipantOverview.JPG)
+
+If a game is defined for you you can enter the score after the match here in the bracket page:
+
+![EnterScore](EnterScore.JPG)
 
 ## Roadmap
 
@@ -135,11 +147,22 @@ If you want to extend this app there are some ideas:
 
 - implement a push notification service for a participant when a game is determined.
 
-- implement a new bracket component such that it looks more intuitive
+- implement a new bracket component
 
 - avatar for users
 
 - archive a tournament after the tournament has been played
+
+## Acknowledgment
+
+Developers:
+
+- Stefano Anzolut
+- Tony Ly
+- Mauro Hirt
+- Fabio Sisi
+
+We would like to extend our thanks to anyone who has supported us through this challenging but experience-filled project. Also, we'd like to especially mention our TA Alex Scheitlin whose advice and guidance was very valuable to us. For the data from Swiss Table Tennis we would like to thank Susanne Gries and Dr. Gerhard Schwärzler.
 
 ## License
 

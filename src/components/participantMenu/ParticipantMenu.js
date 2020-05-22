@@ -54,7 +54,7 @@ class ParticipantMenu extends React.Component {
   }
 
   render() {
-    if (!this.state.tournament) {
+    if (!this.state.tournament || !this.state.tournamentCode) {
       return <div>Loading...</div>;
     }
     return (

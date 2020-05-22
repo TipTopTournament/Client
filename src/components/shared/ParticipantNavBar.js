@@ -10,7 +10,7 @@ class ParticipantNavBar extends React.Component {
   constructor() {
     super();
     this.state = {
-      tournamentCode: localStorage.getItem("TournamentCode"),
+      tournamentCode: null,
       credentials: null,
     };
   }
@@ -37,7 +37,9 @@ class ParticipantNavBar extends React.Component {
             <NavItem>
               <Nav.Link
                 as={Link}
-                to={`/participant/${this.state.tournamentCode}/participantMenu`}
+                to={`/participant/${localStorage.getItem(
+                  "TournamentCode"
+                )}/participantMenu`}
               >
                 Menu
               </Nav.Link>
@@ -45,7 +47,9 @@ class ParticipantNavBar extends React.Component {
             <NavItem>
               <Nav.Link
                 as={Link}
-                to={`/participant/${this.state.tournamentCode}/playerList`}
+                to={`/participant/${localStorage.getItem(
+                  "TournamentCode"
+                )}/playerList`}
               >
                 Participants
               </Nav.Link>
@@ -53,7 +57,9 @@ class ParticipantNavBar extends React.Component {
             <NavItem>
               <Nav.Link
                 as={Link}
-                to={`/participant/${this.state.tournamentCode}/bracket`}
+                to={`/participant/${localStorage.getItem(
+                  "TournamentCode"
+                )}/bracket`}
               >
                 Bracket
               </Nav.Link>
@@ -61,7 +67,9 @@ class ParticipantNavBar extends React.Component {
             <NavItem>
               <Nav.Link
                 as={Link}
-                to={`/participant/${this.state.tournamentCode}/leaderboard`}
+                to={`/participant/${localStorage.getItem(
+                  "TournamentCode"
+                )}/leaderboard`}
               >
                 Leaderboard
               </Nav.Link>
