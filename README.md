@@ -123,6 +123,8 @@ If you want to directly deploy on our heroku server you just need to push your c
 
 After succesfully register and login as a manager you can create a tournament when you click on create tournament. It will redirect you to the tournament creation page. After filling out the form you can see your tournaments in the menu. Clicking on the tournament will redirect you to the tournament overview.
 
+![tournamentOverview](![Alt text](https://github.com/sopra-fs-20-group-1/Client/blob/master/TournamentOverview.JPG)
+
 ### Participant
 
 After successfully register and login with your licensenumber or your generated licensnumber you are directed to a page where you can enter the tournament code. After joining the tournament you can see the information about the tournament. Also you can see the playerlist, the bracket and the leaderboard. If a game is defined for you you can enter the score after the match.
@@ -133,7 +135,11 @@ If you want to extend this app there are some ideas:
 
 - implement a push notification service for a participant when a game is determined.
 
-- implement an artificial announcer. Nowdays in the tournament hall every match is announced through speakers. If a game is determined the announcer service will call out the game like Siri.
+- implement a new bracket component such that it looks more intuitive
+
+- avatar for users
+
+- archive a tournament after the tournament has been played
 
 ## License
 
