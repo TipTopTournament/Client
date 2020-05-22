@@ -36,6 +36,7 @@ class ParticipantMenu extends React.Component {
 
   async componentDidMount() {
     const tournamentCode = this.props.match.params.tournamentCode;
+    localStorage.setItem("TournamentCode", tournamentCode);
     this.setState({ tournamentCode: tournamentCode });
     try {
       const response = await api.get(`/tournaments/${tournamentCode}`);
