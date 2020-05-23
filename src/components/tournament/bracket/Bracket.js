@@ -7,7 +7,6 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import "../../../views/design/custom-container.css";
-import { ButtonContainer } from "../../../views/design/ButtonContainer";
 import ScoreReport from "./ScoreReport";
 import Game from "../../../views/Game";
 import Form from "react-bootstrap/Form";

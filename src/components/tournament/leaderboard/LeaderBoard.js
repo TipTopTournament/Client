@@ -2,7 +2,7 @@ import React from "react";
 import { api, handleError } from "../../../helpers/api";
 import { NoData } from "../../../views/design/NoData";
 import { Button } from "../../../views/design/Button";
-import {Route, withRouter} from "react-router-dom";
+import {withRouter} from "react-router-dom";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
@@ -69,7 +69,6 @@ class LeaderBoard extends React.Component {
       const response = await api.get(
         `/tournaments/${tournamentCode}/leaderboard`
       );
-      console.log("response", response.data);
       this.counter = 0;
       this.setState({ leaderBoardUsers: response.data });
     } catch (error) {

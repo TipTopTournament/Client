@@ -59,7 +59,6 @@ class ScoreReport extends React.Component {
     }
 
     async submitScore(){
-        console.log(this.state);
         try {
             const requestBody = JSON.stringify({
                 score1: this.state.score1,
@@ -87,7 +86,7 @@ class ScoreReport extends React.Component {
         }
         return (
             <Container>
-                {!(this.state.tournamentState == "ACTIVE") ? (
+                {(this.state.tournamentState != "ACTIVE") ? (
                 <Row>
                     <Col />
                     <Col>

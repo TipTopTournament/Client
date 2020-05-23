@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import NavItem from "react-bootstrap/NavItem";
-import { api } from "../../helpers/api";
+import {api, handleError} from "../../helpers/api";
 
 class ParticipantNavBar extends React.Component {
   constructor() {
@@ -23,7 +23,9 @@ class ParticipantNavBar extends React.Component {
         credentials: info.data.nachname + " " + info.data.vorname,
       });
     } catch (error) {
-      console.log("Participants username could not be getted", error);
+      alert(
+          `Something went wrong while fetching the participant: \n${handleError(error)}`
+      );
     }
   }
 

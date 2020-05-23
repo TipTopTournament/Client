@@ -33,9 +33,7 @@ constructor( props ){
      city = this.getCity( addressArray ),
      area = this.getArea( addressArray ),
      state = this.getState( addressArray );
-  
-    console.log( 'city', city, area, state );
-  
+
     this.setState( {
      address: ( address ) ? address : '',
      area: ( area ) ? area : '',
@@ -47,7 +45,7 @@ constructor( props ){
     console.error(error);
    }
   );
- };
+ }
 /**
   * Component should only update ( meaning re-render ), when the user selects the address, or drags the pin
   *
@@ -171,8 +169,7 @@ const address = place.formatted_address,
  onMarkerDragEnd = ( event ) => {
   console.log( 'event', event );
   let newLat = event.latLng.lat(),
-   newLng = event.latLng.lng(),
-   addressArray = [];
+   newLng = event.latLng.lng();
 Geocode.fromLatLng( newLat , newLng ).then(
    response => {
     const address = response.results[0].formatted_address,

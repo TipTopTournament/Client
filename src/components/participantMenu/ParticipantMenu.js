@@ -4,7 +4,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { withRouter } from "react-router-dom";
-import { api } from "../../helpers/api";
+import {api, handleError} from "../../helpers/api";
 import TournamentData from "../shared/models/TournamentData";
 import Table from "react-bootstrap/Table";
 import { Button } from "../../views/design/Button";
@@ -40,15 +40,13 @@ class ParticipantMenu extends React.Component {
     this.setState({ tournamentCode: tournamentCode });
     try {
       const response = await api.get(`/tournaments/${tournamentCode}`);
-      console.log("the tournament data is :", response.data);
       // here we can also store the tournament in localStorage to access it globally.
       // For example signed up players in playerList don't have to load from server again
       const tournament = new TournamentData(response.data);
       this.setState({ tournament: tournament });
     } catch (error) {
-      console.log(
-        "there is something wrong with getting the tournament data",
-        error
+      alert(
+          `Something went wrong while fetching the tournament: \n${handleError(error)}`
       );
     }
   }

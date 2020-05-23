@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import NavItem from "react-bootstrap/NavItem";
-import { api } from "../../helpers/api";
+import {api, handleError} from "../../helpers/api";
 
 class ManagerNavBarExtended extends React.Component {
   constructor() {
@@ -22,7 +22,9 @@ class ManagerNavBarExtended extends React.Component {
         username: info.data.username,
       });
     } catch (error) {
-      console.log("Manager username could not be getted", error);
+      alert(
+          `Something went wrong while fetching the manager: \n${handleError(error)}`
+      );
     }
   }
   render() {
@@ -58,16 +60,6 @@ class ManagerNavBarExtended extends React.Component {
                 )}/leaderBoard`}
               >
                 Leaderboard
-              </Nav.Link>
-            </NavItem>
-            <NavItem>
-              <Nav.Link
-                as={Link}
-                to={`/emanager/${localStorage.getItem(
-                  "TournamentCode"
-                )}/bracket`}
-              >
-                Bracket
               </Nav.Link>
             </NavItem>
           </Nav>

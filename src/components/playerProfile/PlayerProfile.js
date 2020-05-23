@@ -6,7 +6,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
 import Table from "react-bootstrap/Table";
-import { api } from "../../helpers/api";
+import {api, handleError} from "../../helpers/api";
 
 import Game from "../../views/Game";
 import {Button} from "../../views/design/Button";
@@ -48,12 +48,10 @@ class PlayerProfile extends React.Component {
       const response2 = await api.get(`/participants/${participantID}`);
       this.setState({ stats: response.data });
       this.setState({ personalInfo: response2.data });
-      console.log("response.data", response.data);
-      console.log("history", this.state.stats.history);
-
-
     } catch (error) {
-      console.log("something bad happened while fetching player stats", error);
+      alert(
+          `Something went wrong while fetching the player data: \n${handleError(error)}`
+      );
     }
   }
 
