@@ -62,15 +62,15 @@ class ParticipantMenu extends React.Component {
         <Row>
           <Col />
           <Col>
-            <h2 style={{ marginTop: "200px" }}>
+            <h2 style={{ marginTop: "80px" }}>
               {this.state.tournament.tournamentName}
             </h2>
           </Col>
           <Col />
         </Row>
-        <Row>
+        <Row style={{ marginTop: "40px" }}>
           <Col />
-          <Col>
+          <Col xs={12}>
             <h5>Tournament Information</h5>
             <Table>
               <tbody>

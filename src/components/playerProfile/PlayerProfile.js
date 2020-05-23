@@ -33,7 +33,7 @@ class PlayerProfile extends React.Component {
   goBack(){
     const {tournamentCode} = this.props.match.params;
     if(localStorage.getItem("ParticipantID")){
-      this.props.history.push(`/${tournamentCode}/participantMenu`)
+      this.props.history.push(`/participant/${tournamentCode}/participantMenu`)
     }else{
       this.props.history.push(`/emanager/tournaments/${tournamentCode}`)
     }

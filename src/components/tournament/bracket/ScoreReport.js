@@ -4,8 +4,8 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { withRouter } from 'react-router-dom';
 import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
 import { api, handleError } from "../../../helpers/api";
+import Button from "react-bootstrap/Button";
 
 
 
@@ -101,7 +101,7 @@ class ScoreReport extends React.Component {
                     <Col>
                     <Form>
                         <h4>Start time {this.state.startTime}</h4>
-                        <Form.Group style={{marginTop:"15px"}}>
+                        <Form.Group style={{marginTop:"15px", width:"200px"}}>
                             <Form.Label>
                                 Enter score of {this.displayName(this.state.participant1)}
                             </Form.Label>
@@ -111,7 +111,7 @@ class ScoreReport extends React.Component {
                                     this.handleEnterScore("score1", e.target.value);
                                 }} />
                         </Form.Group>
-                        <Form.Group>
+                        <Form.Group style={{ width:"200px"}}>
                             <Form.Label>
 
                                 Enter score of {this.displayName(this.state.participant2)}
@@ -123,19 +123,19 @@ class ScoreReport extends React.Component {
                                 }} />
                         </Form.Group>
                     </Form>
-                    <Button
-                        style={{marginLeft:"135px", marginTop:"25px"}}
-                        type="button"
-                        disabled={!this.state.score1 || !this.state.score2}
-                        onClick={() => {
-                            this.submitScore();
-                        }}>
-                            Submit
-                    </Button>
+                            <Button
+                                style={{marginLeft:"50px", justifyContent:"center"}}
+                                type="button"
+                                disabled={!this.state.score1 || !this.state.score2}
+                                onClick={() => {
+                                    this.submitScore();
+                                }}>
+                                Submit
+                            </Button>
                     </Col>
                     <Col />
                 </Row>
-                    )};
+                )}
             </Container>
         );
     }
