@@ -58,7 +58,7 @@ class HomeScreen extends React.Component{
                                     <Button
                                         style={{margin:"auto"}}
                                         type="button"
-                                        width="40%"
+                                        width="45%"
                                         onClick={() => {
                                             this.goLogin("participant");
                                         }}
@@ -67,7 +67,7 @@ class HomeScreen extends React.Component{
                                     <Button
                                         style={{margin: "auto"}}
                                         type="button"
-                                        width="40%"
+                                        width="45%"
                                         onClick={() => {
                                             this.goLogin("manager");
                                         }}

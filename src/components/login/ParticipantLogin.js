@@ -101,7 +101,7 @@ class ParticipantLogin extends React.Component {
                   <Col/>
                   <Col>
                       <Button
-                          style={{marginTop:"30px"}}
+                          style={{marginTop:"70px"}}
                           type="button"
                           disabled={!this.state.licenseNumber || !this.state.password}
                           width="100%"

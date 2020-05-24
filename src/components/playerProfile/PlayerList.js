@@ -53,8 +53,6 @@ class PlayerList extends React.Component {
     this.setState({ playerList: response.data });
     const responseTournament = await api.get(`/tournaments/${tournamentCode}`);
     this.setState({ tournament: responseTournament.data });
-    console.log("response", response.data);
-    console.log("the tournamentcode is :", tournamentCode);
   }
 
   render() {

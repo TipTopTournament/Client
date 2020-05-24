@@ -2,7 +2,7 @@ import React from "react";
 import { api, handleError } from "../../../helpers/api";
 import { NoData } from "../../../views/design/NoData";
 import { Button } from "../../../views/design/Button";
-import { withRouter } from "react-router-dom";
+import {withRouter} from "react-router-dom";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
@@ -23,7 +23,11 @@ class LeaderBoard extends React.Component {
   counter = 0;
   handleClick(playerID) {
     const { tournamentCode } = this.props.match.params;
-    this.props.history.push(`/${tournamentCode}/participants/${playerID}`);
+    if (localStorage.getItem("ParticipantID")) {
+      this.props.history.push(`/participant/${tournamentCode}/participants/${playerID}`);
+    } else {
+      this.props.history.push(`/emanager/${tournamentCode}/participants/${playerID}`);
+    }
   }
 
   goBack() {
@@ -58,16 +62,15 @@ class LeaderBoard extends React.Component {
   async componentDidMount() {
     try {
       const { tournamentCode } = this.props.match.params;
+      const responseTournament = await api.get(
+          `/tournaments/${tournamentCode}`
+      );
+      this.setState({ tournament: responseTournament.data });
       const response = await api.get(
         `/tournaments/${tournamentCode}/leaderboard`
       );
-      console.log("response", response.data);
       this.counter = 0;
       this.setState({ leaderBoardUsers: response.data });
-      const responseTournament = await api.get(
-        `/tournaments/${tournamentCode}`
-      );
-      this.setState({ tournament: responseTournament.data });
     } catch (error) {
       alert(
         `Something went wrong while fetching the users: \n${handleError(error)}`

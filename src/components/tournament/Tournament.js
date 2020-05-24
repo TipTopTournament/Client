@@ -111,14 +111,14 @@ class Tournament extends React.Component {
       const response = await api.get(
         `/tournaments/${this.tournamentCode}/leaderboard`
       );
-      console.log(response.data);
+
       //response returns participants, with their wins e.g. {{participantObj1, wins1}, {participantObj2, wins2}}
       this.setState({ leaderBoardUsers: response.data });
       this.counter = 0;
       const responseBracket = await api.get(
         `/tournaments/${this.tournamentCode}/bracket`
       );
-      console.log(responseBracket.data);
+
       this.setState({ games: responseBracket.data });
 
       this.intervalID = setTimeout(this.getTournamentData.bind(this), 5000);
@@ -195,7 +195,7 @@ class Tournament extends React.Component {
             <Button
               disabled={
                 this.state.leaderBoardUsers ||
-                !(this.state.tournament.tournamentState === "ACTIVE")
+                (this.state.tournament.tournamentState != "ACTIVE")
               }
               width="100%"
               style={{ marginTop: "100px" }}
@@ -307,7 +307,7 @@ class Tournament extends React.Component {
               </Card>
             </Col>
             <Button
-              style={{ marginLeft: "180px", marginTop: "15px" }}
+              style={{ marginLeft: "220px", marginTop: "15px" }}
               width="25%"
               type="button"
               onClick={() => {

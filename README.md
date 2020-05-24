@@ -3,13 +3,15 @@
 ## Introduction
 
 ### What is Tip Top Tournament?
+The goal of this project was to implement a working tournament management software where tasks which are hard to do manually, would be automated and conveniently done without any "manual labor".
 
-Tip Top tournament is a tournament manager service to organize table tennis tournaments. This repository is the interface for the manager and the participant.
+More specifically, it was the task of the client to display the responsive application in an appealing and efficient way such that it can be used by the manager on a PC and by the participant on mobile.
+
 
 ### How to use this application?
 
-For the usage of this application you don't need to install anything. You can acces it trough your browser (we suggest Google Chrome) [here](https://sopra-fs20-group-01-client.herokuapp.com/home).
-There are two parts to this application a manager who controls and overviews a table tennis tournament and participants who play against each other.
+For the usage of this application you don't need to install anything. You can access it through your browser (we suggest Google Chrome) [here](https://sopra-fs20-group-01-client.herokuapp.com/home).
+There are two main parts to this application a manager who controls and overviews a table tennis tournament and participants who play against each other.
 
 ### What is a manager?
 
@@ -28,7 +30,7 @@ A participant is a player with a license number that joins a tournament and comp
 
 ### What is a license number? And why do I need one?
 
-We use license numbers as a result of working together with Swiss Table Tennis. They require all registered players to have a license. So if you are already licensed by them, you can just sign up for an account and login with your license number and your stats will already be available. Our idea was that you could simply play your tournament through our application and we would send the results to Swiss Table Tennis.
+We use license numbers as a result of wanting to work together with Swiss Table Tennis. They require all registered players to have a license. So if you were already licensed by them, you could just sign up for an account and login with your license number and your stats would be already available. Our idea was that you could simply play your tournament through our application and we would send the results to Swiss Table Tennis.
 
 ### Will my scores be sent directly to Swiss Table Tennis?
 
@@ -60,7 +62,7 @@ We used this to create and display brackets. Documentation can be found [here](h
 
 ### react-geocode, react-google-maps & react-google-autocomplete
 
-To set locations with Google Maps we used those librarys. Documentation can be found here: [react-google-maps](https://tomchentw.github.io/react-google-maps/), [react-gecode](https://github.com/shukerullah/react-geocode), [react-google-autocomplete](https://github.com/ErrorPro/react-google-autocomplete)
+To set locations with Google Maps we used those libraries. Documentation can be found here: [react-google-maps](https://tomchentw.github.io/react-google-maps/), [react-gecode](https://github.com/shukerullah/react-geocode), [react-google-autocomplete](https://github.com/ErrorPro/react-google-autocomplete)
 
 ## High-level components
 
@@ -83,9 +85,9 @@ App.js
 This figure simply represents how our app is composed.<br>
 Main components:
 
-- The [AppRouter.js](https://github.com/sopra-fs-20-group-1/Client/blob/master/src/components/shared/routers/AppRouter.js) component is responsible for routing to the right page. Because the application has multiple different pages and different views, it is also splitted up in multiple components like ManagerView and ParticipantView. This modularity allows to have different navigationbars for different views.
+- The [AppRouter.js](https://github.com/sopra-fs-20-group-1/Client/blob/master/src/components/shared/routers/AppRouter.js) component is responsible for routing to the right page. Because the application has multiple different pages and different views, it is also split up in multiple components like ManagerView and ParticipantView. This modularity allows to have different navigation bars for different views.
 
-- The [ManagerNavBar.js](https://github.com/sopra-fs-20-group-1/Client/blob/master/src/components/shared/ManagerNavBar.js) component is one of three navigationbars. Note that there are pages like login or regristration which don't have one. The purpose of the navigation is to easily switch between different pages, without re-rendering after switching.
+- The [ManagerNavBar.js](https://github.com/sopra-fs-20-group-1/Client/blob/master/src/components/shared/ManagerNavBar.js) component is one of three navigation bars. Note that there are pages like login or registration which don't have one. The purpose of the navigation is to easily switch between different pages, without re-rendering after switching.
 
 - The [CreateTournament.js](https://github.com/sopra-fs-20-group-1/Client/blob/master/src/components/tournament/CreateTournament.js) component is a very important one for the manager. It is actually just a page where one can create and specify a tournament. In this page there is a Google Maps component, where one can set the location. As one can see it is a child of the ManagerView, so just the manager can create tournaments.
 
@@ -123,9 +125,23 @@ If you want to directly deploy on our heroku server you just need to push your c
 
 After succesfully register and login as a manager you can create a tournament when you click on create tournament. It will redirect you to the tournament creation page. After filling out the form you can see your tournaments in the menu. Clicking on the tournament will redirect you to the tournament overview.
 
+![tournamentOverview](TournamentOverview.JPG)
+
+You can end a tournament, seeing the leaderboard, the playerlist by clicking the buttons. Also you can inspect some players profile by clicking in the table component.
+If there is a conflict when two players enter a different score you can change that by clicking on the bracket where you will be directed to a page.
+
+![ScoreChange](Score.JPG)
+with this component of the page you can easily correct the score.
+
 ### Participant
 
-After successfully register and login with your licensenumber or your generated licensnumber you are directed to a page where you can enter the tournament code. After joining the tournament you can see the information about the tournament. Also you can see the playerlist, the bracket and the leaderboard. If a game is defined for you you can enter the score after the match.
+After successfully register and login with your licensenumber or your generated licensnumber you are directed to a page where you can enter the tournament code. After joining the tournament you can see the information about the tournament. Also you can checkout the playerlist, the bracket and the leaderboard by clicking on the navigationbar.
+
+![ParticipantOverview](ParticipantOverview.JPG)
+
+If a game is defined for you you can enter the score after the match here in the bracket page:
+
+![EnterScore](EnterScore.JPG)
 
 ## Roadmap
 
@@ -133,7 +149,22 @@ If you want to extend this app there are some ideas:
 
 - implement a push notification service for a participant when a game is determined.
 
-- implement an artificial announcer. Nowdays in the tournament hall every match is announced through speakers. If a game is determined the announcer service will call out the game like Siri.
+- implement a new bracket component
+
+- avatar for users
+
+- archive a tournament after the tournament has been played
+
+## Acknowledgment
+
+Developers:
+
+- Stefano Anzolut
+- Tony Ly
+- Mauro Hirt
+- Fabio Sisi
+
+We would like to extend our thanks to anyone who has supported us through this challenging but experience-filled project. Also, we'd like to especially mention our TA Alex Scheitlin whose advice and guidance was very valuable to us. For the data from Swiss Table Tennis we would like to thank Susanne Gries and Dr. Gerhard Schwärzler.
 
 ## License
 

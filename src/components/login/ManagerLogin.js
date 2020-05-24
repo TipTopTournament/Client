@@ -43,7 +43,6 @@ class ManagerLogin extends React.Component {
                 userStatus: UserStatusEnum.ONLINE,
                 token: localStorage.getItem("token")
             }));
-            console.log(UserStatusEnum.ONLINE);
             await api.put(`/managers/${localStorage.getItem("ManagerID")}`, requestBodyStatus);
 
             const {managerID} = manager;

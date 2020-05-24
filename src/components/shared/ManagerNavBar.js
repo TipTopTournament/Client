@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import NavItem from "react-bootstrap/NavItem";
-import { api } from "../../helpers/api";
+import {api, handleError} from "../../helpers/api";
 
 class ManagerNavBar extends React.Component {
   constructor() {
@@ -22,7 +22,9 @@ class ManagerNavBar extends React.Component {
         username: info.data.username,
       });
     } catch (error) {
-      console.log("Manager username could not be getted", error);
+      alert(
+          `Something went wrong while fetching the manager: \n${handleError(error)}`
+      );
     }
   }
   render() {

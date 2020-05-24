@@ -55,7 +55,7 @@ class Registration extends React.Component {
         });
         //Request to /participants to create a new player
         const response = await api.post("/participants", requestBody);
-        console.log(response.data);
+
         if (id === "PlayerNoLicense") {
           alert("Your new licenseNumber: " + response.data.licenseNumber);
         }

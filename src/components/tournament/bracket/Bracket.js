@@ -7,7 +7,6 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import "../../../views/design/custom-container.css";
-import { ButtonContainer } from "../../../views/design/ButtonContainer";
 import ScoreReport from "./ScoreReport";
 import Game from "../../../views/Game";
 import Form from "react-bootstrap/Form";
@@ -169,11 +168,12 @@ class Bracket extends React.Component {
   correctArray(response) {
     response.map((game) => {
       if (!game["participant1"]) {
-        game["participant1"] = "Not yet determined!";
+        return game["participant1"] = "Not yet determined!";
       }
       if (!game["participant2"]) {
-        game["participant2"] = "Not yet determined!";
+        return game["participant2"] = "Not yet determined!";
       }
+      return game;
     });
   }
 
@@ -394,9 +394,8 @@ class Bracket extends React.Component {
         <Row>
           <Col />
           <Col>
-            <ButtonContainer>
               <Button
-                style={{ marginTop: "15px", marginBottom: "25px" }}
+                style={{ marginTop: "80px", marginBottom: "20px" }}
                 width="100%"
                 onClick={() => {
                   this.props.history.goBack();
@@ -404,7 +403,6 @@ class Bracket extends React.Component {
               >
                 Back
               </Button>
-            </ButtonContainer>
           </Col>
           <Col />
         </Row>

@@ -11,7 +11,6 @@ import Card from 'react-bootstrap/Card'
 import {Button} from "../../views/design/Button";
 import {TipTopTournamentLogo} from "../../views/design/TipTopTournamentLogo";
 import {Title} from "../../views/design/Title";
-import {InfoBox} from "@react-google-maps/api";
 
 class CreateTournament extends React.Component {
   constructor() {
@@ -37,8 +36,6 @@ class CreateTournament extends React.Component {
       alert("Make sure to use 2 digits before the colon :");
       return ""
     }
-    console.log(tmpCode.length);
-    console.log(e.target.value.toString());
     if (this.checkInputOnlyDigits(tmpCode)) {
       switch (tmpCode.length) {
         case 1:
@@ -46,7 +43,6 @@ class CreateTournament extends React.Component {
             alert("Make sure that the time is set correctly");
             return ""
           }
-          console.log(tmpCode);
           return tmpCode.replace(/^(\d).*/, "$1");
         case 2:
           if (parseInt(tmpCode)> 23){

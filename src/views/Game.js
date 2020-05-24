@@ -28,33 +28,32 @@ const Score = styled.div`
 
 const Game = ({ gameData }) => {
     //To compare ENUM
-  if(gameData.gameState=="CONFLICT")
-    return (
-        <Container>
+  if(gameData.gameState=="CONFLICT"){
+      return (
+          <Container>
               <Alert variant='danger' >
                           Two players have entered different scores. Please resolve this issue!
               </Alert>
-            <Time> {gameData.startTime}</Time>
-           <Name>{gameData["participant1"]["vorname"]}</Name>
-            <Score>{gameData["score1"]} </Score> :
-            <Score>{gameData["score2"]} </Score>
-            <Name>{gameData["participant2"]["vorname"]}</Name>
-            <GameState>{gameData.gameState}</GameState>
-            
-        </Container>
-    );
-    else
-    return (
-      <Container>
-          <Time>{gameData.startTime}</Time>
-         <Name>{gameData["participant1"]["vorname"]}</Name>
-          <Score>{gameData["score1"]} </Score> :
-          <Score>{gameData["score2"]} </Score>
-          <Name>{gameData["participant2"]["vorname"]}</Name>
-          <GameState>{gameData.gameState}</GameState>
-          
-      </Container>);
+              <Time> {gameData.startTime}</Time>
+              <Name>{gameData["participant1"]["vorname"]}</Name>
+              <Score>{gameData["score1"]} </Score> :
+              <Score>{gameData["score2"]} </Score>
+              <Name>{gameData["participant2"]["vorname"]}</Name>
+              <GameState>{gameData.gameState}</GameState>
+          </Container>
+      );
+  } else {
+      return (
+          <Container>
+              <Time>{gameData.startTime}</Time>
+              <Name>{gameData["participant1"]["vorname"]}</Name>
+              <Score>{gameData["score1"]} </Score> :
+              <Score>{gameData["score2"]} </Score>
+              <Name>{gameData["participant2"]["vorname"]}</Name>
+              <GameState>{gameData.gameState}</GameState>
+          </Container>);
 
+    }
 };
 
 export default Game;
