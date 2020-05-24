@@ -307,7 +307,7 @@ class Tournament extends React.Component {
               </Card>
             </Col>
             <Button
-              style={{ marginLeft: "200px", marginTop: "15px" }}
+              style={{ marginLeft: "220px", marginTop: "15px" }}
               width="25%"
               type="button"
               onClick={() => {
