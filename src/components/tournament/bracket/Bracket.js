@@ -168,12 +168,11 @@ class Bracket extends React.Component {
   correctArray(response) {
     response.map((game) => {
       if (!game["participant1"]) {
-        return game["participant1"] = "Not yet determined!";
+        game["participant1"] = "Not yet determined!";
       }
       if (!game["participant2"]) {
-        return game["participant2"] = "Not yet determined!";
+        game["participant2"] = "Not yet determined!";
       }
-      return game;
     });
   }
 
