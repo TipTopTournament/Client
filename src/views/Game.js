@@ -32,7 +32,7 @@ const Game = ({ gameData }) => {
     return (
         <Container>
               <Alert variant='danger' >
-                          Zwei Spieler haben unterschiedliche Scores eingetragen! Geben sie den richtigen Score ein
+                          Two players have entered different scores. Please resolve this issue!
               </Alert>
             <Time> {gameData.startTime}</Time>
            <Name>{gameData["participant1"]["vorname"]}</Name>
