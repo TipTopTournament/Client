@@ -30,7 +30,7 @@ render(){
                     <h5 style={{marginTop:"20px"}}> What is TipTopTournament?</h5>
                     <h6 style={{color:"#2F80ED"}}> TIPTOPTournament is an organisation tool for real-time table tennis tournaments.</h6>
                     <h5> How to use this application?</h5>
-                    <h6 style={{color:"#2F80ED"}}> There are two parts to this application a manager who controls and overviews a table tennis tournament and participants who play against each other</h6>
+                    <h6 style={{color:"#2F80ED"}}> There are two main parts to this application a manager who controls and overviews a table tennis tournament and participants who play against each other</h6>
                     <h5> What is a manager?</h5>
                     <h6 style={{color:"#2F80ED"}}> A manager is an organizer of a tournament and he can invite participants to join his tournament via a unique tournament-code
                         and he can setup a tournament according to these settings the application will then calculate a time plan for the organizer and a bracket for the players to compete </h6>
@@ -44,9 +44,9 @@ render(){
                     <h5> What is a participant?</h5>
                     <h6 style={{color:"#2F80ED"}}>  A participant is a player with a license number that joins a tournament and competes against others to come out on top and win the tournament!</h6>
                     <h5> What is a license number? And why do I need one?</h5>
-                    <h6 style={{color:"#2F80ED"}}> We use license numbers as a result of working together with Swiss Table Tennis.
-                        They require all registered players to have a license. So if you are already licensed by them,
-                        you can just sign up for an account and login with your license number and your stats will already be available.
+                    <h6 style={{color:"#2F80ED"}}> We use license numbers as a result of wanting to work together with Swiss Table Tennis.
+                        They require all registered players to have a license. So if you were already licensed by them,
+                        you could just sign up for an account and login with your license number and your stats would be already available.
                         Our idea was that you could simply play your tournament through our application and we would send the results to Swiss Table Tennis.
                     </h6>
                     <h5> Will my scores be sent directly to Swiss Table Tennis?</h5>
