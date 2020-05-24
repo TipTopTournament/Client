@@ -66,7 +66,7 @@ class Bracket extends React.Component {
       ) {
         myGame = game;
       }
-      return game;
+      return myGame;
     });
     return myGame;
   }
