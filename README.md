@@ -159,10 +159,10 @@ If you want to extend this app there are some ideas:
 
 Developers:
 
-- Fabio Sisi
+- Stefano Anzolut
 - Tony Ly
 - Mauro Hirt
-- Stefano Anzolut
+- Fabio Sisi
 
 We would like to extend our thanks to anyone who has supported us through this challenging but experience-filled project. Also, we'd like to especially mention our TA Alex Scheitlin whose advice and guidance was very valuable to us. For the data from Swiss Table Tennis we would like to thank Susanne Gries and Dr. Gerhard Schwärzler.
 
